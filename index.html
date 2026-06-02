@@ -2937,22 +2937,33 @@
       if (totalQty >= 100) return 1;
       return 0;
     }
-
-    // ─── CSV PARSING ─────────────────────────────────────────────
+    // ─── CSV PARSING (BULLETPROOFED) ─────────────────────────────
     function parseCSV(text) {
-      const lines = text.trim().split('\n');
-      const headers = lines[0].split(',').map(h => h.trim());
+      // 1. Split safely handling both Windows (\r\n) and Mac/Linux (\n)
+      const lines = text.trim().split(/\r?\n/);
+      if (lines.length < 2) return [];
+
+      // 2. Clean headers: lowercase them, trim them, and strip quotes
+      const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, '').toLowerCase());
+
       return lines.slice(1).map(line => {
         const vals = [];
         let cur = ''; let inQ = false;
+
         for (let i = 0; i < line.length; i++) {
           if (line[i] === '"') { inQ = !inQ; }
           else if (line[i] === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
           else { cur += line[i]; }
         }
         vals.push(cur.trim());
+
         const obj = {};
-        headers.forEach((h, i) => { obj[h] = vals[i] || ''; });
+        headers.forEach((h, i) => {
+          // Strip quotes from the actual values too
+          let val = vals[i] || '';
+          val = val.replace(/^"|"$/g, '');
+          obj[h] = val;
+        });
         return obj;
       });
     }
@@ -2970,14 +2981,27 @@
         const rows = parseCSV(text);
 
         const mapped = rows.map(row => {
-          const id = (row["Manufacture Part Number"] || row["Part Number"] || row["MPN"] || Object.values(row)[0] || "").trim();
-          const mfr = (row["Manufacturer"] || row["Brand"] || "").trim();
-          const pkg = (row["Package"] || row["Footprint"] || "").trim();
-          const desc = (row["Title"] || row["Description"] || "").trim();
-          const stockQty = parseInt(String(row["Quantity"] || row["Stock"] || "0").replace(/[^0-9]/g, '')) || 0;
-          const price = parseFloat(String(row["Price"] || "0").replace(/[^0-9.]/g, '')) || 0;
+          // Because we lowercased headers in parseCSV, we look for lowercase keys here.
+          // Added multiple fallbacks just in case the CSV changes slightly.
+          const id = (row["manufacture part number"] || row["part number"] || row["mpn"] || row["part"] || Object.values(row)[0] || "").trim();
+          const mfr = (row["manufacturer"] || row["brand"] || row["mfg"] || "").trim();
+          const pkg = (row["package"] || row["footprint"] || row["case"] || "").trim();
+          const desc = (row["title"] || row["description"] || row["desc"] || "").trim();
+
+          const rawQty = row["quantity"] || row["stock"] || row["qty"] || "0";
+          const stockQty = parseInt(String(rawQty).replace(/[^0-9]/g, '')) || 0;
+
+          const rawPrice = row["price"] || row["unit price"] || row["rate"] || "0";
+          const price = parseFloat(String(rawPrice).replace(/[^0-9.]/g, '')) || 0;
+
           return { id, mfr, pkg, desc, stockQty, price };
         }).filter(i => i.id && i.price > 0);
+
+        // Debugging: If it's still failing, check the browser console!
+        if (mapped.length === 0 && rows.length > 0) {
+          console.warn("⚠️ CSV was parsed, but 0 items passed the filter. Check if Price > 0 and ID exists.");
+          console.log("Sample Raw Row:", rows[0]);
+        }
 
         partsData = mapped;
         catalogLoaded = true;
@@ -2991,7 +3015,12 @@
 
         applyFilterAndRender();
         calculateQuote();
-        showToast(`${partsData.length} components loaded`, 'success');
+
+        if (partsData.length > 0) {
+          showToast(`${partsData.length} components loaded`, 'success');
+        } else {
+          showToast('CSV loaded but 0 items found. Check column headers.', 'warn');
+        }
 
       } catch (error) {
         console.error("Failed to load stock.csv:", error);
