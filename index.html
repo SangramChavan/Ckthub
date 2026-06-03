@@ -368,9 +368,19 @@
     }
 
     @media (max-width: 900px) {
-      .sidebar-close-btn {
-        display: flex;
-        z-index: auto;
+      .layout {
+        display: block;
+        z-index: auto !important; 
+        position: static !important; /* 👈 This breaks the sidebar out of the trap! */
+      }
+
+      .main-col {
+        border-right: none;
+        padding: 16px;
+      }
+      
+      .mob-fab svg {
+        pointer-events: none; /* 👈 Prevents the SVG from swallowing clicks */
       }
 
       .sidebar-inner {
