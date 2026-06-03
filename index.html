@@ -3852,10 +3852,10 @@
       });
     }
 
-    // ─── LOAD CATALOG (FETCH EXTERNAL STOCK.CSV) ─────────────────
+    // ─── LOAD CATALOG (FETCH EXTERNAL partnumber.csv) ─────────────────
     async function loadCatalog() {
       try {
-        const response = await fetch('stock.csv');
+        const response = await fetch('partnumber.csv');
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -3912,14 +3912,14 @@
         }
 
       } catch (error) {
-        console.error("Failed to load stock.csv:", error);
-        console.info("ℹ️ stock.csv must be in the same directory as index.html. Expected columns: 'Manufacture Part Number', 'Manufacturer', 'Package', 'Title'/'Description', 'Quantity'/'Stock', 'Price'/'Unit Price'");
+        console.error("Failed to load partnumber.csv:", error);
+        console.info("ℹ️ partnumber.csv must be in the same directory as index.html. Expected columns: 'Manufacture Part Number', 'Manufacturer', 'Package', 'Title'/'Description', 'Quantity'/'Stock', 'Price'/'Unit Price'");
         document.getElementById('preloader').classList.add('hidden');
         document.getElementById('statusDot').className = 'dot warn';
         document.getElementById('statusLabel').textContent = 'Demo Mode';
         document.getElementById('catalogPill').textContent = 'Demo · 6 components';
         document.getElementById('catalogPill').className = 'catalog-pill warn-mode';
-        showToast('stock.csv not found — showing demo data', 'warn');
+        showToast('partnumber.csv not found — showing demo data', 'warn');
 
         // Fallback demo data — app remains fully functional for UI testing
         partsData = [
