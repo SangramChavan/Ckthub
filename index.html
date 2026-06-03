@@ -403,7 +403,9 @@
     }
 
     /* ─── MOBILE QUOTE BAR — REMOVED, replaced by FAB ─── */
-    .mob-quote-bar { display: none !important; }
+    .mob-quote-bar {
+      display: none !important;
+    }
 
     /* ─── FLOATING ACTION BUTTON (mobile cart) ─── */
     .mob-fab {
@@ -418,17 +420,17 @@
       background: var(--accent);
       border: none;
       cursor: pointer;
-      box-shadow: 0 4px 24px rgba(255,107,0,0.45), 0 2px 8px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 24px rgba(255, 107, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.4);
       align-items: center;
       justify-content: center;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
-      transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.15s;
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s;
     }
 
     .mob-fab:active {
       transform: scale(0.9);
-      box-shadow: 0 2px 12px rgba(255,107,0,0.35);
+      box-shadow: 0 2px 12px rgba(255, 107, 0, 0.35);
     }
 
     .mob-fab svg {
@@ -452,7 +454,7 @@
       min-width: 20px;
       text-align: center;
       line-height: 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
       display: none;
     }
 
@@ -472,7 +474,7 @@
     .mob-pay-backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.75);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       opacity: 0;
@@ -487,12 +489,12 @@
       right: 0;
       background: var(--bg2);
       border-radius: 24px 24px 0 0;
-      border-top: 1px solid rgba(255,107,0,0.25);
+      border-top: 1px solid rgba(255, 107, 0, 0.25);
       max-height: 92dvh;
       overflow-y: auto;
       overflow-x: hidden;
       transform: translateY(100%);
-      transition: transform 0.38s cubic-bezier(0.32,0.72,0,1);
+      transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
       pointer-events: none;
       padding-bottom: calc(24px + var(--safe-bottom));
     }
@@ -554,7 +556,10 @@
       flex-shrink: 0;
     }
 
-    .mps-close:active { background: var(--red-bg); color: var(--red); }
+    .mps-close:active {
+      background: var(--red-bg);
+      color: var(--red);
+    }
 
     /* Totals strip */
     .mps-totals {
@@ -611,8 +616,8 @@
 
     .mps-chip.orange {
       color: var(--accent);
-      background: rgba(255,107,0,0.08);
-      border-color: rgba(255,107,0,0.2);
+      background: rgba(255, 107, 0, 0.08);
+      border-color: rgba(255, 107, 0, 0.2);
     }
 
     /* Payment actions */
@@ -666,7 +671,10 @@
       transition: all 0.15s;
     }
 
-    .mps-btn:active { opacity: 0.75; transform: scale(0.98); }
+    .mps-btn:active {
+      opacity: 0.75;
+      transform: scale(0.98);
+    }
 
     .mps-btn-icon {
       width: 38px;
@@ -678,29 +686,71 @@
       flex-shrink: 0;
     }
 
-    .mps-btn-icon svg { width: 18px; height: 18px; }
+    .mps-btn-icon svg {
+      width: 18px;
+      height: 18px;
+    }
 
-    .mps-btn-icon.wa { background: rgba(37,211,102,0.12); color: #25d366; }
-    .mps-btn-icon.upi { background: rgba(255,107,0,0.12); color: var(--accent); }
-    .mps-btn-icon.bank { background: rgba(255,255,255,0.06); color: var(--ink2); }
-    .mps-btn-icon.csv { background: rgba(45,212,164,0.1); color: var(--green); }
+    .mps-btn-icon.wa {
+      background: rgba(37, 211, 102, 0.12);
+      color: #25d366;
+    }
 
-    .mps-btn-text { flex: 1; }
-    .mps-btn-text span { display: block; }
-    .mps-btn-sub { font-size: 11px; font-weight: 400; color: var(--ink3); font-family: var(--body); margin-top: 1px; }
+    .mps-btn-icon.upi {
+      background: rgba(255, 107, 0, 0.12);
+      color: var(--accent);
+    }
 
-    .mps-btn-arrow { color: var(--ink3); font-size: 16px; }
+    .mps-btn-icon.bank {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--ink2);
+    }
+
+    .mps-btn-icon.csv {
+      background: rgba(45, 212, 164, 0.1);
+      color: var(--green);
+    }
+
+    .mps-btn-text {
+      flex: 1;
+    }
+
+    .mps-btn-text span {
+      display: block;
+    }
+
+    .mps-btn-sub {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--ink3);
+      font-family: var(--body);
+      margin-top: 1px;
+    }
+
+    .mps-btn-arrow {
+      color: var(--ink3);
+      font-size: 16px;
+    }
 
     .mps-btn.primary-action {
       background: var(--accent);
       border-color: var(--accent);
       color: #fff;
-      box-shadow: 0 4px 20px rgba(255,107,0,0.35);
+      box-shadow: 0 4px 20px rgba(255, 107, 0, 0.35);
     }
 
-    .mps-btn.primary-action .mps-btn-icon { background: rgba(255,255,255,0.15); color: #fff; }
-    .mps-btn.primary-action .mps-btn-sub { color: rgba(255,255,255,0.65); }
-    .mps-btn.primary-action .mps-btn-arrow { color: rgba(255,255,255,0.6); }
+    .mps-btn.primary-action .mps-btn-icon {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .mps-btn.primary-action .mps-btn-sub {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .mps-btn.primary-action .mps-btn-arrow {
+      color: rgba(255, 255, 255, 0.6);
+    }
 
     /* UPI QR in sheet */
     .mps-upi-inline {
@@ -708,7 +758,9 @@
       display: none;
     }
 
-    .mps-upi-inline.visible { display: block; }
+    .mps-upi-inline.visible {
+      display: block;
+    }
 
     .mps-upi-card {
       background: var(--bg3);
@@ -729,12 +781,40 @@
       flex-shrink: 0;
     }
 
-    .mps-upi-qr canvas, .mps-upi-qr img { width: 80px !important; height: 80px !important; }
+    .mps-upi-qr canvas,
+    .mps-upi-qr img {
+      width: 80px !important;
+      height: 80px !important;
+    }
 
-    .mps-upi-info { flex: 1; min-width: 0; }
-    .mps-upi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink3); font-family: var(--sans); font-weight: 700; }
-    .mps-upi-id { font-family: var(--mono); font-size: 12px; color: var(--ink); margin-top: 4px; }
-    .mps-upi-amount { font-family: var(--mono); font-size: 20px; color: var(--accent); font-weight: 500; margin-top: 6px; }
+    .mps-upi-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .mps-upi-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink3);
+      font-family: var(--sans);
+      font-weight: 700;
+    }
+
+    .mps-upi-id {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink);
+      margin-top: 4px;
+    }
+
+    .mps-upi-amount {
+      font-family: var(--mono);
+      font-size: 20px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 6px;
+    }
 
     /* Bank details in sheet */
     .mps-bank-inline {
@@ -742,7 +822,9 @@
       display: none;
     }
 
-    .mps-bank-inline.visible { display: block; }
+    .mps-bank-inline.visible {
+      display: block;
+    }
 
     .mps-bank-card {
       background: var(--bg3);
@@ -760,7 +842,9 @@
       gap: 8px;
     }
 
-    .mps-bank-row:last-child { border-bottom: none; }
+    .mps-bank-row:last-child {
+      border-bottom: none;
+    }
 
     .mps-bank-key {
       font-size: 10px;
@@ -814,6 +898,7 @@
       background: var(--bg2);
       display: flex;
       flex-direction: column;
+      overscroll-behavior-y: contain;
     }
 
     @media (max-width: 1100px) {
@@ -2751,6 +2836,7 @@
       }
 
       /* Hide desktop-only cells */
+      td.col-pn,
       td.col-mfr,
       td.col-pkg,
       td.col-desc,
@@ -2921,7 +3007,8 @@
       .sidebar-handle,
       .bom-header,
       .panel>.bom-header,
-      .preloader {
+      .preloader,
+      .mob-fab {
         display: none !important;
       }
 
@@ -3281,7 +3368,8 @@
             <line x1="9" y1="20" x2="9" y2="23" stroke="#fff" stroke-width="2" />
             <line x1="15" y1="20" x2="15" y2="23" stroke="#fff" stroke-width="2" />
           </svg></span>
-        <span style="color:var(--accent);font-weight:800;">CKThub</span><span style="color:var(--ink2);font-weight:400;font-size:11px;letter-spacing:0.01em;"> electronics</span>
+        <span style="color:var(--accent);font-weight:800;">CKThub</span><span
+          style="color:var(--ink2);font-weight:400;font-size:11px;letter-spacing:0.01em;"> electronics</span>
       </span>
     </a>
     <div class="topbar-sep"></div>
@@ -3319,22 +3407,14 @@
     </div>
   </header>
 
-  <div class="mob-quote-bar" id="mobQuoteBar">
-    <div>
-      <div class="mob-qb-label">Grand Total</div>
-      <div class="mob-qb-total"><small>₹</small><span id="mobTotal">0.00</span></div>
-    </div>
-    <button class="mob-quote-toggle" id="mobQuoteToggleBtn" onclick="toggleSidebar()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;flex-shrink:0;">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <polyline points="14 2 14 8 20 8" />
-        <line x1="16" y1="13" x2="8" y2="13" />
-        <line x1="16" y1="17" x2="8" y2="17" />
-      </svg>
-      View Quote
-      <span class="mob-badge" id="mobQuoteBadge"></span>
-    </button>
-  </div>
+  <button class="mob-fab" onclick="toggleSidebar()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <circle cx="9" cy="21" r="1"></circle>
+      <circle cx="20" cy="21" r="1"></circle>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </svg>
+    <span class="mob-fab-badge" id="mobQuoteBadge">0</span>
+  </button>
 
   <div class="layout">
     <main class="main-col">
@@ -4076,11 +4156,11 @@
             <a href="https://wa.me/919960160016?text=${waMsg}" target="_blank" class="btn btn-wa" style="width: auto; padding: 10px 24px; font-size: 12px; border-radius: 99px;">
               <svg viewBox="0 0 24 24" style="width: 14px; height: 14px;">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-                  </svg>
-                  Inquire via WhatsApp
-                </a>
-              </div>
-            </td></tr>`;
+              </svg>
+              Inquire via WhatsApp
+            </a>
+          </div>
+        </td></tr>`;
         return;
       }
 
@@ -4102,7 +4182,6 @@
             <button class="qty-stepper" onclick="adjustQty('${dataId}',10)">+</button>
           </div>`;
         tr.innerHTML = `
-      <!-- MOBILE CARD CELLS (shown only on mobile via CSS) -->
       <td class="col-pn-cell">
         <span class="part-num" title="${part.id}">${part.id}</span>
         ${part.mfr ? `<span class="part-mfr" style="display:block;margin-top:3px;">${part.mfr}${part.pkg ? ` · <span class="pkg-badge">${part.pkg}</span>` : ''}</span>` : ''}
@@ -4117,7 +4196,6 @@
         ${qtyStepperHTML(part.id, part.price)}
         <span style="font-family:var(--mono);font-size:12px;font-weight:600;color:${net > 0 ? 'var(--ink)' : 'var(--ink3)'};text-align:right;min-width:64px;">${net > 0 ? `₹${fmt(net)}` : '—'}</span>
       </td>
-      <!-- DESKTOP TABLE CELLS (shown only on desktop via CSS) -->
       <td class="col-pn">
         <span class="part-num" title="${part.id}">${part.id}</span>
         ${stockBadge(part.stockQty)}
