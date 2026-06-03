@@ -314,6 +314,68 @@
       flex-shrink: 0;
     }
 
+    /* ─── TOPBAR VIEW QUOTE BUTTON (tablet 901-1100px) ─── */
+    #topbarViewQuoteBtn {
+      display: none;
+      /* hidden on desktop where sidebar is always visible */
+    }
+
+    @media (max-width: 1100px) {
+      #topbarViewQuoteBtn {
+        display: flex;
+        /* visible when sidebar collapses */
+      }
+    }
+
+    /* ─── SIDEBAR HANDLE ─── */
+    .sidebar-handle {
+      width: 40px;
+      height: 4px;
+      background: var(--border2);
+      border-radius: 99px;
+      margin: 14px auto 6px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    /* ─── SIDEBAR CLOSE BUTTON (mobile only) ─── */
+    .sidebar-close-btn {
+      display: none;
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: var(--bg4);
+      border: 1px solid var(--border2);
+      color: var(--ink3);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+
+    .sidebar-close-btn:hover {
+      background: var(--red-bg);
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    @media (max-width: 900px) {
+      .sidebar-close-btn {
+        display: flex;
+      }
+
+      .sidebar-inner {
+        position: relative;
+      }
+    }
+
     @media (max-width: 600px) {
       .status-text {
         display: none;
@@ -2879,13 +2941,22 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
       <polyline points="20 6 9 17 4 12" />
     </svg>
-    <span id="toastMsg"></span>
   </div>
 
   <header class="topbar">
     <a href="#" class="logo">
-      <img src="logo.png" alt="CKTHub" style="max-height: 28px; width: auto;"
-        onerror="this.onerror=null; this.outerHTML='CKTHub';">
+      <span
+        style="font-family:var(--sans);font-size:16px;font-weight:800;letter-spacing:-0.04em;color:var(--ink);display:flex;align-items:center;gap:9px;">
+        <span class="logo-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff">
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <rect x="9" y="9" width="6" height="6" fill="#4f7bff" />
+            <line x1="9" y1="1" x2="9" y2="4" stroke="#fff" stroke-width="2" />
+            <line x1="15" y1="1" x2="15" y2="4" stroke="#fff" stroke-width="2" />
+            <line x1="9" y1="20" x2="9" y2="23" stroke="#fff" stroke-width="2" />
+            <line x1="15" y1="20" x2="15" y2="23" stroke="#fff" stroke-width="2" />
+          </svg></span>
+        CKTHub<sup>®</sup>
+      </span>
     </a>
     <div class="topbar-sep"></div>
     <span class="quote-badge" id="quoteRef">Generating…</span>
@@ -2894,6 +2965,15 @@
       <span id="statusLabel" class="status-text">Loading…</span>
     </div>
     <div class="topbar-right">
+      <button class="topbar-btn primary" id="topbarViewQuoteBtn" onclick="toggleSidebar()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+        </svg>
+        <span class="status-text">View Quote</span>
+      </button>
       <button class="topbar-btn" onclick="exportCSV()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -3056,13 +3136,21 @@
 
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
-        <div class="sidebar-handle"></div>
+        <div class="sidebar-handle" onclick="closeSidebar()" title="Close"></div>
+        <button class="sidebar-close-btn" onclick="closeSidebar()" aria-label="Close Quote Panel">×</button>
 
         <div class="qc-header">
           <div class="qc-logo-row">
             <div class="qc-brand">
-              <img src="logo.png" alt="CKTHub" style="max-height: 26px; width: auto;"
-                onerror="this.onerror=null; this.outerHTML='<span class=\'qc-brand-name\'>CKTHub</span>';">
+              <span
+                style="font-family:var(--sans);font-size:15px;font-weight:800;letter-spacing:-0.04em;color:var(--ink);display:flex;align-items:center;gap:7px;">
+                <span class="logo-icon" style="width:22px;height:22px;border-radius:5px;"><svg width="11" height="11"
+                    viewBox="0 0 24 24" fill="#fff">
+                    <rect x="4" y="4" width="16" height="16" rx="2" />
+                    <rect x="9" y="9" width="6" height="6" fill="#4f7bff" />
+                  </svg></span>
+                CKTHub
+              </span>
             </div>
             <span class="qc-badge">QUOTATION</span>
           </div>
@@ -3379,9 +3467,9 @@
     let catalogLoaded = false;
     let dynamicFilters = {};
 
-    // QR Code
+    // QR Code — initialized with safe placeholder, updated in calculateQuote() when grandTotal > 0
     const qrcodeContainer = new QRCode(document.getElementById('qrcode'), {
-      text: 'upi://pay?pa=7385856545@ibl&pn=Ambivert+Electronics&am=0&cu=INR',
+      text: 'https://ckthub.com',
       width: 148, height: 148,
       colorDark: '#0a0b0f', colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.M
@@ -3496,12 +3584,27 @@
 
       } catch (error) {
         console.error("Failed to load stock.csv:", error);
+        console.info("ℹ️ stock.csv must be in the same directory as index.html. Expected columns: 'Manufacture Part Number', 'Manufacturer', 'Package', 'Title'/'Description', 'Quantity'/'Stock', 'Price'/'Unit Price'");
         document.getElementById('preloader').classList.add('hidden');
-        document.getElementById('statusDot').className = 'dot error';
-        document.getElementById('statusLabel').textContent = 'Failed to load';
-        document.getElementById('catalogPill').textContent = 'Error Loading Catalog';
-        document.getElementById('catalogPill').className = 'catalog-pill error-mode';
-        showToast('Could not load stock.csv. Check console.', 'error');
+        document.getElementById('statusDot').className = 'dot warn';
+        document.getElementById('statusLabel').textContent = 'Demo Mode';
+        document.getElementById('catalogPill').textContent = 'Demo · 6 components';
+        document.getElementById('catalogPill').className = 'catalog-pill warn-mode';
+        showToast('stock.csv not found — showing demo data', 'warn');
+
+        // Fallback demo data — app remains fully functional for UI testing
+        partsData = [
+          { id: 'RC0402FR-0710KL', mfr: 'Yageo', pkg: '0402', desc: '10K Ohm Resistor 1% 63mW', stockQty: 50000, price: 0.45 },
+          { id: 'RC0603FR-071KL', mfr: 'Yageo', pkg: '0603', desc: '1K Ohm Resistor 1% 100mW', stockQty: 30000, price: 0.55 },
+          { id: 'GRM155R61A104KA01D', mfr: 'Murata', pkg: '0402', desc: '100nF Ceramic Capacitor 10V X5R', stockQty: 20000, price: 1.20 },
+          { id: 'GRM188R71H103KA01D', mfr: 'Murata', pkg: '0603', desc: '10nF Ceramic Capacitor 50V X7R', stockQty: 15000, price: 1.85 },
+          { id: 'LTST-C191KRKT', mfr: 'Lite-On', pkg: '0603', desc: 'Red LED 2V 20mA 50mcd', stockQty: 8000, price: 2.50 },
+          { id: 'STM32F103C8T6', mfr: 'STMicro', pkg: 'LQFP-48', desc: '32-bit ARM Cortex-M3 MCU 64KB Flash', stockQty: 200, price: 185.00 },
+        ];
+        catalogLoaded = true;
+        buildDynamicFilters();
+        applyFilterAndRender();
+        calculateQuote();
       }
     }
 
@@ -3766,6 +3869,7 @@
 
     // ─── CALCULATE ───────────────────────────────────────────────
     function calculateQuote() {
+      if (!catalogLoaded) return; // guard: don't run before catalog is ready
       const cName = (document.getElementById('clientName').value || '').trim() || '—';
       const cPhone = (document.getElementById('clientPhone').value || '').trim() || '—';
       const cAddr = (document.getElementById('clientAddr').value || '').trim() || '—';
@@ -3808,9 +3912,9 @@
       const netValue = totalGross - totalDiscount;
 
       let shippingCharge = 0, shipFree = false;
+      const isMH = cState === 'Maharashtra';
       const pillWrap = document.getElementById('shippingPillWrap');
       if (cState) {
-        const isMH = cState === 'Maharashtra';
         if (netValue >= 2000) {
           shippingCharge = 0; shipFree = true;
           pillWrap.innerHTML = `<span class="shipping-info-pill">🚚 Free shipping on this order!</span>`;
@@ -3842,12 +3946,21 @@
 
       const gstRowEl = document.getElementById('gstRow');
       const gstBD = document.getElementById('gstBreakdown');
+      const gstRowLabel = gstRowEl.querySelector('.qt-label');
       if (applyGst && netValue > 0) {
         gstRowEl.style.display = 'flex';
         document.getElementById('outGst').textContent = `₹${fmt(gstAmount)}`;
-        document.getElementById('outCgst').textContent = `₹${fmt(cgst)}`;
-        document.getElementById('outSgst').textContent = `₹${fmt(sgst)}`;
-        gstBD.classList.add('visible');
+        if (cState && isMH) {
+          // Intra-state (Maharashtra → seller is MH): CGST + SGST split
+          if (gstRowLabel) gstRowLabel.textContent = 'GST (18%)';
+          document.getElementById('outCgst').textContent = `₹${fmt(cgst)}`;
+          document.getElementById('outSgst').textContent = `₹${fmt(sgst)}`;
+          gstBD.classList.add('visible');
+        } else {
+          // Inter-state or unknown state: IGST only, no breakdown
+          if (gstRowLabel) gstRowLabel.textContent = 'IGST (18%)';
+          gstBD.classList.remove('visible');
+        }
       } else { gstRowEl.style.display = 'none'; gstBD.classList.remove('visible'); }
 
       [0, 1, 2, 3].forEach(i => {
@@ -3902,6 +4015,10 @@
         const upiString = `upi://pay?pa=7385856545@ibl&pn=Ambivert+Electronics&am=${grandTotal.toFixed(2)}&cu=INR&tn=${encodeURIComponent('Order ' + quoteNum)}`;
         document.getElementById('upiLink').href = upiString;
         qrcodeContainer.clear(); qrcodeContainer.makeCode(upiString);
+      } else {
+        // Reset to safe placeholder when cart is empty — prevents ₹0 UPI scan
+        document.getElementById('upiLink').href = '#';
+        qrcodeContainer.clear(); qrcodeContainer.makeCode('https://ckthub.com');
       }
       document.getElementById('bankQuoteRef').textContent = quoteNum;
 
