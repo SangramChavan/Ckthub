@@ -395,16 +395,151 @@ h1 .accent{color:var(--amber);}
 .cart-bar{
   position:fixed; left:50%; bottom:22px; transform:translate(-50%,140%);
   background:#05070a; border:1px solid var(--amber); border-radius:100px;
-  padding:12px 12px 12px 22px; display:flex; align-items:center; gap:16px;
+  padding:10px 10px 10px 22px; display:flex; align-items:center; gap:14px;
   font-family:var(--mono); font-size:13px; z-index:50; box-shadow:0 20px 50px rgba(0,0,0,.5);
   transition:transform .3s ease;
 }
 .cart-bar.show{transform:translate(-50%,0);}
 .cart-bar .cart-total{color:var(--amber-bright); font-weight:600;}
-.cart-bar button{
-  background:var(--amber); color:#1a1206; border:none; border-radius:100px;
-  padding:9px 18px; font-family:var(--mono); font-weight:600; font-size:13px; cursor:pointer;
+.cart-bar .cart-actions{display:flex; align-items:center; gap:8px;}
+.cart-bar .cart-clear{
+  background:transparent; color:var(--text-dim); border:1px solid var(--border);
+  border-radius:100px; padding:9px 16px; font-family:var(--mono); font-weight:600;
+  font-size:13px; cursor:pointer; transition:.15s ease;
 }
+.cart-bar .cart-clear:hover{color:var(--text); border-color:var(--text-faint);}
+.cart-bar .cart-pay{
+  background:var(--amber); color:#1a1206; border:none; border-radius:100px;
+  padding:9px 20px; font-family:var(--mono); font-weight:700; font-size:13px; cursor:pointer;
+  display:flex; align-items:center; gap:7px; transition:transform .15s ease, box-shadow .15s ease;
+}
+.cart-bar .cart-pay:hover{transform:translateY(-1px); box-shadow:0 8px 22px var(--amber-soft);}
+.cart-bar .cart-pay svg{width:14px; height:14px;}
+
+/* ---------- UPI pay modal ---------- */
+.pay-overlay{
+  position:fixed; inset:0; z-index:80; background:rgba(4,5,7,.72);
+  backdrop-filter:blur(4px);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+  opacity:0; pointer-events:none; transition:opacity .2s ease;
+}
+.pay-overlay.show{opacity:1; pointer-events:auto;}
+.pay-modal{
+  width:100%; max-width:380px; background:var(--panel); border:1px solid var(--border);
+  border-radius:16px; padding:26px 26px 24px; position:relative;
+  transform:translateY(14px) scale(.97); transition:transform .25s ease;
+  box-shadow:0 40px 100px rgba(0,0,0,.6);
+}
+.pay-overlay.show .pay-modal{transform:translateY(0) scale(1);}
+.pay-modal-close{
+  position:absolute; top:14px; right:14px; width:30px; height:30px; border-radius:50%;
+  background:var(--panel-2); border:1px solid var(--border); color:var(--text-dim);
+  cursor:pointer; font-family:var(--mono); font-size:15px; line-height:1;
+}
+.pay-modal-close:hover{color:var(--text); border-color:var(--text-faint);}
+.pay-eyebrow{font-family:var(--mono); font-size:11.5px; color:var(--cyan); margin-bottom:6px;}
+.pay-modal h3{font-family:var(--mono); font-size:19px; margin:0 0 4px;}
+.pay-amount{font-family:var(--mono); font-size:34px; font-weight:700; color:var(--amber-bright); margin:14px 0 4px;}
+.pay-ref{font-family:var(--mono); font-size:11.5px; color:var(--text-faint); margin-bottom:18px;}
+.pay-qr-wrap{
+  background:#fff; border-radius:12px; padding:14px; display:flex; align-items:center; justify-content:center;
+  margin-bottom:16px; border:1px solid var(--border);
+}
+.pay-qr-wrap img{width:100%; max-width:220px; height:auto; display:block;}
+.pay-scan-hint{text-align:center; font-size:12.5px; color:var(--text-dim); margin-bottom:18px;}
+.pay-payee-row{
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  background:var(--panel-2); border:1px solid var(--border-soft); border-radius:8px;
+  padding:11px 14px; margin-bottom:16px; font-family:var(--mono); font-size:12.5px;
+}
+.pay-payee-row .vpa{color:var(--text-dim);}
+.pay-open-btn{
+  display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
+  background:var(--amber); color:#1a1206; border:none; border-radius:9px;
+  padding:14px; font-family:var(--mono); font-weight:700; font-size:14px; cursor:pointer;
+  text-decoration:none; margin-bottom:10px; transition:transform .15s ease;
+}
+.pay-open-btn:hover{transform:translateY(-1px);}
+.pay-details{
+  background:var(--panel-2); border:1px solid var(--border-soft); border-radius:9px;
+  padding:14px 14px 6px; margin-bottom:14px;
+}
+.pay-details-label{
+  font-family:var(--mono); font-size:11px; color:var(--cyan); margin-bottom:10px;
+}
+.pay-details label{
+  display:block; font-family:var(--mono); font-size:11px; color:var(--text-faint);
+  margin-bottom:10px; letter-spacing:.02em;
+}
+.pay-details input, .pay-details textarea{
+  display:block; width:100%; margin-top:5px; background:var(--bg-soft);
+  border:1px solid var(--border); border-radius:6px; color:var(--text);
+  font-family:var(--sans); font-size:13.5px; padding:9px 10px; resize:vertical;
+}
+.pay-details textarea{min-height:44px;}
+.pay-details input:focus, .pay-details textarea:focus{
+  outline:none; border-color:var(--cyan);
+}
+.pay-details input::placeholder, .pay-details textarea::placeholder{color:var(--text-faint);}
+.pay-whatsapp-btn{
+  display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
+  background:#25d366; color:#062712; border:none; border-radius:9px;
+  padding:14px; font-family:var(--mono); font-weight:700; font-size:14px; cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.pay-whatsapp-btn:hover{transform:translateY(-1px); box-shadow:0 8px 22px rgba(37,211,102,.28);}
+.pay-details-note{
+  font-size:11.5px; color:var(--text-faint); text-align:center; margin:12px 0 0;
+}
+
+/* ---------- multi-step pay modal ---------- */
+.pay-modal{max-height:88vh; overflow-y:auto;}
+.pay-step{display:none;}
+.pay-modal[data-step="details"] .pay-step[data-step-panel="details"]{display:block;}
+.pay-modal[data-step="confirm"] .pay-step[data-step-panel="confirm"]{display:block;}
+.pay-modal[data-step="payment"] .pay-step[data-step-panel="payment"]{display:block;}
+
+.pay-order-summary{
+  background:var(--panel-2); border:1px solid var(--border-soft); border-radius:9px;
+  padding:12px 14px; margin:14px 0 10px; font-family:var(--mono); font-size:12.5px;
+}
+.pay-order-summary .item-row{
+  display:flex; justify-content:space-between; gap:10px; padding:5px 0;
+  color:var(--text-dim); border-bottom:1px dashed var(--border-soft);
+}
+.pay-order-summary .item-row:last-child{border-bottom:none;}
+.pay-order-summary .item-name{color:var(--text);}
+.pay-total-row{
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--mono); font-size:15px; font-weight:700; color:var(--amber-bright);
+  padding:0 2px 14px; border-bottom:1px solid var(--border-soft); margin-bottom:14px;
+}
+.pay-field-error{
+  display:block; color:var(--red); font-size:10.5px; margin-top:4px; min-height:13px;
+  font-family:var(--sans); letter-spacing:0;
+}
+.pay-details input.invalid, .pay-details textarea.invalid{border-color:var(--red);}
+
+.pay-confirm-details{
+  background:var(--panel-2); border:1px solid var(--border-soft); border-radius:9px;
+  padding:12px 14px; margin-bottom:14px; font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
+}
+.pay-confirm-details div{padding:3px 0;}
+.pay-confirm-details span{color:var(--text);}
+.pay-refund-note{
+  font-size:12px; color:var(--amber-bright); background:var(--amber-soft);
+  border:1px solid var(--border); border-radius:8px; padding:10px 12px; margin:0 0 16px;
+  line-height:1.5;
+}
+.pay-confirm-actions{display:flex; gap:10px;}
+.pay-confirm-actions .pay-open-btn{margin-bottom:0;}
+.pay-edit-btn{
+  width:100%; background:transparent; color:var(--text-dim); border:1px solid var(--border);
+  border-radius:9px; padding:12px; font-family:var(--mono); font-weight:600; font-size:13px;
+  cursor:pointer; transition:.15s ease; margin-top:2px;
+}
+.pay-edit-btn:hover{color:var(--text); border-color:var(--text-faint);}
+.pay-step[data-step-panel="payment"] .pay-edit-btn{margin-top:10px;}
 
 footer{padding:44px 0 60px; position:relative; z-index:1;}
 footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;}
@@ -665,6 +800,7 @@ footer .wrap{display:flex; justify-content:space-between; align-items:center; fl
       <div class="origin-stat"><span class="num" data-static="RoHS">RoHS</span><span class="label">Compliant materials</span></div>
       <div class="origin-stat"><span class="num" data-count="100" data-suffix="%">0%</span><span class="label">Bench tested</span></div>
     </div>
+  </div>
 </section>
 
 <!-- ============ CAPABILITY ============ -->
@@ -790,18 +926,105 @@ footer .wrap{display:flex; justify-content:space-between; align-items:center; fl
 
 <footer>
   <div class="wrap">
-    <div class="foot-mark">Ckthub — Pune, India</div>
+    <div class="foot-mark">Ckthub — a brand of Ambivert Technologies Private Limited, Pune, India</div>
     <div class="foot-links">
       <a href="#specs">Datasheet</a>
-      <a href="#">Support</a>
-      <a href="#">Bulk / B2B orders</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
     </div>
   </div>
 </footer>
 
 <div class="cart-bar" id="cartBar">
   <span><span id="cartCount">0</span> item(s) · <span class="cart-total" id="cartTotal">₹0</span></span>
-  <button id="cartClear">Clear</button>
+  <div class="cart-actions">
+    <button class="cart-clear" id="cartClear">Clear</button>
+    <button class="cart-pay" id="cartPay">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"></rect><path d="M2 10h20"></path></svg>
+      Pay
+    </button>
+  </div>
+</div>
+
+<div class="pay-overlay" id="payOverlay">
+  <div class="pay-modal" id="payModal" data-step="details">
+
+    <button class="pay-modal-close" id="payClose" aria-label="Close">×</button>
+
+    <!-- STEP 1: details + order review -->
+    <div class="pay-step" data-step-panel="details">
+      <div class="pay-eyebrow">$ order --review</div>
+      <h3>Review your order</h3>
+      <div class="pay-order-summary" id="payOrderSummaryDetails"></div>
+      <div class="pay-total-row">
+        <span>Total</span>
+        <span id="payAmountDetails">₹0</span>
+      </div>
+      <div class="pay-details">
+        <div class="pay-details-label">$ customer --details</div>
+        <label>Name
+          <input type="text" id="payName" placeholder="Full name" autocomplete="name">
+          <span class="pay-field-error" id="payNameError"></span>
+        </label>
+        <label>Mobile
+          <input type="tel" id="payMobile" placeholder="10-digit mobile number" autocomplete="tel" inputmode="numeric" maxlength="10">
+          <span class="pay-field-error" id="payMobileError"></span>
+        </label>
+        <label>Address
+          <textarea id="payAddress" placeholder="Delivery address" autocomplete="street-address" rows="2"></textarea>
+          <span class="pay-field-error" id="payAddressError"></span>
+        </label>
+        <label>Pincode
+          <input type="text" id="payPin" placeholder="6-digit pincode" autocomplete="postal-code" inputmode="numeric" maxlength="6">
+          <span class="pay-field-error" id="payPinError"></span>
+        </label>
+      </div>
+      <button class="pay-open-btn" id="payReviewBtn" type="button">Review order</button>
+    </div>
+
+    <!-- STEP 2: confirmation -->
+    <div class="pay-step" data-step-panel="confirm">
+      <div class="pay-eyebrow">$ order --confirm</div>
+      <h3>Confirm your order</h3>
+      <div class="pay-order-summary" id="payOrderSummaryConfirm"></div>
+      <div class="pay-total-row">
+        <span>Total</span>
+        <span id="payAmountConfirm">₹0</span>
+      </div>
+      <div class="pay-confirm-details" id="payConfirmDetails"></div>
+      <p class="pay-refund-note">⚠ Once payment is made, it is <strong>non-refundable</strong>. Please check your order and details carefully before confirming.</p>
+      <div class="pay-confirm-actions">
+        <button class="pay-edit-btn" id="payEditBtn" type="button">Edit details</button>
+        <button class="pay-open-btn" id="payConfirmBtn" type="button">Confirm &amp; pay</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: payment -->
+    <div class="pay-step" data-step-panel="payment">
+      <div class="pay-eyebrow">$ pay --upi</div>
+      <h3>Scan to pay</h3>
+      <div class="pay-amount" id="payAmount">₹0</div>
+      <div class="pay-ref" id="payRef">order ref: —</div>
+      <div class="pay-qr-wrap"><img id="payQr" src="" alt="UPI payment QR code"></div>
+      <p class="pay-scan-hint">Scan with any UPI app — GPay, PhonePe, Paytm, BHIM</p>
+      <div class="pay-payee-row">
+        <span>Ambivert Technologies Private Limited</span>
+        <span class="vpa">87222401@ubin</span>
+      </div>
+      <a class="pay-open-btn" id="payOpenBtn" href="#">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8L22 12L18 16"></path><path d="M2 12H22"></path></svg>
+        Open in UPI app
+      </a>
+      <button class="pay-whatsapp-btn" id="payWhatsappBtn">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C11 9 10.5 7.8 10.3 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 2 3 4.7 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"></path><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.2-.4-4.6-1.3l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"></path></svg>
+        Send order on WhatsApp
+      </button>
+      <p class="pay-refund-note">⚠ Payment once made is non-refundable.</p>
+      <button class="pay-edit-btn" id="payBackBtn" type="button">← Back to order</button>
+    </div>
+
+  </div>
 </div>
 
 <script>
@@ -994,6 +1217,7 @@ const cartBar = document.getElementById('cartBar');
 const cartCount = document.getElementById('cartCount');
 const cartTotal = document.getElementById('cartTotal');
 let cart = {};
+let cartGrandTotal = 0;
 
 function tierPrice(box, qty){
   const base = parseInt(box.dataset.base, 10);
@@ -1043,6 +1267,7 @@ function renderCart(){
   const items = Object.values(cart);
   const count = items.reduce((a,i)=> a + i.qty, 0);
   const total = items.reduce((a,i)=> a + i.total, 0);
+  cartGrandTotal = total;
   cartCount.textContent = count;
   cartTotal.textContent = '₹' + total.toLocaleString('en-IN');
   cartBar.classList.toggle('show', count > 0);
@@ -1050,6 +1275,201 @@ function renderCart(){
 document.getElementById('cartClear').addEventListener('click', ()=>{
   cart = {};
   renderCart();
+});
+
+/* ---------- UPI pay modal ---------- */
+const payOverlay = document.getElementById('payOverlay');
+const payModal = document.getElementById('payModal');
+const payAmountEl = document.getElementById('payAmount');
+const payAmountDetailsEl = document.getElementById('payAmountDetails');
+const payAmountConfirmEl = document.getElementById('payAmountConfirm');
+const payRefEl = document.getElementById('payRef');
+const payQrEl = document.getElementById('payQr');
+const payOpenBtn = document.getElementById('payOpenBtn');
+const payWhatsappBtn = document.getElementById('payWhatsappBtn');
+const payReviewBtn = document.getElementById('payReviewBtn');
+const payEditBtn = document.getElementById('payEditBtn');
+const payConfirmBtn = document.getElementById('payConfirmBtn');
+const payBackBtn = document.getElementById('payBackBtn');
+const payOrderSummaryDetailsEl = document.getElementById('payOrderSummaryDetails');
+const payOrderSummaryConfirmEl = document.getElementById('payOrderSummaryConfirm');
+const payConfirmDetailsEl = document.getElementById('payConfirmDetails');
+const payNameEl = document.getElementById('payName');
+const payMobileEl = document.getElementById('payMobile');
+const payAddressEl = document.getElementById('payAddress');
+const payPinEl = document.getElementById('payPin');
+const payNameErrorEl = document.getElementById('payNameError');
+const payMobileErrorEl = document.getElementById('payMobileError');
+const payAddressErrorEl = document.getElementById('payAddressError');
+const payPinErrorEl = document.getElementById('payPinError');
+
+const UPI_PA = '87222401@ubin';
+const UPI_PN = 'Ambivert Technologies Private Limited';
+const ORDER_WHATSAPP_NUMBER = '919960160016';
+const MOBILE_RE = /^[6-9]\d{9}$/;
+const PIN_RE = /^[1-9]\d{5}$/;
+let currentPayRef = '';
+
+function formatAmount(n){
+  return Number.isInteger(n)
+    ? n.toLocaleString('en-IN')
+    : n.toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+
+function renderOrderSummary(container){
+  container.innerHTML = '';
+  Object.entries(cart).forEach(([name, item])=>{
+    const row = document.createElement('div');
+    row.className = 'item-row';
+    row.innerHTML = `<span class="item-name">${name} × ${item.qty}</span><span>₹${item.total.toLocaleString('en-IN')}</span>`;
+    container.appendChild(row);
+  });
+}
+
+function buildUpiLink(amount, ref){
+  const amt = amount.toFixed(2);
+  const params = [
+    'pa=' + encodeURIComponent(UPI_PA),
+    'pn=' + encodeURIComponent(UPI_PN),
+    'am=' + amt,
+    'cu=INR',
+    'tn=' + encodeURIComponent('Order ' + ref)
+  ];
+  return 'upi://pay?' + params.join('&');
+}
+
+function setStep(step){
+  payModal.dataset.step = step;
+  payModal.scrollTop = 0;
+}
+
+function clearFieldErrors(){
+  [[payNameEl, payNameErrorEl],[payMobileEl, payMobileErrorEl],[payAddressEl, payAddressErrorEl],[payPinEl, payPinErrorEl]].forEach(([el, errEl])=>{
+    el.classList.remove('invalid');
+    errEl.textContent = '';
+  });
+}
+
+function validateDetails(){
+  let valid = true;
+  clearFieldErrors();
+
+  if(!payNameEl.value.trim()){
+    payNameEl.classList.add('invalid');
+    payNameErrorEl.textContent = 'Please enter your name.';
+    valid = false;
+  }
+  if(!MOBILE_RE.test(payMobileEl.value.trim())){
+    payMobileEl.classList.add('invalid');
+    payMobileErrorEl.textContent = 'Enter a valid 10-digit Indian mobile number.';
+    valid = false;
+  }
+  if(!payAddressEl.value.trim()){
+    payAddressEl.classList.add('invalid');
+    payAddressErrorEl.textContent = 'Please enter your delivery address.';
+    valid = false;
+  }
+  if(!PIN_RE.test(payPinEl.value.trim())){
+    payPinEl.classList.add('invalid');
+    payPinErrorEl.textContent = 'Enter a valid 6-digit pincode.';
+    valid = false;
+  }
+  return valid;
+}
+
+function openPayModal(){
+  if(cartGrandTotal <= 0) return;
+  const ref = 'CKT' + Date.now().toString().slice(-6);
+  currentPayRef = ref;
+
+  const displayAmount = formatAmount(cartGrandTotal);
+  payAmountDetailsEl.textContent = '₹' + displayAmount;
+  renderOrderSummary(payOrderSummaryDetailsEl);
+  clearFieldErrors();
+
+  setStep('details');
+  payOverlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closePayModal(){
+  payOverlay.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('cartPay').addEventListener('click', openPayModal);
+document.getElementById('payClose').addEventListener('click', closePayModal);
+payOverlay.addEventListener('click', (e)=>{ if(e.target === payOverlay) closePayModal(); });
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && payOverlay.classList.contains('show')) closePayModal(); });
+
+/* mobile / pincode input sanitization */
+payMobileEl.addEventListener('input', ()=>{ payMobileEl.value = payMobileEl.value.replace(/\D/g,'').slice(0,10); });
+payPinEl.addEventListener('input', ()=>{ payPinEl.value = payPinEl.value.replace(/\D/g,'').slice(0,6); });
+[payNameEl, payMobileEl, payAddressEl, payPinEl].forEach(el=>{
+  el.addEventListener('input', ()=>{ el.classList.remove('invalid'); });
+});
+
+/* step 1 -> step 2 */
+payReviewBtn.addEventListener('click', ()=>{
+  if(!validateDetails()) return;
+
+  const displayAmount = formatAmount(cartGrandTotal);
+  payAmountConfirmEl.textContent = '₹' + displayAmount;
+  renderOrderSummary(payOrderSummaryConfirmEl);
+
+  payConfirmDetailsEl.innerHTML = `
+    <div>Name: <span>${payNameEl.value.trim()}</span></div>
+    <div>Mobile: <span>${payMobileEl.value.trim()}</span></div>
+    <div>Address: <span>${payAddressEl.value.trim()}</span></div>
+    <div>Pincode: <span>${payPinEl.value.trim()}</span></div>
+  `;
+  setStep('confirm');
+});
+
+/* step 2 -> back to step 1 (edit) */
+payEditBtn.addEventListener('click', ()=> setStep('details'));
+
+/* step 2 -> step 3 (confirm & pay) */
+payConfirmBtn.addEventListener('click', ()=>{
+  const ref = currentPayRef;
+  const upiLink = buildUpiLink(cartGrandTotal, ref);
+  const displayAmount = formatAmount(cartGrandTotal);
+
+  payAmountEl.textContent = '₹' + displayAmount;
+  payRefEl.textContent = 'order ref: ' + ref;
+  payQrEl.src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=0&data=' + encodeURIComponent(upiLink);
+  payOpenBtn.href = upiLink;
+
+  setStep('payment');
+});
+
+/* step 3 -> back to confirm */
+payBackBtn.addEventListener('click', ()=> setStep('confirm'));
+
+function buildOrderWhatsappMessage(){
+  const lines = [];
+  lines.push(`New order — ref ${currentPayRef}`);
+  lines.push('');
+  Object.entries(cart).forEach(([name, item])=>{
+    lines.push(`• ${name} x${item.qty} — ₹${item.total.toLocaleString('en-IN')}`);
+  });
+  lines.push('');
+  lines.push(`Total: ₹${cartGrandTotal.toLocaleString('en-IN')}`);
+  lines.push('');
+  lines.push(`Name: ${payNameEl.value.trim()}`);
+  lines.push(`Mobile: ${payMobileEl.value.trim()}`);
+  lines.push(`Address: ${payAddressEl.value.trim()}`);
+  lines.push(`Pincode: ${payPinEl.value.trim()}`);
+  return lines.join('\n');
+}
+
+payWhatsappBtn.addEventListener('click', ()=>{
+  if(!validateDetails()){
+    setStep('details');
+    return;
+  }
+  const msg = buildOrderWhatsappMessage();
+  const waLink = 'https://wa.me/' + ORDER_WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg);
+  window.open(waLink, '_blank');
 });
 
 /* ---------- mobile nav fallback ---------- */
