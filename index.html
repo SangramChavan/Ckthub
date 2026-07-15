@@ -224,39 +224,10 @@ h1 .accent{color:var(--amber);}
   transition:opacity .9s ease, transform .9s ease;
 }
 .product-frame.revealed img{opacity:1; transform:scale(1);}
-.hotspot{
-  position:absolute; width:14px; height:14px; margin:-7px 0 0 -7px;
-  border-radius:50%; background:var(--cyan);
-  box-shadow:0 0 0 4px rgba(111,227,209,.18);
-  border:none; cursor:pointer; padding:0;
+.product-caption{
+  text-align:center; margin-top:16px; font-family:var(--mono); font-size:12.5px;
+  color:var(--text-faint); letter-spacing:.02em;
 }
-.hotspot::after{
-  content:""; position:absolute; inset:-6px; border-radius:50%;
-  border:1px solid var(--cyan); opacity:.55;
-  animation:pulse-ring 2.2s ease-out infinite;
-}
-.hotspot.active{background:var(--amber); box-shadow:0 0 0 4px rgba(255,180,84,.22);}
-.hotspot.active::after{border-color:var(--amber);}
-@keyframes pulse-ring{
-  0%{transform:scale(.7); opacity:.7;}
-  100%{transform:scale(2.1); opacity:0;}
-}
-.hotspot-tip{
-  position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%);
-  background:#04070a; border:1px solid var(--border); color:var(--text);
-  font-family:var(--mono); font-size:11.5px; white-space:nowrap;
-  padding:7px 11px; border-radius:6px; opacity:0; pointer-events:none;
-  transition:opacity .15s ease; z-index:5;
-}
-.hotspot:hover .hotspot-tip, .hotspot:focus .hotspot-tip{opacity:1;}
-.hotspot-legend{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; justify-content:center;}
-.hotspot-legend button{
-  font-family:var(--mono); font-size:11.5px; color:var(--text-dim);
-  background:var(--panel); border:1px solid var(--border); border-radius:100px;
-  padding:6px 12px; cursor:pointer; transition:.15s ease;
-}
-.hotspot-legend button:hover{color:var(--text); border-color:var(--text-faint);}
-.hotspot-legend button.active{color:#1a1206; background:var(--amber); border-color:var(--amber);}
 
 /* ============ SERIES STRIP ============ */
 .series-strip{padding:0 0 88px;}
@@ -287,6 +258,12 @@ h1 .accent{color:var(--amber);}
 .board-panel.active{display:block; animation:fade-up .35s ease both;}
 @keyframes fade-up{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
 
+.board-photo-strip{
+  display:flex; justify-content:center; margin-bottom:40px;
+  background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+  padding:24px;
+}
+.board-photo-strip img{width:auto; height:280px; filter:drop-shadow(0 20px 30px rgba(0,0,0,.5));}
 .variants{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:52px;}
 .variants.two-up{grid-template-columns:1fr 1fr;}
 .variant-card{
@@ -346,28 +323,6 @@ h1 .accent{color:var(--amber);}
 .compare-table .no::before{content:"— ";}
 .compare-table td.feat{font-family:var(--mono); font-size:13px; color:var(--text-dim);}
 
-/* ============ CONSOLE ============ */
-.console-wrap{display:grid; grid-template-columns:.85fr 1.15fr; gap:26px; align-items:start;}
-.console-cmds{display:flex; flex-direction:column; gap:10px;}
-.console-cmds button{
-  text-align:left; font-family:var(--mono); font-size:13px; color:var(--text);
-  background:var(--panel); border:1px solid var(--border); border-radius:8px;
-  padding:13px 16px; cursor:pointer; transition:.15s ease;
-}
-.console-cmds button .path{color:var(--amber);}
-.console-cmds button:hover{border-color:var(--cyan);}
-.console-cmds button.running{border-color:var(--amber);}
-.console-out{
-  background:#05070a; border:1px solid var(--border); border-radius:var(--radius);
-  min-height:280px; max-height:360px; overflow-y:auto;
-  font-family:var(--mono); font-size:13px; padding:18px 20px; color:var(--text-dim);
-}
-.console-out .line{margin:0 0 4px; white-space:pre-wrap;}
-.console-out .prompt-line{color:var(--cyan);}
-.console-out .prompt-line::before{content:">>> "; color:var(--text-faint);}
-.console-out .result{color:var(--text);}
-.console-out .hint{color:var(--text-faint);}
-
 /* ============ ORIGIN ============ */
 .origin-section .wrap{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
 .origin-copy h2{font-family:var(--mono); font-size:clamp(1.6rem,3vw,2.2rem); margin:0 0 16px; line-height:1.25;}
@@ -383,6 +338,7 @@ h1 .accent{color:var(--amber);}
 /* ============ PRICING ============ */
 .pricing-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
 .pricing-box{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:26px;}
+.pb-thumb{width:100%; max-height:150px; object-fit:contain; margin-bottom:18px; filter:drop-shadow(0 14px 22px rgba(0,0,0,.5));}
 .pricing-box h3{font-family:var(--mono); font-size:17px; margin:0 0 4px;}
 .pb-sub{color:var(--text-dim); font-size:13px; margin:0 0 20px;}
 .qty-row{display:flex; align-items:center; gap:14px; margin-bottom:14px;}
@@ -554,7 +510,6 @@ footer .wrap{display:flex; justify-content:space-between; align-items:center; fl
   .hero .wrap{grid-template-columns:1fr; gap:40px;}
   .origin-section .wrap{grid-template-columns:1fr; gap:32px;}
   .series-grid, .variants, .variants.two-up, .feature-grid, .cap-grid, .pricing-grid{grid-template-columns:1fr;}
-  .console-wrap{grid-template-columns:1fr;}
   .statusbar .wrap{font-size:10px;}
 }
 </style>
@@ -572,9 +527,7 @@ footer .wrap{display:flex; justify-content:space-between; align-items:center; fl
     <div class="nav-links">
       <a href="#boards">Boards</a>
       <a href="#compare">Compare</a>
-      <a href="#console">Console</a>
       <a href="#specs">Specs</a>
-      <a href="#capability">Capability</a>
       <a href="#origin">Origin</a>
       <a href="#pricing">Pricing</a>
     </div>
@@ -605,18 +558,9 @@ footer .wrap{display:flex; justify-content:space-between; align-items:center; fl
     </div>
     <div class="product-stage">
       <div class="product-frame" id="productFrame">
-        <img src="esp32wroom.svg" alt="ESP32 development board, DevKit-Lipo series" id="productImg">
-        <button class="hotspot" data-key="usb" style="left:14%; top:52%;"><span class="hotspot-tip">Antenna</span></button>
-        <button class="hotspot" data-key="module" style="left:48%; top:32%;"><span class="hotspot-tip">ESP32 Wroom</span></button>
-        <button class="hotspot" data-key="gpio" style="left:50%; top:84%;"><span class="hotspot-tip">GPIO header — every pin broken out</span></button>
-        <button class="hotspot" data-key="buttons" style="left:88%; top:54%;"><span class="hotspot-tip">Connector</span></button>
+        <img src="wrover-devkit.png" alt="ESP32-WROVER-DevKit-Lipo development board, real product photo" id="productImg">
       </div>
-      <div class="hotspot-legend">
-        <button data-key="usb" type="button">USB / power</button>
-        <button data-key="module" type="button">ESP32 module</button>
-        <button data-key="gpio" type="button">GPIO header</button>
-        <button data-key="buttons" type="button">BOOT / EN</button>
-      </div>
+      <div class="product-caption" id="productCaption">ESP32-WROVER-DevKit-Lipo — pictured</div>
     </div>
   </div>
 </header>
@@ -654,6 +598,9 @@ footer .wrap{display:flex; justify-content:space-between; align-items:center; fl
     </div>
 
     <div class="board-panel active" data-panel="wrover">
+      <div class="board-photo-strip">
+        <img src="wrover-devkit.png" alt="ESP32-WROVER-DevKit-Lipo board, top view" loading="lazy">
+      </div>
       <div class="variants">
         <div class="variant-card">
           <h3>ESP32-WROOM-32E</h3>
@@ -697,6 +644,9 @@ footer .wrap{display:flex; justify-content:space-between; align-items:center; fl
     </div>
 
     <div class="board-panel" data-panel="s3">
+      <div class="board-photo-strip">
+        <img src="s3-devkit.png" alt="ESP32-S3-DevKit-Lipo board, top view" loading="lazy">
+      </div>
       <div class="variants two-up">
         <div class="variant-card is-flagship">
           <h3>ESP32-S3-DevKit-Lipo</h3>
@@ -763,29 +713,6 @@ footer .wrap{display:flex; justify-content:space-between; align-items:center; fl
   </div>
 </section>
 
-<!-- ============ CONSOLE ============ -->
-<section id="console">
-  <div class="wrap">
-    <div class="cmd-eyebrow">python3 -m serial.tools.miniterm</div>
-    <div class="section-head">
-      <h2>Ask the board.</h2>
-      <p>A few canned queries, run against whichever board you picked above.</p>
-    </div>
-    <div class="console-wrap">
-      <div class="console-cmds" id="consoleCmds">
-        <button data-cmd="specs"><span class="path">board.</span>specs()</button>
-        <button data-cmd="power"><span class="path">board.</span>power_profile()</button>
-        <button data-cmd="price"><span class="path">board.</span>price()</button>
-        <button data-cmd="stock"><span class="path">board.</span>stock()</button>
-        <button data-cmd="qa"><span class="path">board.</span>qa_status()</button>
-      </div>
-      <div class="console-out" id="consoleOut">
-        <p class="line hint">// select a command — output targets the board picked in the section above</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ ORIGIN ============ -->
 <section class="origin-section" id="origin">
   <div class="wrap">
@@ -803,76 +730,6 @@ footer .wrap{display:flex; justify-content:space-between; align-items:center; fl
   </div>
 </section>
 
-<!-- ============ CAPABILITY ============ -->
-<section id="capability">
-  <div class="wrap">
-    <div class="cmd-eyebrow">ls machines/</div>
-    <div class="section-head">
-      <h2>Our SMT line, in two machines.</h2>
-      <p>The pick-and-place capability we run in-house for every board we ship — and for contract manufacturing work too.</p>
-    </div>
-
-    <div class="board-toggle" id="capToggle">
-      <button data-cap="n9" class="active">NeoDen N9</button>
-      <button data-cap="yy1">NeoDen YY1</button>
-    </div>
-
-    <div class="board-panel active" data-cappanel="n9">
-      <div class="cap-grid">
-        <div class="feature-item"><span class="ref">HEAD</span><h4>6 nozzles</h4><p>Gantry head, flying vision alignment.</p></div>
-        <div class="feature-item"><span class="ref">RATE</span><h4>Up to 14,000 CPH</h4><p>9,000 CPH sustained placement rate.</p></div>
-        <div class="feature-item"><span class="ref">ACCURACY</span><h4>±10 µm</h4><p>Closed-loop servo motion control.</p></div>
-        <div class="feature-item"><span class="ref">FEEDERS</span><h4>53× 8mm tape/reel</h4><p>Pneumatic + electrical, vibration tube, waffle tray.</p></div>
-      </div>
-      <table class="specs-table">
-        <tbody>
-          <tr><td>Placement head</td><td>6 nozzle gantry head</td></tr>
-          <tr><td>Vision alignment</td><td>Flying vision</td></tr>
-          <tr><td>Max placement rate</td><td>14,000 CPH (9,000 CPH sustained)</td></tr>
-          <tr><td>Feeder capacity</td><td>53× tape/reel (8mm)</td></tr>
-          <tr><td>Component size range</td><td>0201 to 1.57" (40mm) square body</td></tr>
-          <tr><td>Max component height</td><td>0.629" (16mm), nozzle Z-axis travel</td></tr>
-          <tr><td>Placement accuracy</td><td>±10 µm</td></tr>
-          <tr><td>Motion feedback control</td><td>SPM / IBG, right-left / left-right</td></tr>
-          <tr><td>Compressed air</td><td>&gt;0.6MPa, max flow 37L/min, oil free</td></tr>
-          <tr><td>Supported reel formats</td><td>Tape/reel (electric/pneumatic), vibration tube, waffle tray</td></tr>
-          <tr><td>Cut reel feeder</td><td>Stack 8mm to 44mm size</td></tr>
-          <tr><td>Max board dimension</td><td>17.1" × 11.8" (460 × 300mm), up to 800mm length</td></tr>
-          <tr><td>X / Y axis drive</td><td>WON linear guide / TBI grinding screw C5-1632</td></tr>
-          <tr><td>Control system</td><td>Closed loop servo</td></tr>
-          <tr><td>Electricity supply</td><td>220VAC, 500W</td></tr>
-          <tr><td>Feeder type</td><td>Pneumatic + electrical, selectable vibrating feeder</td></tr>
-          <tr><td>Noise level</td><td>55–60 dB (µV/m) at 10m</td></tr>
-          <tr><td>Machine dimensions</td><td>48" × 31.5" × 53" (1220 × 800 × 1350mm)</td></tr>
-          <tr><td>Packaged dimensions</td><td>57" × 48" × 66" (1450 × 1220 × 1675mm)</td></tr>
-          <tr><td>System weight</td><td>1100 lbs (500kg)</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="board-panel" data-cappanel="yy1">
-      <p style="color:var(--text-dim); max-width:640px; margin:0 0 28px; font-size:15.5px;">A high-precision desktop pick-and-place for shorter runs and prototyping — independent dual high-speed vision recognition, vacuum detection, and an automatic nozzle changer that keeps placement running without a manual swap.</p>
-      <div class="cap-grid">
-        <div class="feature-item"><span class="ref">HEAD</span><h4>2 heads</h4><p>Independent dual high-speed vision recognition.</p></div>
-        <div class="feature-item"><span class="ref">RATE</span><h4>Up to 4,000 CPH</h4><p>Desktop-class placement throughput.</p></div>
-        <div class="feature-item"><span class="ref">ACCURACY</span><h4>±0.02mm</h4><p>Vacuum detection on every placement.</p></div>
-        <div class="feature-item"><span class="ref">FEEDERS</span><h4>52× 8mm tape</h4><p>Automatic nozzle changer, 3-nozzle capacity.</p></div>
-      </div>
-      <table class="specs-table">
-        <tbody>
-          <tr><td>Placement heads</td><td>2</td></tr>
-          <tr><td>Max placement rate</td><td>4,000 CPH</td></tr>
-          <tr><td>Placement accuracy</td><td>±0.02mm</td></tr>
-          <tr><td>Feeder capacity</td><td>52 × 8mm tape feeders</td></tr>
-          <tr><td>Component size range</td><td>0201 (smallest) to 18 × 18mm (largest)</td></tr>
-          <tr><td>Vision system</td><td>Independent HD dual high-speed vision recognition + vacuum detection</td></tr>
-          <tr><td>Nozzle change</td><td>Automatic, 3-nozzle capacity, non-stop production</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
 <!-- ============ PRICING ============ -->
 <section id="pricing">
   <div class="wrap">
@@ -882,7 +739,8 @@ footer .wrap{display:flex; justify-content:space-between; align-items:center; fl
       <p>Drag the quantity slider — the unit price updates against the same tiers we quote for bulk orders.</p>
     </div>
     <div class="pricing-grid">
-      <div class="pricing-box" data-base="899" data-tier1="799" data-name="ESP32-WROVER-DevKit-Lipo">
+      <div class="pricing-box" data-base="499" data-tier1="399" data-name="ESP32-WROVER-DevKit-Lipo">
+        <img class="pb-thumb" src="wrover-devkit.png" alt="ESP32-WROVER-DevKit-Lipo" loading="lazy">
         <div>
           <h3>ESP32-WROVER-DevKit-Lipo</h3>
           <p class="pb-sub">WROVER-E variant shown · 4MB flash · 8MB PSRAM</p>
@@ -894,14 +752,15 @@ footer .wrap{display:flex; justify-content:space-between; align-items:center; fl
         <div class="tier-note">&nbsp;</div>
         <div class="pb-foot">
           <div>
-            <span class="price-now">₹899</span>
+            <span class="price-now">₹499</span>
             <span class="price-unit">per unit, incl. GST</span>
             <span class="price-unit" style="color:var(--green); margin-top:4px;">✓ 100% bench-tested before it ships</span>
           </div>
           <button class="btn-primary add-cart">Add to cart</button>
         </div>
       </div>
-      <div class="pricing-box" data-base="999" data-tier1="899" data-name="ESP32-S3-DevKit-Lipo">
+      <div class="pricing-box" data-base="799" data-tier1="699" data-name="ESP32-S3-DevKit-Lipo">
+        <img class="pb-thumb" src="s3-devkit.png" alt="ESP32-S3-DevKit-Lipo" loading="lazy">
         <div>
           <h3>ESP32-S3-DevKit-Lipo</h3>
           <p class="pb-sub">PCB antenna variant shown · 8MB flash · 8MB PSRAM</p>
@@ -913,7 +772,7 @@ footer .wrap{display:flex; justify-content:space-between; align-items:center; fl
         <div class="tier-note">&nbsp;</div>
         <div class="pb-foot">
           <div>
-            <span class="price-now">₹999</span>
+            <span class="price-now">₹799</span>
             <span class="price-unit">per unit, incl. GST · -EA variant +₹80</span>
             <span class="price-unit" style="color:var(--green); margin-top:4px;">✓ 100% bench-tested before it ships</span>
           </div>
@@ -1094,37 +953,30 @@ if(!reduceMotion && stage){
   });
 }
 
-/* ---------- hotspots ---------- */
-const hotspots = document.querySelectorAll('.hotspot');
-const legendBtns = document.querySelectorAll('.hotspot-legend button');
-function setActiveHotspot(key){
-  hotspots.forEach(h => h.classList.toggle('active', h.dataset.key === key));
-  legendBtns.forEach(b => b.classList.toggle('active', b.dataset.key === key));
-}
-legendBtns.forEach(b => b.addEventListener('click', ()=> setActiveHotspot(b.dataset.key)));
-hotspots.forEach(h => h.addEventListener('click', ()=> setActiveHotspot(h.dataset.key)));
-
-/* ---------- board toggle ---------- */
+/* ---------- board toggle (also swaps the real product photo) ---------- */
 const boardToggle = document.getElementById('boardToggle');
 const boardBtns = boardToggle.querySelectorAll('button');
 const panels = document.querySelectorAll('.board-panel');
+const productImg = document.getElementById('productImg');
+const productCaption = document.getElementById('productCaption');
+const BOARD_PHOTOS = {
+  wrover: { src: 'wrover-devkit.png', alt: 'ESP32-WROVER-DevKit-Lipo development board, real product photo', caption: 'ESP32-WROVER-DevKit-Lipo — pictured' },
+  s3:     { src: 's3-devkit.png',     alt: 'ESP32-S3-DevKit-Lipo development board, real product photo',     caption: 'ESP32-S3-DevKit-Lipo — pictured' }
+};
 function selectBoard(key){
   boardBtns.forEach(b => b.classList.toggle('active', b.dataset.board === key));
   panels.forEach(p => p.classList.toggle('active', p.dataset.panel === key));
+  const photo = BOARD_PHOTOS[key];
+  if(photo && productImg){
+    productImg.src = photo.src;
+    productImg.alt = photo.alt;
+    productCaption.textContent = photo.caption;
+  }
 }
 boardBtns.forEach(b => b.addEventListener('click', ()=> selectBoard(b.dataset.board)));
 document.querySelectorAll('[data-jump]').forEach(el=>{
   el.addEventListener('click', ()=> selectBoard(el.dataset.jump));
 });
-
-/* ---------- capability toggle ---------- */
-const capToggle = document.getElementById('capToggle');
-const capBtns = capToggle.querySelectorAll('button');
-const capPanels = document.querySelectorAll('[data-cappanel]');
-capBtns.forEach(b => b.addEventListener('click', ()=>{
-  capBtns.forEach(x => x.classList.toggle('active', x === b));
-  capPanels.forEach(p => p.classList.toggle('active', p.dataset.cappanel === b.dataset.cap));
-}));
 
 /* ---------- compare diff toggle ---------- */
 const diffSwitch = document.getElementById('diffSwitch');
@@ -1136,44 +988,6 @@ function toggleDiff(){
 }
 diffSwitch.addEventListener('click', toggleDiff);
 diffSwitch.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleDiff(); } });
-
-/* ---------- console ---------- */
-const consoleOut = document.getElementById('consoleOut');
-const consoleCmds = document.querySelectorAll('#consoleCmds button');
-function currentBoard(){
-  const active = boardToggle.querySelector('button.active');
-  return active.dataset.board === 's3'
-    ? {name:'ESP32-S3-DevKit-Lipo', module:'ESP32-S3-WROOM-1-N8R8', flash:'8MB', psram:'8MB', power:'USB-C or LiPo (JST)', price:'₹999 (1–9 units)', stock:'In stock — Pune warehouse'}
-    : {name:'ESP32-WROVER-DevKit-Lipo', module:'ESP32-WROVER-E', flash:'4MB', psram:'8MB', power:'Micro USB or LiPo (JST)', price:'₹899 (1–9 units)', stock:'In stock — Pune warehouse'};
-}
-const responses = {
-  specs: b => [`board = "${b.name}"`, `module = "${b.module}"`, `flash = "${b.flash}"`, `psram = "${b.psram}"`],
-  power: b => [`power_in = "${b.power}"`, `charger = "onboard LiPo, USB-fed"`, `temp_range = "-40C to 85C"`],
-  price: b => [`unit_price = "${b.price}"`, `bulk_50plus = "contact sales"`],
-  stock: b => [`status = "${b.stock}"`, `lead_time = "ships in 2-3 business days"`],
-  qa: b => [`bench_tested = true`, `assembled_on = "our own SMT line, Pune"`, `warranty = "none — sold as tested"`]
-};
-consoleCmds.forEach(btn => {
-  btn.addEventListener('click', ()=>{
-    consoleCmds.forEach(b=>b.classList.remove('running'));
-    btn.classList.add('running');
-    const board = currentBoard();
-    const cmdText = `board.${btn.dataset.cmd}()`;
-    const lines = responses[btn.dataset.cmd](board);
-    const promptP = document.createElement('p');
-    promptP.className = 'line prompt-line';
-    promptP.textContent = cmdText;
-    consoleOut.appendChild(promptP);
-    lines.forEach(l=>{
-      const p = document.createElement('p');
-      p.className = 'line result';
-      p.textContent = l;
-      consoleOut.appendChild(p);
-    });
-    consoleOut.scrollTop = consoleOut.scrollHeight;
-    setTimeout(()=> btn.classList.remove('running'), 500);
-  });
-});
 
 /* ---------- origin counters ---------- */
 const counters = document.querySelectorAll('.origin-stat .num[data-count]');
@@ -1241,10 +1055,12 @@ document.querySelectorAll('.pricing-box').forEach(box=>{
     if(price === null){
       priceNow.textContent = 'Contact us';
       tierNote.textContent = '50+ units — bulk pricing, reach out to sales';
+      addBtn.textContent = 'Contact us';
     } else {
       priceNow.textContent = '₹' + price;
       if(qty >= 10) tierNote.textContent = `10–49 unit tier applied · was ₹${box.dataset.base}`;
       else tierNote.textContent = '\u00a0';
+      addBtn.textContent = 'Add to cart';
     }
   }
   slider.addEventListener('input', update);
@@ -1254,8 +1070,7 @@ document.querySelectorAll('.pricing-box').forEach(box=>{
     const qty = parseInt(slider.value, 10);
     const price = tierPrice(box, qty);
     if(price === null){
-      tierNote.textContent = 'Bulk orders — please contact sales directly';
-      tierNote.style.color = 'var(--amber)';
+      window.location.href = 'contact.html';
       return;
     }
     cart[box.dataset.name] = {qty, total: qty * price};
