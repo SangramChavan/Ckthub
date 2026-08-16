@@ -1,0 +1,55 @@
+# CktHub
+
+> CktHub builds standalone ESP32 and ESP32-S3 hardware that does the work of
+> subscription-based software tools locally. Pay once, own the device. No
+> monthly bill, no cloud dependency. Designed and assembled in-house in Pune,
+> India by Ambivert Technologies Private Limited.
+
+## What CktHub does
+
+- Replaces recurring SaaS subscriptions (POS, kiosks, signage, attendance,
+  access control, visitor management, inventory tracking, data logging) with
+  dedicated hardware you buy once and own.
+- Every product starts as a PCB, 3D print, laser, or CNC part made in the
+  CktHub Fab lab in Pune.
+
+## Key facts
+
+- Products: ready-to-use dev boards (ESP32 / ESP32-S3 based) and made-to-order
+  hardware built around your workflow.
+- Pricing: boards at a fixed one-time price (e.g. CKT-WROVER-DEVKIT and
+  CKT-S3-DEVKIT); fab work quoted instantly with no file required, confirmed
+  on WhatsApp.
+- Fab services: PCB fabrication (2-6 layer), 3D printing (PETG; PLA/ABS/RESIN
+  quoted on request), laser marking and cutting, CNC/VMC machining
+  (aluminium, acrylic, brass).
+- Contact: WhatsApp +91-99601-60016, email hello@ambiverttech.com,
+  Excellaa Plazzo A107, Ambegaon Budruk, Pune 411046, India.
+
+## Pages
+
+- [Store - index.html](https://ckthub.com/): products, pricing, the
+  bill-to-box story, calculator, roadmap and contact.
+- [Fab - fab.html](https://ckthub.com/fab.html): PCB, 3D print, laser and CNC
+  services with an instant quote tool.
+- [Own it - own-it.html](https://ckthub.com/own-it.html): why buying beats
+  renting software.
+- [Contact - contact.html](https://ckthub.com/contact.html): contact form and
+  details.
+- [Privacy - privacy.html](https://ckthub.com/privacy.html)
+- [Terms - terms.html](https://ckthub.com/terms.html)
+
+## Quote engine (for agent use)
+
+The fab page computes estimates client-side with a transparent rule set:
+PCB = overseas reference price (USD min per layer count, $1 = ~84 INR) +
+shipping (2000-3000 INR) + 3x markup; 3D print = setup 50 INR + per-gram
+material rate x estimated weight; laser = setup 40 INR + 0.8 INR/cm2 mark or
+2.5 INR/cm2 cut + 10 INR/piece; CNC = setup 300 INR + per-cm3 material rate
++ 50 INR/piece. Materials or modes without a rate display "contact us" and
+are quoted manually on WhatsApp.
+
+## Ownership
+
+CktHub is a product of Ambivert Technologies Private Limited, Pune,
+Maharashtra, India. Content is copyright Ambivert Technologies Pvt Ltd.
