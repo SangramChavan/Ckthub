@@ -255,17 +255,17 @@ p.sub{color:var(--text-2);max-width:62ch;font-size:1.06rem;margin-top:14px}
 .job-pills button:hover{border-color:var(--line-2)}
 .job-pills button.on{background:var(--accent-soft);border-color:var(--accent);color:var(--text)}
 .job-pills button.on small{color:var(--accent)}
-.calc .slider-row{margin-bottom:28px}
-.calc input[type=range]{width:100%;accent-color:var(--accent);height:26px}
-.qty-display{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
-.qty-display b{font-family:var(--fm);font-size:1.15rem;color:var(--accent)}
-.ticks{display:flex;justify-content:space-between;font-family:var(--fm);font-size:.64rem;color:var(--text-3);padding:0 2px}
-.out{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
-.out .cell{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--bg-3)}
-.out .cell .k2{font-size:.74rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em}
-.out .cell .v2{font-family:var(--fm);font-weight:600;font-size:clamp(1.15rem,2.4vw,1.6rem);margin-top:6px;color:var(--text)}
-.out .cell.hl{border-color:var(--accent);background:var(--accent-soft)}
-.out .cell.hl .v2{color:var(--accent)}
+.save{display:flex;flex-direction:column;gap:16px}
+.save-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.88rem;color:var(--text-2)}
+.save-row b{font-family:var(--fm);font-weight:600;color:var(--text)}
+.save-row .sep{color:var(--text-3)}
+.save-row b.zero{color:var(--accent)}
+.save-hero{border:1px solid var(--accent);background:var(--accent-soft);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:5px}
+.save-hero .sv-k{font-size:.74rem;color:var(--text-2);text-transform:uppercase;letter-spacing:.08em}
+.save-hero .sv-num{font-family:var(--fm);font-weight:700;font-size:clamp(1.9rem,4vw,2.6rem);color:var(--accent);line-height:1.12}
+.save-hero .sv-sub{font-size:.82rem;color:var(--text-2)}
+.save-hero .sv-sub s{color:var(--text-3)}
+.save-hero .sv-sub b{font-family:var(--fm);color:var(--text);font-weight:600}
 .calc .act{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .calc .act .note{font-size:.72rem;color:var(--text-3);font-family:var(--fm)}
 
@@ -413,7 +413,6 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   .brand .tag{display:none}
   .section-pad{padding:70px 0}
   .road-grid{grid-template-columns:1fr}
-  .out{grid-template-columns:1fr}
   .job-pills{grid-template-columns:1fr}
   .bill-off .bill-visual{flex-direction:column;text-align:center}
   .bill-off .copy .ticks{align-items:flex-start;text-align:left}
@@ -643,14 +642,14 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
     <p class="cmp-note">We are not against software, we build with it every day. This table just shows where a monthly bill stops making sense for a job a box can do.</p>
   </div>
 
-  <!-- the calculator: the math for 1 shop or 1,000 -->
+  <!-- the calculator: the math for one shop -->
   <div class="calc-sec">
     <div class="calc-grid">
       <div class="calc-copy">
         <div class="side-note rv">Do the math yourself</div>
-        <h2 class="rv">One shop. A hundred shops. A thousand shops.</h2>
-        <p class="rv">Pick the job you pay for today, then drag the quantity. Every box you own kills that monthly line, in every location, for every year the device runs.</p>
-        <div class="honest rv">Box price below is an estimate for one unit. The exact quote comes on WhatsApp, and it is one-time. No renewal, no per-seat fee, no cloud tier.</div>
+        <h2 class="rv">What one device saves you.</h2>
+        <p class="rv">Pick the job you pay for today. One device replaces that monthly line, and the device is yours to keep. The number below is what stays in your pocket over 5 years.</p>
+        <div class="honest rv">Device price below is an estimate. The exact quote comes on WhatsApp, and it is one-time. No renewal, no per-seat fee, no cloud tier.</div>
       </div>
       <div class="calc rv">
         <label class="k" for="jobPills">The job you pay a subscription for</label>
@@ -662,21 +661,21 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
           <button type="button" data-job="review"><span>Review collection kiosk</span><small>countertop, syncs on your schedule</small></button>
           <button type="button" data-job="custom"><span>Your own job</span><small>tell us what you pay today</small></button>
         </div>
-        <div class="slider-row">
-          <div class="qty-display"><label for="qtyRange" style="font-size:.9rem;color:var(--text-2)">Quantity of boxes</label><b id="qtyVal">1</b></div>
-          <input type="range" id="qtyRange" min="1" max="1000" value="1" step="1" list="qtyTicks">
-          <div class="ticks"><span>1</span><span>10</span><span>25</span><span>100</span><span>250</span><span>500</span><span>1000</span></div>
-          <datalist id="qtyTicks"><option value="1"></option><option value="10"></option><option value="25"></option><option value="100"></option><option value="250"></option><option value="500"></option><option value="1000"></option></datalist>
-        </div>
-        <div class="out">
-          <div class="cell"><div class="k2">Today</div><div class="v2" id="calcToday">₹1,200 /mo</div></div>
-          <div class="cell"><div class="k2">After the box</div><div class="v2">₹0 /mo</div></div>
-          <div class="cell hl"><div class="k2">Kept over 5 years</div><div class="v2" id="calcSaved">₹54,000</div></div>
-          <div class="cell"><div class="k2">One-time cost</div><div class="v2" id="calcCost">₹4,999</div></div>
+        <div class="save">
+          <div class="save-row">
+            <span>Today</span><b id="calcToday">₹1,200 /mo</b>
+            <span class="sep">→</span>
+            <span>After the device</span><b id="calcAfter" class="zero">₹0 /mo</b>
+          </div>
+          <div class="save-hero">
+            <span class="sv-k">Kept in your pocket, 5 years</span>
+            <span class="sv-num" id="calcSaved">₹67,001</span>
+            <span class="sv-sub">vs <s id="calcLose">₹72,000</s> in subscriptions, after <b id="calcCost">₹4,999</b> one-time</span>
+          </div>
         </div>
         <div class="act">
-          <a class="btn" id="calcCta" href="https://wa.me/919960160016" target="_blank" rel="noopener">I want this box</a>
-          <span class="note" id="calcNote">₹1,200 × 12 × 5 years, minus one-time box cost</span>
+          <a class="btn" id="calcCta" href="https://wa.me/919960160016" target="_blank" rel="noopener">I want this device</a>
+          <span class="note" id="calcNote">₹1,200 × 12 × 5 years, minus one-time device cost</span>
         </div>
       </div>
     </div>
@@ -1134,22 +1133,19 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   var base = 4999;
   var job = 'attendance';
   var pills = document.getElementById('jobPills');
-  var qtyRange = document.getElementById('qtyRange');
-  var qtyVal = document.getElementById('qtyVal');
   var inr = function (n) { return '₹' + n.toLocaleString('en-IN'); };
   function calc() {
     var j = JOBS[job] || JOBS.attendance;
-    var q = parseInt(qtyRange.value, 10);
-    var per = j.today;
-    var monthly = per * q;
+    var monthly = j.today;
     var five = monthly * 12 * 5;
-    var boxCost = Math.round(base * q * (q >= 25 ? 0.6 : q >= 10 ? 0.8 : 1));
+    var boxCost = base;
     var kept = five - boxCost;
     document.getElementById('calcToday').textContent = inr(monthly) + ' /mo';
-    document.getElementById('calcSaved').textContent = inr(Math.max(0, kept));
+    document.getElementById('calcSaved').textContent = inr(kept);
+    document.getElementById('calcLose').textContent = inr(five);
     document.getElementById('calcCost').textContent = inr(boxCost);
-    document.getElementById('calcNote').textContent = per + ' × 12 × 5 years, minus one-time box cost' + (q > 1 ? ' for ' + q + ' boxes' : '');
-    document.getElementById('calcCta').href = 'https://wa.me/919960160016?text=' + encodeURIComponent('Hi CktHub! I want a ' + j.label + ' box. I need ' + q + (q === 1 ? ' unit' : ' units') + '. Please share a quote.');
+    document.getElementById('calcNote').textContent = '₹' + monthly.toLocaleString('en-IN') + ' × 12 × 5 years, minus the one-time device cost';
+    document.getElementById('calcCta').href = 'https://wa.me/919960160016?text=' + encodeURIComponent('Hi CktHub! I want the ' + j.label + ' device. Please share a quote.');
   }
   pills.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-job]');
@@ -1157,10 +1153,6 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
     job = b.getAttribute('data-job');
     pills.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); });
     b.classList.add('on');
-    calc();
-  });
-  qtyRange.addEventListener('input', function () {
-    qtyVal.textContent = qtyRange.value;
     calc();
   });
   calc();
