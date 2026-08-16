@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cart — Ckthub, Pune</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   @import url('https://cdnjs.cloudflare.com/ajax/libs/JetBrains-Mono/2.304/css/jetbrains-mono.min.css');
 
@@ -265,6 +266,38 @@
   .fab-row{ display:flex; align-items:center; gap:10px; }
   .fab-row:hover .fab-label{ opacity:1; transform:translateX(0); }
 
+  /* ---------- payment panel ---------- */
+  .pay-divider{ height:1px; background:var(--border); margin:16px 0 14px; }
+  .pay-head{
+    display:flex; align-items:center; justify-content:space-between;
+    font-size:11px; color:var(--dim); letter-spacing:.04em; margin-bottom:12px;
+  }
+  .pay-head b{ color:var(--text); font-size:12px; }
+  .pay-head .amt{ color:var(--accent); font-weight:700; font-size:13px; }
+  .pay-qr-box{ display:flex; justify-content:center; margin-bottom:12px; }
+  .pay-qr-box #qrBox{
+    background:#fff; border-radius:8px; padding:8px; width:172px; height:172px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .pay-qr-box #qrBox canvas, .pay-qr-box #qrBox img{ width:156px !important; height:156px !important; }
+  .pay-upi{ font-size:12px; color:var(--muted); text-align:center; margin-bottom:10px; }
+  .pay-upi b{ color:var(--text); }
+  .pay-instr{ font-size:11px; color:var(--dim); line-height:1.6; margin-bottom:14px; }
+  .pay-instr b{ color:var(--ok); font-weight:600; }
+  .bank-box{
+    background:var(--bg); border:1px solid var(--border); border-radius:6px;
+    padding:12px 14px; margin-bottom:12px; font-size:12px; display:flex; flex-direction:column; gap:6px;
+  }
+  .bank-box .k{ color:var(--dim); font-size:10.5px; letter-spacing:.03em; }
+  .bank-box .v{ color:var(--text); font-weight:600; word-break:break-all; }
+  .bank-box .copy{
+    background:none; border:1px solid var(--border); color:var(--muted);
+    font-family:var(--mono); font-size:10.5px; padding:3px 8px; border-radius:3px;
+    cursor:pointer; margin-left:8px;
+  }
+  .bank-box .copy:hover{ border-color:var(--accent); color:var(--accent); }
+  .bank-note{ font-size:10.5px; color:var(--warn); margin-bottom:12px; line-height:1.5; }
+
   footer{ padding:40px 0 28px; border-top:1px solid var(--border); }
   .footer-bottom{
     display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
@@ -313,7 +346,6 @@
           <a href="index.html" class="site-tab active">Store</a>
           <a href="ckthub-fab.html" class="site-tab">Fab</a>
         </div>
-        <a href="ckthub-cart.html" class="icon-btn">cart <span class="cart-count" id="cartCount">0</span></a>
         <a class="btn-primary" href="index.html#products">Buy now</a>
       </div>
     </div>
@@ -324,7 +356,7 @@
     <div class="wrap">
       <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~/cart</span>$ ls -la</div>
       <h2 class="section-title">Your cart, ready to ship.</h2>
-      <p class="section-sub">Adjust quantities, add delivery details and get the total with GST and shipping — then confirm the whole order on WhatsApp.</p>
+      <p class="section-sub">Adjust quantities, add delivery details and pay by UPI QR — or bank transfer above ₹1,00,000 — then confirm the whole order on WhatsApp.</p>
 
       <div class="cart-grid">
         <div class="cart-col-main">
@@ -396,9 +428,35 @@
               <div class="qr-line"><span class="k">Shipping</span><span class="v dim" id="sumShipping">enter PIN</span></div>
               <div class="qr-total"><span class="k">Total</span><span class="v" id="sumTotal">₹0</span></div>
               <p class="qr-note" id="shipNote">Enter a 6-digit PIN to route delivery: <b>PIN starting with 4</b> = Maharashtra (₹40/kg), everywhere else ₹80/kg.</p>
+
+              <div class="pay-divider"></div>
+              <div class="pay-head"><b>payment.method</b><span class="amt" id="payAmt">—</span></div>
+
+              <!-- UPI QR (orders up to ₹1,00,000) -->
+              <div id="payUpi" style="display:none;">
+                <div class="pay-qr-box"><div id="qrBox"><span style="font-size:11px;color:#888;">QR</span></div></div>
+                <div class="pay-upi">UPI ID: <b>9960160016@superyes</b></div>
+                <div class="pay-instr">Scan with any UPI app (GPay / PhonePe / Paytm). The exact amount is pre-filled — just approve the payment. Transaction note: <b id="payTn"></b></div>
+              </div>
+
+              <!-- Bank transfer (orders above ₹1,00,000) -->
+              <div id="payBank" style="display:none;">
+                <div class="bank-box">
+                  <div><span class="k">Account name</span><div class="v">AMBIVERT TECHNOLOGIES PVT LTD</div></div>
+                  <div><span class="k">Account number</span><div class="v">187705003857 <button class="copy" onclick="copyText('187705003857')">copy</button></div></div>
+                  <div><span class="k">IFSC</span><div class="v">ICIC0001877 <button class="copy" onclick="copyText('ICIC0001877')">copy</button></div></div>
+                </div>
+                <div class="bank-note">Amount exceeds ₹1,00,000 — please pay by bank transfer to the account above and share the UTR number to confirm.</div>
+                <div class="field" style="margin-bottom:14px;">
+                  <label>UTR number <span style="color:var(--warn);">(required for this order)</span></label>
+                  <input id="utr" type="text" maxlength="30" placeholder="e.g. ICIC1234567890" style="text-transform:uppercase;">
+                  <span class="ferr">Please enter the UTR number from your bank transfer.</span>
+                </div>
+              </div>
+
               <button class="btn-wa" id="placeOrderBtn" onclick="placeOrder()" disabled>
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;fill:#fff;"><path d="M12 2C6.48 2 2 6.36 2 11.74c0 2.04.62 3.93 1.68 5.5L2.5 21.5l4.42-1.13c1.5.86 3.24 1.36 5.08 1.36 5.52 0 10-4.36 10-9.74S17.52 2 12 2z"/></svg>
-                Place order on WhatsApp
+                Confirm order on WhatsApp
               </button>
               <a class="btn-ghost full" href="index.html#products">← Back to store</a>
             </div>
@@ -441,6 +499,14 @@
     otherRatePerKg: 80,                   // ₹ per kg — everywhere else
     minBilledKg: 1                        // couriers bill a minimum of 1 kg
   };
+  var UPI_ID = '9960160016@superyes';     // UPI ID used for the QR payments
+  var UPI_PAYEE = 'Ambivert Technologies';
+  var BANK = {                            // used when the order total exceeds BANK_MIN
+    name: 'AMBIVERT TECHNOLOGIES PVT LTD',
+    account: '187705003857',
+    ifsc: 'ICIC0001877'
+  };
+  var BANK_MIN = 100000;                  // orders above ₹1,00,000 pay by bank transfer + UTR
   /* ============================================================ */
 
   var refCode = 'CKT-' + Date.now().toString(36).toUpperCase().slice(-6);
@@ -492,7 +558,8 @@
   function render(){
     var count = cart.reduce(function(s, i){ return s + i.qty; }, 0);
     document.getElementById('itemCount').textContent = count + ' item' + (count === 1 ? '' : 's');
-    document.getElementById('cartCount').textContent = count;
+    var cc = document.getElementById('cartCount');
+    if(cc) cc.textContent = count;
 
     var empty = cart.length === 0;
     document.getElementById('cartEmpty').style.display = empty ? 'block' : 'none';
@@ -547,6 +614,75 @@
     }
 
     document.getElementById('sumTotal').textContent = '₹' + totalINR().toLocaleString('en-IN');
+
+    updatePayment();
+  }
+
+  // ---------- payment ----------
+  var qrCode = null;
+
+  function bankMode(){
+    return totalINR() > BANK_MIN;
+  }
+
+  function upiUrl(){
+    return 'upi://pay?pa=' + UPI_ID +
+      '&pn=' + encodeURIComponent(UPI_PAYEE) +
+      '&am=' + totalINR() +
+      '&cu=INR' +
+      '&tn=' + encodeURIComponent(refCode);
+  }
+
+  function updatePayment(){
+    var amt = totalINR();
+    var payAmt = document.getElementById('payAmt');
+    var upiEl = document.getElementById('payUpi');
+    var bankEl = document.getElementById('payBank');
+
+    if(cart.length === 0){
+      upiEl.style.display = 'none';
+      bankEl.style.display = 'none';
+      payAmt.textContent = '—';
+      return;
+    }
+
+    payAmt.textContent = '₹' + amt.toLocaleString('en-IN');
+
+    if(bankMode()){
+      upiEl.style.display = 'none';
+      bankEl.style.display = 'block';
+      return;
+    }
+
+    upiEl.style.display = 'block';
+    bankEl.style.display = 'none';
+    document.getElementById('payTn').textContent = refCode;
+
+    var box = document.getElementById('qrBox');
+    if(!qrCode && typeof QRCode !== 'undefined'){
+      box.innerHTML = '';
+      qrCode = new QRCode(box, {
+        text: upiUrl(),
+        width: 156,
+        height: 156,
+        colorDark: '#0a1628',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    } else if(qrCode){
+      qrCode.clear();
+      qrCode.makeCode(upiUrl());
+    } else {
+      box.innerHTML = '<span style="font-size:11px;color:#888;">QR unavailable</span>';
+    }
+  }
+
+  function copyText(t){
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(t).then(function(){
+        showToast('Copied: ' + t, false);
+      }, function(){});
+    }
   }
 
   // ---------- cart mutations ----------
@@ -574,7 +710,11 @@
 
   // ---------- validation ----------
   function setErr(id, on){
-    document.getElementById(id).classList.toggle('has-err', on);
+    var el = document.getElementById(id);
+    if(!el) return;
+    var field = el.closest('.field');
+    if(field) field.classList.toggle('has-err', on);
+    else el.classList.toggle('has-err', on);
   }
 
   function validate(){
@@ -585,6 +725,7 @@
     var p = pin();
     var addr = document.getElementById('shipAddress').value.trim();
     var gst = document.getElementById('shipGst').value.trim().toUpperCase();
+    var utr = document.getElementById('utr').value.trim();
 
     setErr('shipName', !name);         if(!name) ok = false;
     setErr('shipMobile', !/^\d{10}$/.test(mobile));  if(!/^\d{10}$/.test(mobile)) ok = false;
@@ -596,12 +737,19 @@
     var gstOk = gst === '' || /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9A-Z]Z[0-9A-Z]$/.test(gst);
     setErr('shipGst', !gstOk);         if(!gstOk) ok = false;
 
+    // UTR required when the order goes via bank transfer (total above ₹1,00,000)
+    var needUtr = cart.length > 0 && bankMode();
+    var utrOk = !needUtr || /^[A-Za-z0-9]{8,30}$/.test(utr);
+    setErr('utr', !utrOk);             if(!utrOk) ok = false;
+
     return ok;
   }
 
   function clearErrOnInput(id){
     document.getElementById(id).addEventListener('input', function(){
-      document.getElementById(id).classList.remove('has-err');
+      var field = this.closest('.field');
+      if(field) field.classList.remove('has-err');
+      else this.classList.remove('has-err');
     });
   }
 
@@ -618,11 +766,23 @@
     var email = document.getElementById('shipEmail').value.trim();
     var addr = document.getElementById('shipAddress').value.trim();
     var gst = document.getElementById('shipGst').value.trim().toUpperCase();
+    var utr = document.getElementById('utr').value.trim().toUpperCase();
     var ship = shippingINR();
 
     var lines = cart.map(function(i, idx){
       return (idx + 1) + '. ' + i.name + ' x' + i.qty + ' = ₹' + (i.price * i.qty).toLocaleString('en-IN');
     });
+
+    var payLine;
+    if(bankMode()){
+      payLine = 'Paid by bank transfer\n' +
+        'Account: ' + BANK.name + '\n' +
+        'A/C No: ' + BANK.account + ' · IFSC: ' + BANK.ifsc + '\n' +
+        'UTR: ' + utr;
+    } else {
+      payLine = 'Paying via UPI QR — ' + UPI_ID + '\n' +
+        'Payment note (tn): ' + refCode;
+    }
 
     var msg = 'Hi Ckthub! Ref: ' + refCode + ' — new order.\n\n' +
       'ITEMS\n' + lines.join('\n') + '\n\n' +
@@ -630,10 +790,11 @@
       'GST (18%): ₹' + gstINR().toLocaleString('en-IN') + '\n' +
       'Shipping (₹' + shippingRate() + '/kg × ' + billedKg() + ' kg, ' + (isMaharashtra() ? 'Maharashtra' : 'other state') + '): ₹' + ship.toLocaleString('en-IN') + '\n' +
       'TOTAL: ₹' + totalINR().toLocaleString('en-IN') + '\n\n' +
+      'PAYMENT\n' + payLine + '\n\n' +
       'SHIP TO\n' + name + '\n' + addr + '\nPIN: ' + pin() + '\n' +
       'Mobile: ' + mobile + '\nEmail: ' + email +
       (gst ? '\nGSTIN: ' + gst : '') +
-      '\n\nPlease confirm availability and share the payment link.';
+      '\n\nPlease confirm the order and payment.';
 
     window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -653,6 +814,10 @@
   document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('shipPin').addEventListener('input', render);
     document.getElementById('shipGst').addEventListener('input', function(){
+      this.value = this.value.toUpperCase();
+      this.classList.remove('has-err');
+    });
+    document.getElementById('utr').addEventListener('input', function(){
       this.value = this.value.toUpperCase();
       this.classList.remove('has-err');
     });
