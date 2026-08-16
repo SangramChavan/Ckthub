@@ -387,6 +387,8 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
 .drawer-total{display:flex;justify-content:space-between;align-items:baseline;font-size:1.05rem}
 .drawer-total b{font-family:var(--fm);font-size:1.3rem}
 .drawer-note{font-size:.78rem;color:var(--text-3)}
+.drawer-full{font-size:.8rem;color:var(--text-2);text-align:center;text-decoration:underline;padding:2px 0;transition:color .2s}
+.drawer-full:hover{color:var(--accent)}
 .toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,80px);background:var(--bg-3);border:1px solid var(--line-2);color:var(--text);padding:13px 22px;border-radius:12px;font-size:.92rem;z-index:99;opacity:0;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:var(--shadow);pointer-events:none;text-align:center;max-width:calc(100vw - 40px)}
 .toast.show{transform:translate(-50%,0);opacity:1}
 .no-scroll{overflow:hidden}
@@ -954,6 +956,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
       <a href="#products">Products</a>
       <a href="#why">Why it matters</a>
       <a href="#shop">Shop</a>
+      <a href="cart.html">Your cart</a>
       <a href="#contact">Contact</a>
     </div>
     <div class="f-col">
@@ -988,6 +991,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
     <div class="drawer-total"><span>Total</span><b id="cartTotal">₹0</b></div>
     <p class="drawer-note">You will finish the order on WhatsApp. No payment collected here.</p>
     <button class="btn" id="checkoutBtn" onclick="checkout()">Checkout on WhatsApp</button>
+    <a class="drawer-full" href="cart.html">Full checkout page: delivery + UPI QR</a>
   </div>
 </aside>
 

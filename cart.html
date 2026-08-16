@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart &amp; checkout - CktHub</title>
+<meta name="description" content="Review your CktHub cart, add delivery details and pay by UPI QR - or bank transfer above Rs 1,00,000 - then confirm the whole order on WhatsApp.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ckthub.com/cart.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cart &amp; checkout - CktHub">
+<meta property="og:description" content="Your cart, ready to ship. Pay by UPI QR or bank transfer, confirm on WhatsApp.">
+<meta property="og:url" content="https://ckthub.com/cart.html">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/space-grotesk-latin.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/space-grotesk-latin.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/jetbrains-mono-latin.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/jetbrains-mono-latin.woff2) format('woff2')}
+
+/* ============ tokens ============ */
+:root{
+  --bg:#0A0D0B; --bg-2:#10140F; --bg-3:#161B14;
+  --line:rgba(233,237,220,.10); --line-2:rgba(233,237,220,.18);
+  --text:#EAEDE2; --text-2:#A7AE9F; --text-3:#8A9280;
+  --accent:#E3A83C; --accent-ink:#191204; --accent-soft:rgba(227,168,60,.13);
+  --ok:#63C48F; --bad:#E06C4F;
+  --r:14px;
+  --fd:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --fm:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --shadow:0 24px 70px rgba(0,0,0,.5);
+  --maxw:1180px;
+  --nav-h:64px;
+}
+[data-theme="light"]{
+  --bg:#F4F4EE; --bg-2:#ECEDE4; --bg-3:#E2E4D8;
+  --line:rgba(29,33,26,.14); --line-2:rgba(29,33,26,.26);
+  --text:#1D211A; --text-2:#555D4C; --text-3:#6B7360;
+  --accent:#A86F10; --accent-ink:#FFFDF4; --accent-soft:rgba(168,111,16,.12);
+  --ok:#2E7D4F; --bad:#B23A1E;
+  --shadow:0 24px 60px rgba(40,50,30,.16);
+}
+
+/* ============ base ============ */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--fd);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+::selection{background:var(--accent);color:var(--accent-ink)}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;line-height:1.14;letter-spacing:-.01em;font-weight:700}
+p{margin:0}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip-link{position:absolute;left:-999px;top:8px;z-index:200;background:var(--accent);color:var(--accent-ink);padding:8px 14px;border-radius:8px;font-weight:700;text-decoration:none}
+.skip-link:focus{left:8px}
+
+/* section rhythm */
+.section-pad{padding:96px 0}
+h2.title{font-size:clamp(1.85rem,3.6vw,2.9rem);max-width:22ch}
+p.sub{color:var(--text-2);max-width:62ch;font-size:1.06rem;margin-top:14px}
+.side-note{font-family:var(--fm);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px}
+
+/* reveal on scroll (gated by .js) */
+.js .rv{opacity:0;transform:translateY(20px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)}
+.js .rv.in{opacity:1;transform:none}
+
+/* ============ buttons ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:var(--accent-ink);border:1px solid var(--accent);border-radius:10px;padding:12px 22px;font-weight:700;font-size:1rem;text-decoration:none;transition:transform .18s cubic-bezier(.16,1,.3,1),box-shadow .18s,filter .18s;white-space:nowrap}
+.btn:hover{filter:brightness(1.07);box-shadow:0 8px 28px var(--accent-soft)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--text);border-color:var(--line-2)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.tlink{display:inline-flex;align-items:center;gap:6px;color:var(--text);font-weight:700;text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;transition:color .2s,border-color .2s}
+.tlink:hover{color:var(--accent);border-color:var(--accent)}
+.tlink .arr{transition:transform .2s}
+.tlink:hover .arr{transform:translateX(3px)}
+
+/* ============ nav ============ */
+.nav{position:fixed;inset:0 0 auto 0;z-index:90;height:var(--nav-h);background:color-mix(in srgb,var(--bg) 84%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+@media (prefers-reduced-transparency:reduce){.nav{background:var(--bg)}}
+.nav-in{max-width:var(--maxw);margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;gap:28px}
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none;font-weight:700;font-size:1.3rem;letter-spacing:-.02em}
+.brand .tag{font-family:var(--fm);font-size:.7rem;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase}
+.navlinks{display:flex;gap:22px;list-style:none;margin:0;padding:0;margin-left:8px}
+.navlinks a{color:var(--text-2);text-decoration:none;font-size:.95rem;font-weight:500;transition:color .2s}
+.navlinks a:hover{color:var(--accent)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.seg{display:flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden}
+.seg a{font-family:var(--fm);font-size:.72rem;text-decoration:none;padding:6px 14px;color:var(--text-2);letter-spacing:.04em;text-transform:uppercase}
+.seg a.active{background:var(--accent);color:var(--accent-ink)}
+.seg a:not(.active):hover{color:var(--text)}
+.icon-btn{background:transparent;border:1px solid var(--line-2);border-radius:999px;width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;color:var(--text);font-size:1rem;transition:border-color .2s,color .2s}
+.icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+.cart-chip{display:inline-flex;align-items:center;gap:8px;background:var(--bg-2);border:1px solid var(--line-2);color:var(--text);border-radius:999px;padding:7px 14px;font-size:.85rem;font-weight:600;transition:border-color .2s}
+.cart-chip:hover{border-color:var(--accent)}
+.cart-chip .cnt{background:var(--accent);color:var(--accent-ink);border-radius:999px;font-family:var(--fm);font-size:.7rem;min-width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px}
+.burger{display:none;background:none;border:none;color:var(--text);font-size:1.3rem;width:38px;height:38px}
+.mobile-menu{position:fixed;top:var(--nav-h);left:0;right:0;z-index:89;background:var(--bg);border-bottom:1px solid var(--line);display:none;flex-direction:column;padding:12px 24px 18px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{padding:10px 0;color:var(--text);text-decoration:none;font-weight:600;border-bottom:1px solid var(--line)}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu .seg{width:fit-content;margin-top:12px}
+
+/* ============ hero ============ */
+.hero{padding:calc(var(--nav-h) + 44px) 0 76px;overflow:hidden}
+.hero-grid{max-width:var(--maxw);margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(2.55rem,6.2vw,4.7rem);line-height:1.02;letter-spacing:-.025em}
+.hero h1 .l1,.hero h1 .l2{display:block;overflow:hidden;padding-bottom:.08em}
+.hero h1 .l2{color:var(--accent)}
+.js .hero h1 .l1>span,.js .hero h1 .l2>span{display:inline-block;transform:translateY(115%);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.js .hero.in h1 .l1>span{transition-delay:.08s}
+.js .hero.in h1 .l2>span{transition-delay:.24s}
+.js .hero.in h1 .l1>span,.js .hero.in h1 .l2>span{transform:none}
+.lead{color:var(--text-2);font-size:1.1rem;max-width:46ch;margin-top:22px}
+.hero-ctas{display:flex;align-items:center;gap:22px;margin-top:30px;flex-wrap:wrap}
+.hero-stat{display:flex;gap:30px;margin-top:46px;flex-wrap:wrap}
+.hero-stat .cell{display:flex;flex-direction:column;gap:2px}
+.hero-stat .v{font-family:var(--fm);font-weight:600;font-size:1.2rem;color:var(--text)}
+.hero-stat .k{font-size:.72rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.1em}
+
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center}
+.halo{position:absolute;width:min(560px,80vw);height:min(560px,80vw);border-radius:50%;background:radial-gradient(circle,var(--accent-soft) 0%,transparent 62%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:0}
+.pedestal{position:relative;z-index:1;width:min(300px,64vw);transform-style:preserve-3d;transition:transform .12s ease-out}
+.pedestal img{width:100%;height:auto;filter:drop-shadow(0 30px 50px rgba(0,0,0,.55));animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.trace{position:absolute;left:-72px;top:50%;transform:translateY(-50%);width:150px;height:220px;pointer-events:none;z-index:0;opacity:.8}
+.trace .path{stroke:var(--accent);stroke-width:1.4;fill:none;stroke-dasharray:600;stroke-dashoffset:600;animation:draw 5s ease-in-out infinite alternate;opacity:.55}
+.trace .dot{fill:var(--accent);opacity:0}
+.trace .dot.a{animation:dotA 5s ease-in-out infinite}
+.trace .dot.b{animation:dotB 5s ease-in-out infinite}
+@keyframes draw{to{stroke-dashoffset:0}}
+.trace .dot.a,.trace .dot.b{offset-path:path('M6 6 C 120 40, 10 120, 130 150')}
+@keyframes dotA{0%,16%{opacity:0;offset-distance:0%}55%,80%{opacity:.95}100%{opacity:0;offset-distance:100%}}
+@keyframes dotB{0%,16%{opacity:0;offset-distance:0%}72%,90%{opacity:.9}100%{opacity:0;offset-distance:100%}}
+.badge-live{position:absolute;top:4%;right:-12%;z-index:2;display:flex;align-items:center;gap:7px;background:var(--bg-3);border:1px solid var(--line-2);border-radius:999px;padding:7px 13px;font-family:var(--fm);font-size:.68rem;color:var(--text-2);letter-spacing:.08em;box-shadow:var(--shadow)}
+.badge-live .led{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(99,196,143,.5)}50%{opacity:.55;box-shadow:0 0 0 5px rgba(99,196,143,0)}}
+
+/* ============ trust strip ============ */
+.trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2)}
+.trust-in{max-width:var(--maxw);margin:0 auto;padding:18px 24px;display:flex;flex-wrap:wrap;gap:10px 34px;justify-content:center}
+.trust-in span{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;color:var(--text-2)}
+.trust-in .tick{color:var(--accent);font-weight:700}
+
+/* ============ jobs marquee (the one marquee on the page) ============ */
+.jobs{overflow:hidden;border-bottom:1px solid var(--line);padding:20px 0;position:relative}
+.jobs-track{display:flex;gap:14px;width:max-content;animation:jobsX 38s linear infinite}
+.jobs:hover .jobs-track{animation-play-state:paused}
+@keyframes jobsX{to{transform:translateX(-50%)}}
+.jobs .chip{font-family:var(--fm);font-size:.78rem;color:var(--text-2);border:1px solid var(--line-2);border-radius:999px;padding:7px 16px;white-space:nowrap;letter-spacing:.04em}
+.jobs .chip b{color:var(--accent);font-weight:600}
+
+/* ============ thesis ============ */
+.thesis{max-width:var(--maxw);margin:0 auto;padding:110px 24px 30px}
+.thesis h2{font-size:clamp(2.1rem,4.6vw,3.6rem);line-height:1.05;letter-spacing:-.02em;max-width:20ch}
+.thesis h2 .dim{color:var(--text-3)}
+.thesis h2 .up{color:var(--accent)}
+.thesis p{margin-top:20px;color:var(--text-2);max-width:56ch;font-size:1.08rem}
+.stance{margin-top:34px;border:1px solid var(--line-2);border-left:3px solid var(--accent);background:var(--bg-2);border-radius:var(--r);padding:22px 26px;max-width:640px;font-size:1.05rem}
+.stance b{color:var(--accent)}
+
+/* ============ bill stage (scroll scrub: the bill becomes the box) ============ */
+.billstage-wrap{position:relative;margin-top:60px}
+.billstage{height:auto;position:relative}
+.billstage-pin{position:static;height:auto;display:flex;flex-direction:column;gap:26px;align-items:center;justify-content:center;overflow:hidden;padding:30px 0}
+.bill-line{display:none;position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform-origin:left;transform:scaleX(0);z-index:5;opacity:.9}
+.bill-layer{width:min(920px,94vw)}
+.bill-card{position:relative;background:var(--bg-2);border:1px solid var(--line-2);border-radius:18px;padding:clamp(28px,5vw,54px) clamp(24px,5vw,60px);box-shadow:var(--shadow)}
+.bill-card .rk{font-family:var(--fm);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+.bill-card .amt{font-family:var(--fm);font-weight:600;font-size:clamp(2.4rem,6vw,4.2rem);letter-spacing:-.02em;margin-top:10px;line-height:1}
+.bill-card .amt small{font-size:.4em;color:var(--text-3);letter-spacing:0}
+.bill-card ul{list-style:none;margin:26px 0 0;padding:0;border-top:1px dashed var(--line-2)}
+.bill-card li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px dashed var(--line);font-size:.95rem}
+.bill-card li span:first-child{color:var(--text-2)}
+.bill-card li b{font-family:var(--fm);font-weight:600}
+.bill-card .foot{margin-top:20px;font-size:.85rem;color:var(--text-3)}
+.bill-card .stamp{position:absolute;top:22px;right:22px;transform:rotate(9deg);border:3px solid var(--bad);color:var(--bad);font-family:var(--fm);font-weight:600;font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;border-radius:8px;opacity:.9}
+.bill-card .stamp.ok{border-color:var(--ok);color:var(--ok);transform:rotate(-7deg)}
+.bill-off .bill-visual{display:flex;align-items:center;gap:clamp(20px,4vw,44px)}
+.bill-off .imgwrap{flex:0 0 min(220px,32vw);position:relative}
+.bill-off .imgwrap img{width:100%;height:auto;filter:drop-shadow(0 24px 40px rgba(0,0,0,.5))}
+.bill-off .imgwrap::before{content:"";position:absolute;inset:-28%;background:radial-gradient(circle,var(--accent-soft),transparent 65%);z-index:-1}
+.bill-off .copy h3{font-size:clamp(1.6rem,3.4vw,2.5rem)}
+.bill-off .copy p{margin-top:12px;color:var(--text-2);max-width:46ch}
+.bill-off .copy .ticks{margin-top:20px;display:flex;flex-direction:column;gap:8px;font-size:.95rem}
+.bill-off .copy .ticks span{display:flex;align-items:center;gap:9px}
+.bill-off .copy .ticks .tick{color:var(--accent);font-weight:700}
+
+/* scrub wiring, only when scroll timelines are supported */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .billstage{height:320vh;--scrub-a:30%;--scrub-b:96%;--scrub-b1:42%;--scrub-b2:66%;--scrub-b3:88%}
+    .billstage-pin{position:sticky;top:0;height:100dvh}
+    .bill-line{display:block;animation:lineGrow linear both;animation-timeline:scroll(root);animation-range:var(--scrub-a) var(--scrub-b)}
+    .bill-on,.bill-off{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+    .bill-on{animation:billOut linear both;animation-timeline:scroll(root);animation-range:var(--scrub-b1) var(--scrub-b2)}
+    .bill-off{opacity:0;animation:billIn linear both;animation-timeline:scroll(root);animation-range:var(--scrub-b2) var(--scrub-b3)}
+    .bill-on .amt{counter-reset:n var(--n);animation:nDown linear both;animation-timeline:scroll(root);animation-range:var(--scrub-a) var(--scrub-b2)}
+    .bill-on .amt>span{visibility:hidden}
+    .bill-on .amt::after{content:"₹ " counter(n) " / month"}
+    @property --n{syntax:'<integer>';inherits:false;initial-value:1200}
+    @keyframes lineGrow{to{transform:scaleX(1)}}
+    @keyframes billOut{to{opacity:0;transform:translateY(-30px) scale(.985)}}
+    @keyframes billIn{from{opacity:0;transform:translateY(34px) scale(.97)}to{opacity:1;transform:none}}
+    @keyframes nDown{from{--n:1200}to{--n:0}}
+  }
+}
+
+/* ============ steps ============ */
+.steps{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px}
+.steps .side{position:sticky;top:calc(var(--nav-h) + 40px);align-self:start}
+.steps .side h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
+.steps .side p{margin-top:14px;color:var(--text-2);max-width:42ch}
+.steps-list{display:flex;flex-direction:column}
+.step-row{display:grid;grid-template-columns:56px 1fr;gap:20px;padding:26px 0;border-top:1px solid var(--line)}
+.step-row:last-child{border-bottom:1px solid var(--line)}
+.step-row .no{font-family:var(--fm);font-size:.85rem;color:var(--accent);padding-top:6px}
+.step-row h3{font-size:1.3rem}
+.step-row p{margin-top:8px;color:var(--text-2);max-width:52ch}
+
+/* ============ comparison ============ */
+.cmp-sec{max-width:var(--maxw);margin:0 auto;padding:120px 24px 0}
+.cmp{overflow:hidden;border:1px solid var(--line-2);border-radius:18px;background:var(--bg-2);margin-top:28px}
+.cmp-head{display:grid;grid-template-columns:1.1fr .95fr .95fr;border-bottom:1px solid var(--line-2)}
+.cmp-head>div{padding:20px 24px;font-weight:700;font-size:1.05rem}
+.cmp-head .side-a{color:var(--text-3)}
+.cmp-head .side-b{background:var(--accent-soft);color:var(--accent)}
+.cmp-row{display:grid;grid-template-columns:1.1fr .95fr .95fr;border-bottom:1px solid var(--line)}
+.cmp-row:last-child{border-bottom:none}
+.cmp-row>div{padding:18px 24px;font-size:.96rem;display:flex;align-items:center;gap:10px}
+.cmp-row .k{color:var(--text-2);font-weight:600}
+.cmp-row .a{color:var(--text-3)}
+.cmp-row .b{background:var(--accent-soft);color:var(--text)}
+.cmp-row .b b{color:var(--accent)}
+.cmp-note{margin-top:16px;font-size:.88rem;color:var(--text-3);max-width:72ch}
+
+/* ============ calculator ============ */
+.calc-sec{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
+.calc-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:64px;align-items:start}
+.calc-copy h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
+.calc-copy p{margin-top:14px;color:var(--text-2);max-width:48ch}
+.calc-copy .honest{margin-top:20px;font-size:.86rem;color:var(--text-3);max-width:44ch;border-left:2px solid var(--line-2);padding-left:14px}
+.calc{background:var(--bg-2);border:1px solid var(--line-2);border-radius:18px;padding:clamp(22px,3.4vw,36px);box-shadow:var(--shadow)}
+.calc label.k{display:block;font-family:var(--fm);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px}
+.job-pills{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:28px}
+.job-pills button{text-align:left;background:var(--bg-3);border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--text-2);font-size:.88rem;line-height:1.35;transition:border-color .2s,color .2s,background .2s}
+.job-pills button small{display:block;font-family:var(--fm);font-size:.7rem;color:var(--text-3);margin-top:2px}
+.job-pills button:hover{border-color:var(--line-2)}
+.job-pills button.on{background:var(--accent-soft);border-color:var(--accent);color:var(--text)}
+.job-pills button.on small{color:var(--accent)}
+.save{display:flex;flex-direction:column;gap:16px}
+.save-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.88rem;color:var(--text-2)}
+.save-row b{font-family:var(--fm);font-weight:600;color:var(--text)}
+.save-row .sep{color:var(--text-3)}
+.save-row b.zero{color:var(--accent)}
+.save-hero{border:1px solid var(--accent);background:var(--accent-soft);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:5px}
+.save-hero .sv-k{font-size:.74rem;color:var(--text-2);text-transform:uppercase;letter-spacing:.08em}
+.save-hero .sv-num{font-family:var(--fm);font-weight:700;font-size:clamp(1.9rem,4vw,2.6rem);color:var(--accent);line-height:1.12}
+.save-hero .sv-sub{font-size:.82rem;color:var(--text-2)}
+.save-hero .sv-sub s{color:var(--text-3)}
+.save-hero .sv-sub b{font-family:var(--fm);color:var(--text);font-weight:600}
+.calc .act{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.calc .act .note{font-size:.72rem;color:var(--text-3);font-family:var(--fm)}
+
+/* ============ roadmap ============ */
+.road{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 30px}
+.tabs button{background:transparent;border:1px solid var(--line-2);border-radius:999px;padding:8px 16px;font-size:.86rem;color:var(--text-2);transition:all .2s;font-weight:500}
+.tabs button:hover{color:var(--text);border-color:var(--accent)}
+.tabs button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+.road-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.r-card{display:flex;flex-direction:column;gap:10px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:22px;transition:transform .22s cubic-bezier(.16,1,.3,1),border-color .22s,box-shadow .22s}
+.r-card:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:0 14px 40px rgba(0,0,0,.25)}
+.r-card .cat{font-family:var(--fm);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
+.r-card h3{font-size:1.08rem;line-height:1.3}
+.r-card p{font-size:.9rem;color:var(--text-2);flex:1}
+.r-card .rep{font-size:.78rem;color:var(--text-3);font-family:var(--fm)}
+.r-card .rep b{color:var(--text-2);font-weight:400}
+.r-card .want{display:inline-flex;align-items:center;gap:6px;background:none;border:none;padding:0;color:var(--accent);font-weight:700;font-size:.92rem;margin-top:6px;min-height:38px;transition:gap .2s}
+.r-card .want:hover{gap:10px}
+.road .band{margin-top:48px;border:1px solid var(--line-2);border-radius:18px;padding:30px 34px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:var(--bg-2)}
+.road .band p{color:var(--text-2)}
+
+/* ============ shop ============ */
+.shop-sec{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
+.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.s-card{display:grid;grid-template-columns:minmax(88px,116px) 1fr;gap:20px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:22px;transition:border-color .22s,transform .22s}
+.s-card:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.s-card .media{position:relative;background:radial-gradient(120% 90% at 50% 0%,var(--accent-soft) 0%,transparent 60%),var(--bg-3);border-radius:calc(var(--r) - 6px);display:flex;align-items:center;justify-content:center;overflow:hidden;aspect-ratio:3/4}
+.s-card .media img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 16px rgba(0,0,0,.35))}
+.s-card .body{display:flex;flex-direction:column;gap:10px;justify-content:center;min-width:0}
+.s-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.s-card .body h3{font-size:1.02rem;line-height:1.25}
+.s-card .desc{color:var(--text-2);font-size:.9rem;line-height:1.55}
+.specs{display:flex;flex-wrap:wrap;gap:6px}
+.specs span{font-family:var(--fm);font-size:.68rem;letter-spacing:.04em;color:var(--text-2);border:1px solid var(--line);border-radius:999px;padding:3px 9px;background:var(--bg-3)}
+.price{font-family:var(--fm);font-size:1.35rem;font-weight:700;color:var(--accent);letter-spacing:-.01em;white-space:nowrap;text-align:right}
+.price small{display:block;font-family:var(--fd);font-size:.72rem;font-weight:500;color:var(--text-3)}
+.s-actions{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:2px}
+.vol{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;flex:1;min-width:0}
+.vol label{font-family:var(--fm);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.vol input[type=range]{width:100%;accent-color:var(--accent)}
+.vol-total{font-family:var(--fm);font-weight:700;color:var(--accent);min-width:56px;text-align:right;font-size:1rem}
+.s-card .btn.add{margin:0;flex-shrink:0}
+
+/* ============ build band ============ */
+.build-band{max-width:var(--maxw);margin:60px auto 0;padding:clamp(34px,5vw,56px);display:flex;align-items:center;justify-content:space-between;gap:34px;flex-wrap:wrap;border:1px solid var(--line-2);border-radius:22px;background:linear-gradient(150deg,var(--bg-3),var(--bg-2) 60%);position:relative;overflow:hidden}
+.build-band::before{content:"";position:absolute;right:-110px;top:-110px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,var(--accent-soft),transparent 65%);pointer-events:none}
+.build-band .rk{font-family:var(--fm);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+.build-band h3{font-size:clamp(1.35rem,2.4vw,1.9rem);max-width:24ch;margin-top:10px}
+.build-band p{color:var(--text-2);max-width:58ch;margin-top:10px}
+.build-band .btn{position:relative;z-index:1}
+
+/* ============ ownit band ============ */
+.ownit{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px;text-align:center}
+.scream{font-size:clamp(2rem,5.4vw,4.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;max-width:20ch;margin:0 auto}
+.scream .dim{color:var(--text-3)}
+.scream .up{color:var(--accent)}
+.ownit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:56px;text-align:left}
+.ownit-grid .cell{border:1px solid var(--line);border-radius:var(--r);background:var(--bg-2);padding:22px}
+.ownit-grid .v{display:block;font-family:var(--fm);font-size:1.7rem;font-weight:700;color:var(--accent)}
+.ownit-grid .k{display:block;margin-top:6px;font-size:.9rem;color:var(--text-2)}
+
+/* ============ why grid ============ */
+#why-us{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.w-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:26px;transition:border-color .2s,transform .2s}
+.w-card:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.w-card h3{font-size:1.05rem}
+.w-card p{margin-top:10px;color:var(--text-2);font-size:.93rem;line-height:1.6}
+
+/* ============ contact ============ */
+.contact-sec{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.c-card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.c-card h3{font-size:1.05rem}
+.c-icon{font-size:1.4rem;line-height:1}
+.c-card a{color:var(--accent);text-decoration:none;font-weight:600;word-break:break-word}
+.c-card a:hover{text-decoration:underline}
+
+/* ============ footer ============ */
+footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
+.foot-in{max-width:var(--maxw);margin:0 auto;padding:64px 24px 30px;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px}
+.f-brand p{margin-top:14px;color:var(--text-3);font-size:.9rem;max-width:36ch}
+.f-col h4{font-size:.78rem;font-family:var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px}
+.f-col a{display:block;color:var(--text-2);text-decoration:none;font-size:.92rem;padding:5px 0;transition:color .2s}
+.f-col a:hover{color:var(--accent)}
+.f-base{max-width:var(--maxw);margin:0 auto;padding:22px 24px 34px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:1px solid var(--line);color:var(--text-3);font-size:.82rem}
+
+/* ============ FABs / cart / toast ============ */
+.fab{position:fixed;right:20px;bottom:20px;z-index:80;width:54px;height:54px;border-radius:50%;border:1px solid var(--line-2);background:var(--bg-3);box-shadow:var(--shadow);display:inline-flex;align-items:center;justify-content:center;font-size:1.3rem;transition:transform .18s,filter .2s}
+.fab:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.fab.wa{right:20px;bottom:86px;border-color:rgba(37,211,102,.35);background:#25D366;color:#04210F}
+.fab.wa:hover{filter:saturate(1.15) brightness(1.04)}
+.fab .cnt{position:absolute;top:-4px;right:-4px;background:var(--accent);color:var(--accent-ink);font-family:var(--fm);font-size:.66rem;font-weight:700;min-width:18px;height:18px;border-radius:999px;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid var(--bg)}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:95}
+.drawer-overlay[hidden]{display:none}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--bg-2);border-left:1px solid var(--line-2);z-index:96;transform:translateX(105%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;box-shadow:-18px 0 40px rgba(0,0,0,.25)}
+.drawer.open{transform:none}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--line)}
+.drawer-head h3{font-size:1.15rem}
+.drawer .x{background:none;border:none;color:var(--text-2);font-size:1.3rem;width:34px;height:34px;border-radius:8px}
+.drawer .x:hover{color:var(--text)}
+.drawer-body{flex:1;overflow-y:auto;padding:10px 24px}
+.empty{padding:46px 10px;text-align:center;color:var(--text-3);font-size:.95rem}
+.empty a{color:var(--accent)}
+.items{display:flex;flex-direction:column}
+.i{display:grid;grid-template-columns:1fr auto auto auto;align-items:center;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+.i-n{display:flex;flex-direction:column;gap:3px}
+.i-n b{font-size:.95rem;line-height:1.25}
+.i-u{font-family:var(--fm);font-size:.72rem;color:var(--text-3)}
+.i-q{display:flex;align-items:center;gap:8px}
+.i-q .q{width:26px;height:26px;border-radius:7px;border:1px solid var(--line-2);background:var(--bg-3);color:var(--text);font-size:.95rem;line-height:1}
+.i-q .q:hover{border-color:var(--accent)}
+.i-q span{font-family:var(--fm);font-size:.9rem;min-width:20px;text-align:center}
+.i-t{font-family:var(--fm);font-weight:700;color:var(--text);min-width:64px;text-align:right}
+.i-x{background:none;border:none;color:var(--text-3);font-size:1rem;padding:4px}
+.i-x:hover{color:var(--bad)}
+.drawer-foot{border-top:1px solid var(--line);padding:18px 24px 24px;display:flex;flex-direction:column;gap:10px}
+.drawer-total{display:flex;justify-content:space-between;align-items:baseline;font-size:1.05rem}
+.drawer-total b{font-family:var(--fm);font-size:1.3rem}
+.drawer-note{font-size:.78rem;color:var(--text-3)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,80px);background:var(--bg-3);border:1px solid var(--line-2);color:var(--text);padding:13px 22px;border-radius:12px;font-size:.92rem;z-index:99;opacity:0;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:var(--shadow);pointer-events:none;text-align:center;max-width:calc(100vw - 40px)}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.no-scroll{overflow:hidden}
+/* ============ responsive ============ */
+@media (max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .hero-visual{order:-1}
+  .pedestal{width:min(240px,56vw)}
+  .road-grid{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr;gap:34px}
+  .steps .side{position:static}
+  .calc-grid{grid-template-columns:1fr;gap:44px}
+  .shop-grid{grid-template-columns:1fr}
+  .s-card{grid-template-columns:minmax(80px,100px) 1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr 1fr}
+  .ownit-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:760px){
+  .navlinks{display:none}
+  .burger{display:inline-flex}
+  .nav-right .seg{display:none}
+  .nav-in{gap:12px}
+  .brand .tag{display:none}
+  .section-pad{padding:70px 0}
+  .road-grid{grid-template-columns:1fr}
+  .job-pills{grid-template-columns:1fr}
+  .bill-off .bill-visual{flex-direction:column;text-align:center}
+  .bill-off .copy .ticks{align-items:flex-start;text-align:left}
+  .cmp-head>div{padding:14px 16px;font-size:.92rem}
+  .cmp-row>div{padding:13px 16px;font-size:.88rem}
+  .trace{display:none}
+  .badge-live{right:0}
+  .foot-in{grid-template-columns:1fr;gap:30px}
+  .thesis{padding-top:84px}
+  .bill-card .stamp{top:14px;right:14px;font-size:.72rem}
+  .why-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .scream{font-size:clamp(1.9rem,8vw,2.6rem)}
+  .fab{width:48px;height:48px;font-size:1.15rem;right:14px;bottom:14px}
+  .fab.wa{right:14px;bottom:74px}
+}
+@media (max-width:460px){
+  .vol{grid-template-columns:1fr auto;gap:8px 12px}
+  .vol label{grid-column:1/-1}
+  .s-actions{flex-direction:column;align-items:stretch}
+  .s-card .btn.add{width:100%}
+  .hero-stat{gap:18px}
+}
+
+/* ============ reduced motion ============ */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  .js .rv{opacity:1;transform:none}
+  .js .hero h1 .l1>span,.js .hero h1 .l2>span{transform:none}
+  .jobs-track{animation:none;width:100%;flex-wrap:wrap}
+  .pedestal img{animation:none}
+  .trace{display:none}
+}
+
+
+/* ============ cart page ============ */
+.cart-sec{max-width:var(--maxw);margin:0 auto;padding:calc(var(--nav-h) + 56px) 24px 40px}
+.cart-sec h1{font-size:clamp(1.85rem,3.6vw,2.9rem);max-width:22ch}
+.cart-sec .cart-sub{color:var(--text-2);max-width:62ch;font-size:1.06rem;margin-top:14px}
+.cart-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:28px;align-items:start;margin-top:36px}
+.panel{background:var(--bg-2);border:1px solid var(--line-2);border-radius:var(--r);padding:22px}
+.panel+.panel{margin-top:20px}
+.panel-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
+.panel-head b{font-size:1.05rem}
+.panel-head .count{font-family:var(--fm);font-size:.78rem;color:var(--text-3)}
+.panel-head .hint{font-family:var(--fm);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3)}
+.cart-item{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.cart-item:first-child{border-top:none;padding-top:4px}
+.cart-item-name{font-weight:600;font-size:.95rem}
+.cart-item-spec{font-family:var(--fm);font-size:.74rem;color:var(--text-3);margin-top:3px}
+.cart-item-controls{display:flex;align-items:center;gap:6px}
+.qty-btn{width:30px;height:30px;border:1px solid var(--line-2);background:var(--bg-3);color:var(--text);border-radius:8px;font-size:1rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:border-color .2s}
+.qty-btn:hover{border-color:var(--accent);color:var(--accent)}
+.qty-input{width:56px;height:30px;text-align:center;background:var(--bg-3);border:1px solid var(--line-2);border-radius:8px;color:var(--text);font-family:var(--fm);font-size:.9rem;-moz-appearance:textfield}
+.qty-input::-webkit-outer-spin-button,.qty-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.cart-item-price{text-align:right}
+.cart-item-price .line{font-family:var(--fm);font-weight:600;font-size:1.05rem}
+.cart-item-remove{background:none;border:none;color:var(--text-3);font-size:.76rem;text-decoration:underline;padding:2px 0}
+.cart-item-remove:hover{color:var(--bad)}
+.panel-actions{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+.panel-actions .note{font-family:var(--fm);font-size:.72rem;color:var(--text-3)}
+.clear{background:none;border:1px solid var(--line-2);color:var(--text-3);border-radius:8px;padding:6px 12px;font-size:.8rem;transition:border-color .2s,color .2s}
+.clear:hover{border-color:var(--bad);color:var(--bad)}
+.cart-empty-box{display:flex;flex-direction:column;align-items:center;gap:8px;padding:34px 10px;text-align:center;color:var(--text-2)}
+.cart-empty-box .ic{font-size:1.6rem;color:var(--text-3)}
+.cart-empty-box a.btn{margin-top:10px}
+.ship-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.span2{grid-column:span 2}
+.field label{font-family:var(--fm);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3)}
+.field input,.field textarea{background:var(--bg-3);border:1px solid var(--line-2);border-radius:10px;color:var(--text);font-family:inherit;font-size:.95rem;padding:10px 12px;transition:border-color .2s}
+.field input::placeholder,.field textarea::placeholder{color:var(--text-3)}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+.field .ferr{display:none;font-size:.76rem;color:var(--bad)}
+.field.has-err .ferr{display:block}
+.field.has-err input,.field.has-err textarea{border-color:var(--bad)}
+.readout{background:var(--bg-2);border:1px solid var(--line-2);border-radius:var(--r);padding:22px;position:sticky;top:calc(var(--nav-h) + 20px)}
+.readout-head{font-weight:700;font-size:1.05rem;margin-bottom:14px}
+.qr-line{display:flex;justify-content:space-between;gap:10px;padding:7px 0;font-size:.92rem;color:var(--text-2)}
+.qr-line .v{font-family:var(--fm);color:var(--text);font-weight:600}
+.qr-line .v.dim{color:var(--text-3);font-weight:400}
+.qr-line .v small{display:block;font-size:.68rem;color:var(--text-3);font-weight:400;text-align:right}
+.qr-total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);margin-top:10px;padding-top:14px;font-weight:700}
+.qr-total .v{font-family:var(--fm);font-size:1.5rem;color:var(--accent)}
+.qr-note{font-size:.78rem;color:var(--text-2);margin-top:10px;line-height:1.5}
+.pay-divider{border-top:1px solid var(--line);margin:18px 0 14px}
+.pay-head{display:flex;justify-content:space-between;align-items:baseline;font-size:.95rem;margin-bottom:12px}
+.pay-head .amt{font-family:var(--fm);font-weight:600;color:var(--accent)}
+.pay-qr-box{margin:0 auto 10px;width:fit-content}
+#qrBox{background:#fff;border-radius:10px;padding:8px;display:inline-block}
+.pay-upi{font-size:.85rem;color:var(--text-2)}
+.pay-upi b{font-family:var(--fm);color:var(--text)}
+.pay-instr{font-size:.76rem;color:var(--text-3);margin-top:6px}
+.bank-box{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.bank-box .k{font-family:var(--fm);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3)}
+.bank-box .v{font-family:var(--fm);color:var(--text);font-size:.92rem;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.copy{background:none;border:1px solid var(--line-2);color:var(--text-2);border-radius:6px;font-family:var(--fm);font-size:.68rem;padding:2px 8px}
+.copy:hover{border-color:var(--accent);color:var(--accent)}
+.bank-note{font-size:.8rem;color:var(--text-2);border-left:2px solid var(--line-2);padding-left:12px;margin-bottom:14px}
+.btn-wa{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:16px;background:var(--ok);color:var(--accent-ink);border:1px solid var(--ok);border-radius:10px;padding:13px 22px;font-weight:700;font-size:1rem;text-decoration:none;transition:transform .18s,filter .2s}
+.btn-wa:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.btn-wa:disabled{opacity:.45;pointer-events:none}
+.btn-text{display:block;text-align:center;margin-top:14px;font-size:.84rem;color:var(--text-2);text-decoration:underline}
+.btn-text:hover{color:var(--accent)}
+@media (max-width:1024px){
+  .cart-grid{grid-template-columns:1fr}
+  .readout{position:static}
+}
+@media (max-width:640px){
+  .ship-grid{grid-template-columns:1fr}
+  .field.span2{grid-column:span 1}
+  .cart-item{grid-template-columns:1fr auto;gap:10px}
+  .cart-item-price{grid-column:span 2;display:flex;justify-content:space-between;align-items:center}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html">CktHub<span class="tag">hardware you own</span></a>
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="index.html#idea">The idea</a>
+      <a href="index.html#products">Products</a>
+      <a href="index.html#why">Why it matters</a>
+      <a href="index.html#shop">Shop</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <div class="seg" role="tablist" aria-label="Switch between store and fab">
+        <a href="index.html">Store</a>
+        <a href="fab.html">Fab</a>
+      </div>
+      <button class="icon-btn" id="themeBtn" aria-label="Switch between dark and light theme" title="Switch theme">☾</button>
+      <a class="cart-chip" href="cart.html" aria-label="Your cart">Cart <span class="cnt" id="navCartCount">0</span></a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#idea">The idea</a>
+  <a href="index.html#products">Products</a>
+  <a href="index.html#why">Why it matters</a>
+  <a href="index.html#shop">Shop</a>
+  <a href="index.html#contact">Contact</a>
+  <div class="seg">
+    <a href="index.html">Store</a>
+    <a href="fab.html">Fab</a>
+  </div>
+</div>
+
+<main id="main">
+  <section class="cart-sec" aria-labelledby="cart-title">
+    <div class="side-note">Checkout</div>
+    <h1 id="cart-title">Your cart, ready to ship.</h1>
+    <p class="cart-sub">Adjust quantities, add delivery details and pay by UPI QR - or bank transfer above Rs 1,00,000 - then confirm the whole order on WhatsApp.</p>
+
+    <div class="cart-grid">
+      <div class="cart-col-main">
+
+        <!-- items -->
+        <div class="panel">
+          <div class="panel-head"><b>Your items</b><span class="count" id="itemCount">0 items</span></div>
+          <div id="cartItems"></div>
+          <div id="cartEmpty" class="cart-empty-box" style="display:none;">
+            <div class="ic">∅</div>
+            <b>Your cart is empty.</b>
+            <span>Add a board from the store first.</span>
+            <a class="btn" href="index.html#shop">Back to the store</a>
+          </div>
+          <div class="panel-actions" id="panelActions">
+            <span class="note">Estimated weight shown as approx 10 g per unit, billed per kg.</span>
+            <button class="clear" onclick="clearCart()">Clear cart</button>
+          </div>
+        </div>
+
+        <!-- delivery details -->
+        <div class="panel" id="shipPanel">
+          <div class="panel-head"><b>Delivery details</b><span class="hint">ship to</span></div>
+          <div class="ship-grid">
+            <div class="field span2">
+              <label>Full name</label>
+              <input id="shipName" type="text" autocomplete="name" placeholder="As it should appear on the package">
+              <span class="ferr">Please enter your name.</span>
+            </div>
+            <div class="field">
+              <label>Mobile</label>
+              <input id="shipMobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number">
+              <span class="ferr">Enter a valid 10-digit mobile number.</span>
+            </div>
+            <div class="field">
+              <label>Email</label>
+              <input id="shipEmail" type="email" placeholder="you@example.com">
+              <span class="ferr">Enter a valid email address.</span>
+            </div>
+            <div class="field">
+              <label>PIN code</label>
+              <input id="shipPin" type="text" inputmode="numeric" maxlength="6" placeholder="6-digit PIN">
+              <span class="ferr">Enter a valid 6-digit PIN code.</span>
+            </div>
+            <div class="field">
+              <label>GSTIN <span style="color:var(--text-2);font-weight:400;">(optional - business invoices)</span></label>
+              <input id="shipGst" type="text" maxlength="15" placeholder="27ABCDE1234F1Z5" style="text-transform:uppercase;">
+              <span class="ferr">That doesn't look like a valid GSTIN (15 characters).</span>
+            </div>
+            <div class="field span2">
+              <label>Address</label>
+              <textarea id="shipAddress" rows="2" placeholder="House / street / area / city / state"></textarea>
+              <span class="ferr">Please enter your delivery address.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- order summary + payment -->
+      <div class="cart-col-side">
+        <div class="readout">
+          <div class="readout-head">Order summary</div>
+          <div class="qr-line"><span class="k">Items</span><span class="v" id="sumItems">0</span></div>
+          <div class="qr-line"><span class="k">Weight</span><span class="v" id="sumWeight">0 g</span></div>
+          <div class="qr-line"><span class="k">Subtotal</span><span class="v" id="sumSubtotal">₹0</span></div>
+          <div class="qr-line"><span class="k">GST (18%)</span><span class="v" id="sumGst">₹0</span></div>
+          <div class="qr-line"><span class="k">Shipping</span><span class="v dim" id="sumShipping">enter PIN</span></div>
+          <div class="qr-total"><span class="k">Total</span><span class="v" id="sumTotal">₹0</span></div>
+          <p class="qr-note" id="shipNote">Enter a 6-digit PIN to route delivery: <b>PIN starting with 4</b> = Maharashtra (₹40/kg), everywhere else ₹80/kg.</p>
+
+          <div class="pay-divider"></div>
+          <div class="pay-head"><b>Payment method</b><span class="amt" id="payAmt">-</span></div>
+
+          <!-- UPI QR (orders up to ₹1,00,000) -->
+          <div id="payUpi" style="display:none;">
+            <div class="pay-qr-box"><div id="qrBox"><span style="font-size:11px;color:#888;">QR</span></div></div>
+            <div class="pay-upi">UPI ID: <b>9960160016@superyes</b></div>
+            <div class="pay-instr">Scan with any UPI app (GPay / PhonePe / Paytm). The exact amount is pre-filled - just approve the payment. Transaction note: <b id="payTn"></b></div>
+          </div>
+
+          <!-- bank transfer (orders above ₹1,00,000) -->
+          <div id="payBank" style="display:none;">
+            <div class="bank-box">
+              <div><span class="k">Account name</span><div class="v">AMBIVERT TECHNOLOGIES PVT LTD</div></div>
+              <div><span class="k">Account number</span><div class="v">187705003857 <button class="copy" onclick="copyText('187705003857')">copy</button></div></div>
+              <div><span class="k">IFSC</span><div class="v">ICIC0001877 <button class="copy" onclick="copyText('ICIC0001877')">copy</button></div></div>
+            </div>
+            <div class="bank-note">Amount exceeds Rs 1,00,000 - please pay by bank transfer to the account above and share the UTR number to confirm.</div>
+            <div class="field" style="margin-bottom:14px;">
+              <label>UTR number <span style="color:var(--bad);font-weight:400;">(required for this order)</span></label>
+              <input id="utr" type="text" maxlength="30" placeholder="e.g. ICIC1234567890" style="text-transform:uppercase;">
+              <span class="ferr">Please enter the UTR number from your bank transfer.</span>
+            </div>
+          </div>
+
+          <button class="btn-wa" id="placeOrderBtn" onclick="placeOrder()" disabled>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;fill:currentColor;"><path d="M12 2C6.48 2 2 6.36 2 11.74c0 2.04.62 3.93 1.68 5.5L2.5 21.5l4.42-1.13c1.5.86 3.24 1.36 5.08 1.36 5.52 0 10-4.36 10-9.74S17.52 2 12 2z"/></svg>
+            Confirm order on WhatsApp
+          </button>
+          <a class="btn-text" href="index.html#shop">← Back to store</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot-in">
+    <div class="f-brand">
+      <a class="brand" href="index.html">CktHub<span class="tag">hardware you own</span></a>
+      <p>Standalone hardware that replaces subscription tools. Built in Pune by Ambivert Technologies Pvt Ltd.</p>
+    </div>
+    <div class="f-col">
+      <h4>Site</h4>
+      <a href="index.html#idea">The idea</a>
+      <a href="index.html#products">Products</a>
+      <a href="index.html#why">Why it matters</a>
+      <a href="index.html#shop">Shop</a>
+      <a href="cart.html">Your cart</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div class="f-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@ambiverttech.com">hello@ambiverttech.com</a>
+      <a href="tel:+919960160016">+91 99601 60016</a>
+      <a href="https://wa.me/919960160016" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+  <div class="f-base">
+    <span>© <span id="year">2026</span> Ambivert Technologies Pvt Ltd. All rights reserved.</span>
+    <span>CktHub is a brand of Ambivert Technologies Pvt Ltd</span>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  /* ============================================================
+     CHECKOUT CONFIG - edit the numbers here when rates change.
+     ============================================================ */
+  var WHATSAPP_NUMBER = '919960160016';
+  var CART_KEY = 'ckthub-cart';
+  var PRODS = {
+    wrover: { name: 'ESP32-WROVER-DevKit-Lipo', price: 799 },
+    s3: { name: 'ESP32-S3-DevKitC-1', price: 499 }
+  };
+  var GST_RATE = 0.18;                    /* GST applied on the subtotal */
+  var SHIPPING = {
+    gramsPerUnit: 10,                     /* assumed weight per unit (ESP32 devkit approx 10 g) */
+    mhRatePerKg: 40,                      /* Rs per kg - Maharashtra PINs (start with 4) */
+    otherRatePerKg: 80,                   /* Rs per kg - everywhere else */
+    minBilledKg: 1                        /* couriers bill a minimum of 1 kg */
+  };
+  var UPI_ID = '9960160016@superyes';     /* UPI ID used for the QR payments */
+  var UPI_PAYEE = 'Ambivert Technologies';
+  var BANK = {                            /* used when the order total exceeds BANK_MIN */
+    name: 'AMBIVERT TECHNOLOGIES PVT LTD',
+    account: '187705003857',
+    ifsc: 'ICIC0001877'
+  };
+  var BANK_MIN = 100000;                  /* orders above Rs 1,00,000 pay by bank transfer + UTR */
+
+  /* ---------- theme ---------- */
+  var themeBtn = document.getElementById('themeBtn');
+  var themeKey = 'ckthub-theme';
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    themeBtn.textContent = t === 'dark' ? '☾' : '☀';
+  }
+  var savedTheme = null;
+  try { savedTheme = localStorage.getItem(themeKey); } catch (e) {}
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  applyTheme(savedTheme || (mq.matches ? 'dark' : 'light'));
+  themeBtn.addEventListener('click', function () {
+    var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem(themeKey, next); } catch (e) {}
+  });
+
+  /* ---------- mobile menu ---------- */
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function () {
+    var open = mobileMenu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    burger.textContent = open ? '✕' : '☰';
+  });
+
+  /* ---------- cart: read the shop's storage format ---------- */
+  var refCode = 'CKT-' + Date.now().toString(36).toUpperCase().slice(-6);
+  var cart = loadCart();
+
+  function loadCart() {
+    try {
+      var raw = localStorage.getItem(CART_KEY);
+      if (!raw) return [];
+      var data = JSON.parse(raw);
+      if (Array.isArray(data)) return data;               /* legacy array format from the old site */
+      var items = [];
+      Object.keys(data).forEach(function (k) {
+        if (PRODS[k] && data[k] > 0) items.push({ id: k, name: PRODS[k].name, price: PRODS[k].price, qty: data[k] });
+      });
+      return items;
+    } catch (e) { return []; }
+  }
+
+  function saveCart() {
+    var obj = {};
+    cart.forEach(function (i) { obj[i.id || i.name] = i.qty; });
+    try { localStorage.setItem(CART_KEY, JSON.stringify(obj)); } catch (e) {}
+  }
+
+  /* ---------- numbers ---------- */
+  function subtotalINR() {
+    return cart.reduce(function (s, i) { return s + i.price * i.qty; }, 0);
+  }
+  function gramsTotal() {
+    return cart.reduce(function (s, i) { return s + i.qty * SHIPPING.gramsPerUnit; }, 0);
+  }
+  function billedKg() {
+    return Math.max(SHIPPING.minBilledKg, Math.ceil(gramsTotal() / 1000));
+  }
+  function pin() {
+    return document.getElementById('shipPin').value.trim();
+  }
+  function isMaharashtra() {
+    return /^\d{6}$/.test(pin()) && pin().charAt(0) === '4';
+  }
+  function shippingRate() {
+    return isMaharashtra() ? SHIPPING.mhRatePerKg : SHIPPING.otherRatePerKg;
+  }
+  function shippingINR() {
+    if (!/^\d{6}$/.test(pin())) return null;
+    return billedKg() * shippingRate();
+  }
+  function gstINR() {
+    return Math.round(subtotalINR() * GST_RATE);
+  }
+  function totalINR() {
+    var ship = shippingINR();
+    return subtotalINR() + gstINR() + (ship === null ? 0 : ship);
+  }
+
+  /* ---------- render ---------- */
+  function render() {
+    var count = cart.reduce(function (s, i) { return s + i.qty; }, 0);
+    document.getElementById('itemCount').textContent = count + ' item' + (count === 1 ? '' : 's');
+    var cc = document.getElementById('navCartCount');
+    if (cc) cc.textContent = count;
+
+    var empty = cart.length === 0;
+    document.getElementById('cartEmpty').style.display = empty ? 'block' : 'none';
+    document.getElementById('shipPanel').style.display = empty ? 'none' : 'block';
+    document.getElementById('panelActions').style.display = empty ? 'none' : 'flex';
+    document.getElementById('placeOrderBtn').disabled = empty;
+
+    var wrap = document.getElementById('cartItems');
+    if (empty) {
+      wrap.innerHTML = '';
+    } else {
+      wrap.innerHTML = cart.map(function (i) {
+        var safeName = i.name.replace(/'/g, "\\'");
+        return '' +
+          '<div class="cart-item">' +
+            '<div class="cart-item-info">' +
+              '<div class="cart-item-name">' + i.name + '</div>' +
+              '<div class="cart-item-spec">₹' + i.price.toLocaleString('en-IN') + ' each · approx ' + SHIPPING.gramsPerUnit + ' g</div>' +
+            '</div>' +
+            '<div class="cart-item-controls">' +
+              '<button class="qty-btn" onclick="changeQty(\'' + safeName + '\',-1)" aria-label="Decrease quantity">−</button>' +
+              '<input class="qty-input" type="number" min="1" max="9999" inputmode="numeric" value="' + i.qty + '" onchange="setQty(\'' + safeName + '\', this.value)" aria-label="Quantity for ' + i.name + '">' +
+              '<button class="qty-btn" onclick="changeQty(\'' + safeName + '\',1)" aria-label="Increase quantity">+</button>' +
+            '</div>' +
+            '<div class="cart-item-price">' +
+              '<div class="line">₹' + (i.price * i.qty).toLocaleString('en-IN') + '</div>' +
+              '<div class="each"><button class="cart-item-remove" onclick="removeItem(\'' + safeName + '\')">remove</button></div>' +
+            '</div>' +
+          '</div>';
+      }).join('');
+    }
+
+    var g = gramsTotal();
+    document.getElementById('sumItems').textContent = count;
+    document.getElementById('sumWeight').textContent = g + ' g';
+    document.getElementById('sumSubtotal').textContent = '₹' + subtotalINR().toLocaleString('en-IN');
+    document.getElementById('sumGst').textContent = '₹' + gstINR().toLocaleString('en-IN');
+
+    var ship = shippingINR();
+    var shipEl = document.getElementById('sumShipping');
+    var noteEl = document.getElementById('shipNote');
+    if (!/^\d{6}$/.test(pin())) {
+      shipEl.className = 'v dim';
+      shipEl.innerHTML = 'enter PIN';
+      noteEl.innerHTML = 'Enter a 6-digit PIN to route delivery: <b>PIN starting with 4</b> = Maharashtra (₹40/kg), everywhere else ₹80/kg.';
+    } else {
+      var region = isMaharashtra() ? 'Maharashtra' : 'other state';
+      shipEl.className = 'v';
+      shipEl.innerHTML = '₹' + ship.toLocaleString('en-IN') + '<small>₹' + shippingRate() + '/kg × ' + billedKg() + ' kg (' + region + ')</small>';
+      noteEl.innerHTML = 'Weight approx ' + g + ' g, billed as <b>' + billedKg() + ' kg</b>. PIN starting with 4 = Maharashtra (₹40/kg), everywhere else ₹80/kg. Final freight confirmed on WhatsApp after we weigh the parcel.';
+    }
+
+    document.getElementById('sumTotal').textContent = '₹' + totalINR().toLocaleString('en-IN');
+    updatePayment();
+  }
+
+  /* ---------- payment ---------- */
+  var qrCode = null;
+
+  function bankMode() {
+    return totalINR() > BANK_MIN;
+  }
+
+  function upiUrl() {
+    return 'upi://pay?pa=' + UPI_ID +
+      '&pn=' + encodeURIComponent(UPI_PAYEE) +
+      '&am=' + totalINR() +
+      '&cu=INR' +
+      '&tn=' + encodeURIComponent(refCode);
+  }
+
+  function updatePayment() {
+    var amt = totalINR();
+    var payAmt = document.getElementById('payAmt');
+    var upiEl = document.getElementById('payUpi');
+    var bankEl = document.getElementById('payBank');
+
+    if (cart.length === 0) {
+      upiEl.style.display = 'none';
+      bankEl.style.display = 'none';
+      payAmt.textContent = '-';
+      return;
+    }
+
+    payAmt.textContent = '₹' + amt.toLocaleString('en-IN');
+
+    if (bankMode()) {
+      upiEl.style.display = 'none';
+      bankEl.style.display = 'block';
+      return;
+    }
+
+    upiEl.style.display = 'block';
+    bankEl.style.display = 'none';
+    document.getElementById('payTn').textContent = refCode;
+
+    var box = document.getElementById('qrBox');
+    if (!qrCode && typeof QRCode !== 'undefined') {
+      box.innerHTML = '';
+      qrCode = new QRCode(box, {
+        text: upiUrl(),
+        width: 156,
+        height: 156,
+        colorDark: '#0A0D0B',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    } else if (qrCode) {
+      qrCode.clear();
+      qrCode.makeCode(upiUrl());
+    } else {
+      box.innerHTML = '<span style="font-size:11px;color:#888;">QR unavailable</span>';
+    }
+  }
+
+  function copyText(t) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(t).then(function () {
+        showToast('Copied: ' + t, false);
+      }, function () {});
+    }
+  }
+
+  /* ---------- cart mutations ---------- */
+  function changeQty(name, delta) {
+    var item = cart.find(function (i) { return i.name === name; });
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) { cart = cart.filter(function (i) { return i.name !== name; }); }
+    saveCart();
+    render();
+  }
+
+  function setQty(name, val) {
+    var item = cart.find(function (i) { return i.name === name; });
+    if (!item) return;
+    var n = parseInt(val, 10);
+    if (isNaN(n)) { render(); return; }
+    if (n < 1) n = 1;
+    if (n > 9999) n = 9999;
+    if (n === item.qty) { render(); return; }
+    item.qty = n;
+    saveCart();
+    render();
+  }
+
+  function removeItem(name) {
+    cart = cart.filter(function (i) { return i.name !== name; });
+    saveCart();
+    render();
+  }
+
+  function clearCart() {
+    cart = [];
+    saveCart();
+    render();
+    showToast('Cart cleared', false);
+  }
+
+  /* ---------- validation ---------- */
+  function setErr(id, on) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var field = el.closest('.field');
+    if (field) field.classList.toggle('has-err', on);
+    else el.classList.toggle('has-err', on);
+  }
+
+  function validate() {
+    var ok = true;
+    var name = document.getElementById('shipName').value.trim();
+    var mobile = document.getElementById('shipMobile').value.trim();
+    var email = document.getElementById('shipEmail').value.trim();
+    var p = pin();
+    var addr = document.getElementById('shipAddress').value.trim();
+    var gst = document.getElementById('shipGst').value.trim().toUpperCase();
+    var utr = document.getElementById('utr').value.trim();
+
+    setErr('shipName', !name); if (!name) ok = false;
+    setErr('shipMobile', !/^\d{10}$/.test(mobile)); if (!/^\d{10}$/.test(mobile)) ok = false;
+    setErr('shipEmail', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)); if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) ok = false;
+    setErr('shipPin', !/^\d{6}$/.test(p)); if (!/^\d{6}$/.test(p)) ok = false;
+    setErr('shipAddress', !addr); if (!addr) ok = false;
+
+    var gstOk = gst === '' || /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9A-Z]Z[0-9A-Z]$/.test(gst);
+    setErr('shipGst', !gstOk); if (!gstOk) ok = false;
+
+    var needUtr = cart.length > 0 && bankMode();
+    var utrOk = !needUtr || /^[A-Za-z0-9]{8,30}$/.test(utr);
+    setErr('utr', !utrOk); if (!utrOk) ok = false;
+
+    return ok;
+  }
+
+  function clearErrOnInput(id) {
+    document.getElementById(id).addEventListener('input', function () {
+      var field = this.closest('.field');
+      if (field) field.classList.remove('has-err');
+      else this.classList.remove('has-err');
+    });
+  }
+
+  /* ---------- order ---------- */
+  function placeOrder() {
+    if (cart.length === 0) return;
+    if (!validate()) {
+      showToast('Please fix the highlighted fields', true);
+      return;
+    }
+
+    var name = document.getElementById('shipName').value.trim();
+    var mobile = document.getElementById('shipMobile').value.trim();
+    var email = document.getElementById('shipEmail').value.trim();
+    var addr = document.getElementById('shipAddress').value.trim();
+    var gst = document.getElementById('shipGst').value.trim().toUpperCase();
+    var utr = document.getElementById('utr').value.trim().toUpperCase();
+    var ship = shippingINR();
+
+    var lines = cart.map(function (i, idx) {
+      return (idx + 1) + '. ' + i.name + ' x' + i.qty + ' = ₹' + (i.price * i.qty).toLocaleString('en-IN');
+    });
+
+    var payLine;
+    if (bankMode()) {
+      payLine = 'Paid by bank transfer\n' +
+        'Account: ' + BANK.name + '\n' +
+        'A/C No: ' + BANK.account + ' · IFSC: ' + BANK.ifsc + '\n' +
+        'UTR: ' + utr;
+    } else {
+      payLine = 'Paying via UPI QR - ' + UPI_ID + '\n' +
+        'Payment note (tn): ' + refCode;
+    }
+
+    var msg = 'Hi CktHub! Ref: ' + refCode + ' - new order.\n\n' +
+      'ITEMS\n' + lines.join('\n') + '\n\n' +
+      'Subtotal: ₹' + subtotalINR().toLocaleString('en-IN') + '\n' +
+      'GST (18%): ₹' + gstINR().toLocaleString('en-IN') + '\n' +
+      'Shipping (₹' + shippingRate() + '/kg × ' + billedKg() + ' kg, ' + (isMaharashtra() ? 'Maharashtra' : 'other state') + '): ₹' + ship.toLocaleString('en-IN') + '\n' +
+      'TOTAL: ₹' + totalINR().toLocaleString('en-IN') + '\n\n' +
+      'PAYMENT\n' + payLine + '\n\n' +
+      'SHIP TO\n' + name + '\n' + addr + '\nPIN: ' + pin() + '\n' +
+      'Mobile: ' + mobile + '\nEmail: ' + email +
+      (gst ? '\nGSTIN: ' + gst : '') +
+      '\n\nPlease confirm the order and payment.';
+
+    window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+  }
+
+  /* ---------- toast ---------- */
+  var toastTimer;
+  function showToast(msg, isErr) {
+    var toast = document.getElementById('toast');
+    toast.className = isErr ? 'toast err' : 'toast';
+    toast.innerHTML = '<b>' + (isErr ? '✕' : '✓') + '</b> ' + msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }
+
+  /* ---------- wire up ---------- */
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('shipPin').addEventListener('input', render);
+    document.getElementById('shipGst').addEventListener('input', function () {
+      this.value = this.value.toUpperCase();
+      this.classList.remove('has-err');
+    });
+    document.getElementById('utr').addEventListener('input', function () {
+      this.value = this.value.toUpperCase();
+      this.classList.remove('has-err');
+    });
+    ['shipName', 'shipMobile', 'shipEmail', 'shipAddress'].forEach(clearErrOnInput);
+    var y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+    render();
+  });
+</script>
+
+</body>
+</html>
