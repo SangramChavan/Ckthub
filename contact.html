@@ -9,7 +9,9 @@
 <link rel="canonical" href="https://ckthub.com/contact.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Contact Us — CktHub, Pune">
+<meta property="og:description" content="Questions about an order, a board, a fab job, bulk pricing, or a subscription you'd rather own — reach us directly.">
 <meta property="og:url" content="https://ckthub.com/contact.html">
+<link rel="stylesheet" href="style.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -31,154 +33,31 @@
   "areaServed": "IN"
 }
 </script>
-<style>
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/JetBrains-Mono/2.304/css/jetbrains-mono.min.css');
-
-  :root{
-    --bg: #0a1628;
-    --bg-raised: #0f2038;
-    --card: #12253f;
-    --border: #21395a;
-    --border-bright: #33507a;
-    --text: #e9eef6;
-    --muted: #8fa3c0;
-    --dim: #5b7194;
-    --accent: #ff7a3d;
-    --ok: #7ee787;
-    --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-  }
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
-  body{ background:var(--bg); color:var(--text); font-family:var(--mono); font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased; }
-  a{ color:inherit; text-decoration:none; }
-  ::selection{ background:var(--accent); color:#0a1628; }
-  .wrap{ max-width:920px; margin:0 auto; padding:0 16px; }
-
-  .skip-link{ position:absolute; left:-999px; top:0; z-index:200; background:var(--accent); color:#0d1117; font-size:13px; font-weight:700; padding:10px 16px; }
-  .skip-link:focus{ left:0; }
-
-  .site-tabs{
-    display:flex; align-items:center; gap:2px;
-    background:var(--bg-raised); border:1px solid var(--border);
-    border-radius:20px; padding:3px;
-  }
-  .site-tab{
-    font-family:var(--mono); font-size:12px; padding:7px 14px; border-radius:16px;
-    color:var(--muted); transition:background .18s, color .18s;
-  }
-  .site-tab:hover{ color:var(--text); }
-  .site-tab.active{ background:var(--accent); color:#0a1628; font-weight:700; }
-  .icon-btn{
-    display:flex; align-items:center; gap:6px;
-    background:transparent; border:1px solid var(--border);
-    color:var(--muted); font-family:var(--mono); font-size:12px;
-    padding:7px 12px; border-radius:4px; cursor:pointer;
-    transition:border-color .15s, color .15s;
-  }
-  .icon-btn:hover{ border-color:var(--accent-dim, #c85f2e); color:var(--accent); }
-  .cart-count{
-    background:var(--accent); color:#0a1628; font-weight:700;
-    font-size:10px; border-radius:9px; min-width:16px; height:16px;
-    display:flex; align-items:center; justify-content:center; padding:0 4px;
-  }
-  .navright{ display:flex; align-items:center; gap:12px; }
-
-  .statusbar{ background:#060f1c; border-bottom:1px solid var(--border); font-size:11px; letter-spacing:.04em; color:var(--dim); padding:6px 0; overflow:hidden; white-space:nowrap; }
-  .statusbar .wrap{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
-  .statusbar .sys{ display:none; }
-  .statusbar .blink{ color:var(--ok); animation:blink 1.4s steps(1) infinite; }
-  @keyframes blink{ 50%{ opacity:.25; } }
-
-  header{ position:sticky; top:0; z-index:50; background:rgba(10,22,40,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
-  .nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; gap:12px; }
-  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; white-space:nowrap; }
-  .brand .prompt{ color:var(--accent); }
-  .brand small{ display:block; font-weight:400; color:var(--dim); font-size:10px; letter-spacing:.06em; }
-
-  .shell-label{ display:flex; align-items:center; gap:10px; color:var(--dim); font-size:12px; margin-bottom:14px; }
-  .shell-label .p1{ color:var(--ok); } .shell-label .p2{ color:var(--accent); }
-  .shell-label::after{ content:''; flex:1; height:1px; background:var(--border); }
-
-  section{ padding:48px 0 72px; border-bottom:1px solid var(--border); }
-  h1{ font-size:30px; line-height:1.15; font-weight:700; letter-spacing:-.02em; margin-bottom:14px; }
-  p.lead{ color:var(--muted); font-size:14px; max-width:640px; margin-bottom:26px; }
-
-  .contact-card{ background:var(--card); border:1px solid var(--border); border-radius:10px; padding:22px 20px; margin-bottom:20px; }
-  .contact-card h2{ font-size:14px; font-weight:700; margin-bottom:16px; color:var(--muted); }
-  .contact-row{ display:flex; gap:14px; padding:13px 0; border-top:1px solid var(--border); }
-  .contact-row:first-of-type{ border-top:none; }
-  .contact-row .icon{
-    flex-shrink:0; width:34px; height:34px; border-radius:6px;
-    border:1px solid var(--border-bright); color:var(--accent);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .contact-row .icon svg{ width:16px; height:16px; }
-  .contact-row .label{ font-size:10.5px; color:var(--dim); letter-spacing:.04em; text-transform:uppercase; margin-bottom:2px; }
-  .contact-row .value{ font-size:13px; color:var(--text); }
-  .contact-row .value a{ color:var(--accent); }
-  .contact-row .value a:hover{ text-decoration:underline; }
-
-  .map-wrap{ background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-  .map-wrap iframe{ width:100%; height:340px; border:0; display:block; }
-
-  .quick-links{ display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
-  .quick-link{
-    display:inline-flex; align-items:center; gap:8px;
-    border:1px solid var(--border-bright); border-radius:4px;
-    padding:10px 16px; font-size:12.5px; color:var(--text);
-    transition:border-color .15s, color .15s;
-  }
-  .quick-link:hover{ border-color:var(--accent); color:var(--accent); }
-  .quick-link .wa{ color:var(--ok); }
-
-  footer{ padding:36px 0 24px; }
-  .footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px; color:var(--dim); }
-  .footer-bottom a{ color:var(--dim); }
-  .footer-bottom a:hover{ color:var(--accent); }
-
-  @media (min-width:561px){
-    .wrap{ padding:0 24px; }
-    .statusbar .sys{ display:inline; }
-    section{ padding:64px 0 88px; }
-    h1{ font-size:38px; }
-    p.lead{ font-size:15px; }
-    .contact-card{ padding:26px 28px; }
-  }
-  @media (min-width:761px){
-    .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start; }
-    .contact-card{ margin-bottom:0; }
-  }
-</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="statusbar">
-    <div class="wrap">
-      <span>CKTHUB · HARDWARE YOU OWN <span class="blink">●</span> PUNE, IN</span>
-      <span class="sys">ckthub@store:~$ ./contact --info</span>
+<header class="site-head">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">CktHub<small>hardware you own</small></a>
+    <div class="navright">
+      <div class="seg" role="tablist" aria-label="Switch between store and fab">
+        <a href="index.html">Store</a>
+        <a href="fab.html">Fab</a>
+      </div>
+      <a class="cart-chip" href="ckthub-cart.html">Cart <span class="cart-count">0</span></a>
     </div>
   </div>
-
-  <header>
-    <div class="wrap nav">
-      <div class="brand"><span class="prompt">$</span> ckthub<small>hardware you own</small></div>
-      <div class="navright">
-        <div class="site-tabs" role="tablist" aria-label="Switch between store and fab">
-          <a href="index.html" class="site-tab">Store</a>
-          <a href="ckthub-fab.html" class="site-tab">Fab</a>
-        </div>
-        <a href="ckthub-cart.html" class="icon-btn" id="cartBtn">cart <span class="cart-count" id="cartCount">0</span></a>
-      </div>
-    </div>
-  </header>
+</header>
 
 <main id="main">
   <section aria-labelledby="page-title">
-    <div class="wrap">
-      <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~</span>$ contact --info</div>
-      <h1 id="page-title">Get in touch</h1>
-      <p class="lead">Questions about an order, a board, a fab job, bulk pricing, or a subscription you'd rather own — reach us directly. We answer on WhatsApp fastest.</p>
+    <div class="wrap-narrow">
+      <div class="section-head reveal">
+        <div class="eyebrow">Contact</div>
+        <h1 id="page-title">Get in touch</h1>
+        <p class="section-sub">Questions about an order, a board, a fab job, bulk pricing, or a subscription you'd rather own — reach us directly. We answer on WhatsApp fastest.</p>
+      </div>
 
       <div class="contact-grid">
         <div class="contact-card">
@@ -238,18 +117,48 @@
       <div class="quick-links" aria-label="Quick contact options">
         <a class="quick-link" href="https://wa.me/919960160016" target="_blank" rel="noopener"><span class="wa">●</span> WhatsApp us</a>
         <a class="quick-link" href="own-it.html">Tell us a subscription to replace →</a>
-        <a class="quick-link" href="ckthub-fab.html">Get a fab quote</a>
+        <a class="quick-link" href="fab.html">Get a fab quote</a>
       </div>
     </div>
   </section>
 </main>
 
-  <footer>
-    <div class="wrap footer-bottom">
-      <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
-      <span><a href="index.html">ckthub store</a> · <a href="ckthub-fab.html">ckthub fab</a> · <a href="own-it.html">own-it</a> · <a href="privacy.html">privacy</a> · <a href="terms.html">terms</a></span>
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">CktHub<small>hardware you own</small></a>
+        <p>A brand of Ambivert Technologies Private Limited. Standalone hardware that replaces recurring software subscriptions. Designed and assembled in-house in Pune, India.</p>
+      </div>
+      <div class="footer-col">
+        <h4>The idea</h4>
+        <a href="index.html#idea">Software → Hardware</a>
+        <a href="index.html#philosophy">Philosophy</a>
+        <a href="index.html#products">Product roadmap</a>
+        <a href="own-it.html">Tell us what to replace</a>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="index.html#boards">Boards</a>
+        <a href="index.html#adapters">Adapters</a>
+        <a href="index.html#accessories">Accessories</a>
+        <a href="index.html#volume">Volume pricing</a>
+        <a href="ckthub-cart.html">Cart &amp; checkout</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="fab.html">Build Your Own</a>
+        <a href="contact.html">Contact &amp; map</a>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="terms.html">Terms &amp; conditions</a>
+      </div>
     </div>
-  </footer>
+    <div class="footer-bottom">
+      <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
+      <span><a href="index.html">Store</a> · <a href="fab.html">Fab</a> · <a href="own-it.html">Own-it</a></span>
+    </div>
+  </div>
+</footer>
 
 <script>
   (function(){

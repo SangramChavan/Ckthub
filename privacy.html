@@ -10,153 +10,37 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Privacy Policy — CktHub">
 <meta property="og:url" content="https://ckthub.com/privacy.html">
-<style>
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/JetBrains-Mono/2.304/css/jetbrains-mono.min.css');
-
-  :root{
-    --bg: #0a1628;
-    --bg-raised: #0f2038;
-    --card: #12253f;
-    --border: #21395a;
-    --border-bright: #33507a;
-    --text: #e9eef6;
-    --muted: #8fa3c0;
-    --dim: #5b7194;
-    --accent: #ff7a3d;
-    --ok: #7ee787;
-    --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-  }
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
-  body{ background:var(--bg); color:var(--text); font-family:var(--mono); font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased; }
-  a{ color:inherit; text-decoration:none; }
-  ::selection{ background:var(--accent); color:#0a1628; }
-  .wrap{ max-width:1080px; margin:0 auto; padding:0 16px; }
-
-  .skip-link{ position:absolute; left:-999px; top:0; z-index:200; background:var(--accent); color:#0d1117; font-size:13px; font-weight:700; padding:10px 16px; }
-  .skip-link:focus{ left:0; }
-
-  .site-tabs{
-    display:flex; align-items:center; gap:2px;
-    background:var(--bg-raised); border:1px solid var(--border);
-    border-radius:20px; padding:3px;
-  }
-  .site-tab{
-    font-family:var(--mono); font-size:12px; padding:7px 14px; border-radius:16px;
-    color:var(--muted); transition:background .18s, color .18s;
-  }
-  .site-tab:hover{ color:var(--text); }
-  .site-tab.active{ background:var(--accent); color:#0a1628; font-weight:700; }
-  .icon-btn{
-    display:flex; align-items:center; gap:6px;
-    background:transparent; border:1px solid var(--border);
-    color:var(--muted); font-family:var(--mono); font-size:12px;
-    padding:7px 12px; border-radius:4px; cursor:pointer;
-    transition:border-color .15s, color .15s;
-  }
-  .icon-btn:hover{ border-color:var(--accent-dim, #c85f2e); color:var(--accent); }
-  .cart-count{
-    background:var(--accent); color:#0a1628; font-weight:700;
-    font-size:10px; border-radius:9px; min-width:16px; height:16px;
-    display:flex; align-items:center; justify-content:center; padding:0 4px;
-  }
-  .navright{ display:flex; align-items:center; gap:12px; }
-
-  .statusbar{ background:#060f1c; border-bottom:1px solid var(--border); font-size:11px; letter-spacing:.04em; color:var(--dim); padding:6px 0; overflow:hidden; white-space:nowrap; }
-  .statusbar .wrap{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
-  .statusbar .sys{ display:none; }
-  .statusbar .blink{ color:var(--ok); animation:blink 1.4s steps(1) infinite; }
-  @keyframes blink{ 50%{ opacity:.25; } }
-
-  header{ position:sticky; top:0; z-index:50; background:rgba(10,22,40,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
-  .nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; gap:12px; }
-  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; white-space:nowrap; }
-  .brand .prompt{ color:var(--accent); }
-  .brand small{ display:block; font-weight:400; color:var(--dim); font-size:10px; letter-spacing:.06em; }
-
-  .shell-label{ display:flex; align-items:center; gap:10px; color:var(--dim); font-size:12px; margin-bottom:14px; }
-  .shell-label .p1{ color:var(--ok); } .shell-label .p2{ color:var(--accent); }
-  .shell-label::after{ content:''; flex:1; height:1px; background:var(--border); }
-
-  section{ padding:48px 0 72px; border-bottom:1px solid var(--border); }
-  h1{ font-size:28px; line-height:1.15; font-weight:700; letter-spacing:-.02em; margin-bottom:12px; }
-  p.lead{ color:var(--muted); font-size:13.5px; max-width:680px; margin-bottom:14px; }
-  .updated{ font-size:11px; color:var(--dim); margin-bottom:26px; }
-
-  .legal-layout{ display:grid; grid-template-columns:1fr; gap:28px; align-items:start; }
-  .legal-toc{
-    background:var(--card); border:1px solid var(--border); border-radius:8px;
-    padding:18px 20px; font-size:12.5px;
-  }
-  .legal-toc .toc-head{ color:var(--dim); font-size:11px; margin-bottom:12px; }
-  .legal-toc ol{ list-style:none; counter-reset:toc; }
-  .legal-toc li{ margin-bottom:7px; }
-  .legal-toc a{ color:var(--muted); display:flex; gap:8px; }
-  .legal-toc a:hover{ color:var(--accent); }
-  .legal-toc li::before{ counter-increment:toc; content:counter(toc) '.'; color:var(--dim); margin-right:8px; }
-
-  .legal-section{ margin-bottom:30px; scroll-margin-top:90px; }
-  .legal-section h2{ font-size:16px; font-weight:700; margin-bottom:10px; }
-  .legal-section p{ font-size:13px; color:var(--muted); margin-bottom:10px; }
-  .legal-section ul{ list-style:none; margin-bottom:10px; }
-  .legal-section li{ font-size:13px; color:var(--muted); margin-bottom:7px; padding-left:18px; position:relative; }
-  .legal-section li::before{ content:'›'; position:absolute; left:0; color:var(--accent); }
-  .legal-section .inline-link{ color:var(--accent); }
-  .legal-section .inline-link:hover{ text-decoration:underline; }
-  .legal-section strong{ color:var(--text); }
-
-  footer{ padding:36px 0 24px; }
-  .footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px; color:var(--dim); }
-  .footer-bottom a{ color:var(--dim); }
-  .footer-bottom a:hover{ color:var(--accent); }
-
-  @media (min-width:561px){
-    .wrap{ padding:0 24px; }
-    .statusbar .sys{ display:inline; }
-    section{ padding:64px 0 88px; }
-    h1{ font-size:36px; }
-    p.lead{ font-size:14.5px; }
-  }
-  @media (min-width:901px){
-    .legal-layout{ grid-template-columns:260px 1fr; gap:44px; }
-    .legal-toc{ position:sticky; top:88px; }
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="statusbar">
-    <div class="wrap">
-      <span>CKTHUB · HARDWARE YOU OWN <span class="blink">●</span> PUNE, IN</span>
-      <span class="sys">ckthub@store:~$ legal --privacy-policy</span>
+<header class="site-head">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">CktHub<small>hardware you own</small></a>
+    <div class="navright">
+      <div class="seg" role="tablist" aria-label="Switch between store and fab">
+        <a href="index.html">Store</a>
+        <a href="fab.html">Fab</a>
+      </div>
+      <a class="cart-chip" href="ckthub-cart.html">Cart <span class="cart-count">0</span></a>
     </div>
   </div>
-
-  <header>
-    <div class="wrap nav">
-      <div class="brand"><span class="prompt">$</span> ckthub<small>hardware you own</small></div>
-      <div class="navright">
-        <div class="site-tabs" role="tablist" aria-label="Switch between store and fab">
-          <a href="index.html" class="site-tab">Store</a>
-          <a href="ckthub-fab.html" class="site-tab">Fab</a>
-        </div>
-        <a href="ckthub-cart.html" class="icon-btn" id="cartBtn">cart <span class="cart-count" id="cartCount">0</span></a>
-      </div>
-    </div>
-  </header>
+</header>
 
 <main id="main">
   <section aria-labelledby="page-title">
     <div class="wrap">
-      <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~</span>$ legal --privacy-policy</div>
-      <h1 id="page-title">Privacy Policy</h1>
-      <p class="lead">This Privacy Policy explains how Ambivert Technologies Private Limited ("Ckthub", "we", "us", "our") collects, uses, and protects information when you visit this website or place an order with us.</p>
-      <div class="updated">Last updated: 12 July 2026</div>
+      <div class="section-head reveal">
+        <div class="eyebrow">Legal</div>
+        <h1 id="page-title">Privacy Policy</h1>
+        <p class="section-sub">This Privacy Policy explains how Ambivert Technologies Private Limited ("Ckthub", "we", "us", "our") collects, uses, and protects information when you visit this website or place an order with us.</p>
+        <div class="updated">Last updated: 12 July 2026</div>
+      </div>
 
       <div class="legal-layout">
         <div class="legal-toc">
-          <div class="toc-head">$ table --of-contents</div>
+          <div class="toc-head">On this page</div>
           <ol>
             <li><a href="#info-we-collect">Information we collect</a></li>
             <li><a href="#how-we-use">How we use your information</a></li>
@@ -269,12 +153,42 @@
   </section>
 </main>
 
-  <footer>
-    <div class="wrap footer-bottom">
-      <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
-      <span><a href="index.html">ckthub store</a> · <a href="ckthub-fab.html">ckthub fab</a> · <a href="own-it.html">own-it</a> · <a href="contact.html">contact</a> · <a href="terms.html">terms</a></span>
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">CktHub<small>hardware you own</small></a>
+        <p>A brand of Ambivert Technologies Private Limited. Standalone hardware that replaces recurring software subscriptions. Designed and assembled in-house in Pune, India.</p>
+      </div>
+      <div class="footer-col">
+        <h4>The idea</h4>
+        <a href="index.html#idea">Software → Hardware</a>
+        <a href="index.html#philosophy">Philosophy</a>
+        <a href="index.html#products">Product roadmap</a>
+        <a href="own-it.html">Tell us what to replace</a>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="index.html#boards">Boards</a>
+        <a href="index.html#adapters">Adapters</a>
+        <a href="index.html#accessories">Accessories</a>
+        <a href="index.html#volume">Volume pricing</a>
+        <a href="ckthub-cart.html">Cart &amp; checkout</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="fab.html">Build Your Own</a>
+        <a href="contact.html">Contact &amp; map</a>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="terms.html">Terms &amp; conditions</a>
+      </div>
     </div>
-  </footer>
+    <div class="footer-bottom">
+      <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
+      <span><a href="index.html">Store</a> · <a href="fab.html">Fab</a> · <a href="own-it.html">Own-it</a></span>
+    </div>
+  </div>
+</footer>
 
 <script>
   (function(){

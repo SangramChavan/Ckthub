@@ -12,6 +12,7 @@
 <meta property="og:description" content="Standalone hardware that replaces recurring software subscriptions. Local operation, no monthly fee, your data stays on the device. Built in-house in Pune, India.">
 <meta property="og:url" content="https://ckthub.com/">
 <meta property="og:image" content="https://ckthub.com/wrover-devkit.png">
+<link rel="stylesheet" href="style.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -62,732 +63,101 @@
   ]
 }
 </script>
-<style>
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/JetBrains-Mono/2.304/css/jetbrains-mono.min.css');
-
-  :root{
-    --bg: #0a1628;
-    --bg-raised: #0f2038;
-    --card: #12253f;
-    --card-hover: #172c4a;
-    --border: #21395a;
-    --border-bright: #33507a;
-    --text: #e9eef6;
-    --muted: #8fa3c0;
-    --dim: #5b7194;
-    --accent: #ff7a3d;
-    --accent-dim: #c85f2e;
-    --ok: #7ee787;
-    --warn: #f2b544;
-    --err: #ff6b6b;
-    --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-  }
-
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
-  body{
-    background:var(--bg); color:var(--text); font-family:var(--mono);
-    font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
-  }
-  a{ color:inherit; text-decoration:none; }
-  img{ max-width:100%; display:block; }
-  ::selection{ background:var(--accent); color:#0d1117; }
-
-  .skip-link{
-    position:absolute; left:-999px; top:0; z-index:200;
-    background:var(--accent); color:#0d1117; font-size:13px; font-weight:700;
-    padding:10px 16px;
-  }
-  .skip-link:focus{ left:0; }
-
-  .wrap{ max-width:1180px; margin:0 auto; padding:0 16px; }
-
-  /* ---------- store/fab tab switcher ---------- */
-  .site-tabs{
-    display:flex; align-items:center; gap:2px;
-    background:var(--bg-raised); border:1px solid var(--border);
-    border-radius:20px; padding:3px;
-  }
-  .site-tab{
-    font-family:var(--mono); font-size:12px; padding:7px 14px; border-radius:16px;
-    color:var(--muted); transition:background .18s, color .18s;
-  }
-  .site-tab:hover{ color:var(--text); }
-  .site-tab.active{ background:var(--accent); color:#0a1628; font-weight:700; }
-
-  /* ---------- top status bar ---------- */
-  .statusbar{
-    background:#060f1c; border-bottom:1px solid var(--border);
-    font-size:11px; letter-spacing:.04em; color:var(--dim);
-    padding:6px 0; overflow:hidden; white-space:nowrap;
-  }
-  .statusbar .wrap{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
-  .statusbar .sys{ display:none; }
-  .statusbar .blink{ color:var(--ok); animation:blink 1.4s steps(1) infinite; }
-  @keyframes blink{ 50%{ opacity:.25; } }
-
-  /* ---------- header ---------- */
-  header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(10,22,40,.92); backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--border);
-  }
-  .nav{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:12px 0; gap:12px;
-  }
-  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; white-space:nowrap; }
-  .brand .prompt{ color:var(--accent); }
-  .brand small{ display:block; font-weight:400; color:var(--dim); font-size:10px; letter-spacing:.08em; }
-
-  .navlinks{ display:none; gap:22px; font-size:13px; }
-  .navlinks a{ color:var(--muted); padding:4px 0; transition:color .15s; }
-  .navlinks a::before{ content:'/'; color:var(--dim); margin-right:6px; }
-  .navlinks a:hover{ color:var(--accent); }
-
-  .navright{ display:flex; align-items:center; gap:10px; }
-  .icon-btn{
-    display:flex; align-items:center; gap:6px;
-    background:transparent; border:1px solid var(--border);
-    color:var(--muted); font-family:var(--mono); font-size:12px;
-    padding:7px 12px; border-radius:4px; cursor:pointer;
-    transition:border-color .15s, color .15s;
-  }
-  .icon-btn:hover{ border-color:var(--accent-dim); color:var(--accent); }
-  .cart-count{
-    background:var(--accent); color:#0d1117; font-weight:700;
-    font-size:10px; border-radius:9px; min-width:16px; height:16px;
-    display:flex; align-items:center; justify-content:center; padding:0 4px;
-  }
-
-  .btn-primary{
-    background:var(--accent); color:#0d1117; font-weight:700;
-    font-family:var(--mono); font-size:12px; letter-spacing:.03em;
-    padding:11px 18px; border:none; border-radius:4px; cursor:pointer;
-    display:inline-flex; align-items:center; justify-content:center;
-    transition:filter .15s;
-  }
-  .btn-primary:hover{ filter:brightness(1.1); }
-  .btn-primary.lg{ padding:14px 24px; font-size:13.5px; }
-  .btn-ghost{
-    background:transparent; border:1px solid var(--border-bright); color:var(--text);
-    font-family:var(--mono); font-size:13px; padding:13px 20px; border-radius:4px;
-    cursor:pointer; display:inline-flex; align-items:center; justify-content:center;
-    transition:border-color .15s, color .15s;
-  }
-  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
-  .btn-wa{
-    background:#1fae5e; color:#fff; font-weight:700; font-family:var(--mono); font-size:13px;
-    padding:13px 22px; border:none; border-radius:4px; cursor:pointer; display:flex;
-    align-items:center; justify-content:center; gap:9px; width:100%;
-  }
-  .btn-wa:hover{ filter:brightness(1.08); }
-
-  /* ---------- section label (shell prompt style) ---------- */
-  .shell-label{
-    display:flex; align-items:center; gap:10px;
-    color:var(--dim); font-size:12px; margin-bottom:14px;
-  }
-  .shell-label .p1{ color:var(--ok); }
-  .shell-label .p2{ color:var(--accent); }
-  .shell-label::after{ content:''; flex:1; height:1px; background:var(--border); }
-
-  section{ padding:52px 0 72px; border-bottom:1px solid var(--border); }
-  h2.section-title{
-    font-size:26px; font-weight:700; letter-spacing:-.01em;
-    margin-bottom:12px; color:var(--text);
-  }
-  p.section-sub{ color:var(--muted); max-width:640px; margin-bottom:30px; font-size:14px; }
-  .num-tag{ font-size:11px; color:var(--dim); letter-spacing:.08em; margin-bottom:10px; }
-  .num-tag b{ color:var(--accent); }
-
-  /* ---------- hero ---------- */
-  .hero{ padding:56px 0 72px; border-bottom:1px solid var(--border); }
-  .hero-label{
-    display:inline-flex; align-items:center; gap:8px;
-    font-size:11px; color:var(--dim); letter-spacing:.06em;
-    background:var(--bg-raised); border:1px solid var(--border);
-    padding:5px 10px; border-radius:4px; margin-bottom:22px;
-  }
-  .hero-label b{ color:var(--ok); font-weight:600; }
-  .hero h1{
-    font-size:38px; line-height:1.12; font-weight:700; letter-spacing:-.02em;
-    color:var(--text); margin-bottom:18px;
-  }
-  .hero h1 .hl{ color:var(--accent); }
-  .hero p.lead{ color:var(--muted); font-size:14.5px; max-width:520px; margin-bottom:24px; }
-  .hero-badges{ display:flex; flex-wrap:wrap; gap:8px 20px; margin-bottom:28px; }
-  .hero-badges span{ font-size:12px; color:var(--muted); display:flex; align-items:center; gap:7px; }
-  .hero-badges span::before{ content:'✓'; color:var(--ok); font-weight:700; }
-  .hero-ctas{ display:flex; gap:12px; flex-wrap:wrap; }
-  .hero-ctas .btn-primary, .hero-ctas .btn-ghost{ width:100%; }
-  .hero-readout{ margin-top:34px; }
-
-  .readout{
-    background:var(--card); border:1px solid var(--border); border-radius:8px;
-    overflow:hidden;
-  }
-  .readout-head{
-    display:flex; align-items:center; gap:8px; padding:11px 16px;
-    border-bottom:1px solid var(--border); background:var(--bg-raised);
-  }
-  .readout-head .dot{ width:9px; height:9px; border-radius:50%; background:var(--border-bright); }
-  .readout-head .dot.live{ background:var(--ok); }
-  .readout-head span.file{ margin-left:auto; font-size:11px; color:var(--dim); }
-  .readout-body{ padding:16px 18px 18px; }
-  .readout-row{
-    display:flex; justify-content:space-between; gap:14px;
-    padding:8px 0; border-bottom:1px solid var(--border); font-size:12.5px;
-  }
-  .readout-row:last-of-type{ border-bottom:none; }
-  .readout-row .k{ color:var(--dim); }
-  .readout-row .v{ color:var(--text); font-weight:600; text-align:right; }
-  .readout-row .v.ok{ color:var(--ok); }
-  .readout-row .v.accent{ color:var(--accent); }
-  .readout-foot{ font-size:11px; color:var(--dim); margin-top:14px; line-height:1.6; }
-
-  /* ---------- idea pipeline ---------- */
-  .pipeline{ margin-top:8px; }
-  .pipe-step{
-    display:flex; align-items:center; gap:16px;
-    background:var(--card); border:1px solid var(--border);
-    border-radius:8px; padding:16px 18px; margin-bottom:10px;
-    opacity:.55; transition:opacity .5s, border-color .5s, transform .5s;
-  }
-  .pipe-step.on{ opacity:1; border-color:var(--border-bright); transform:translateX(4px); }
-  .pipe-step .stepno{
-    font-size:11px; color:var(--accent); letter-spacing:.1em;
-    background:var(--bg-raised); border:1px solid var(--border);
-    border-radius:4px; padding:6px 8px; white-space:nowrap;
-  }
-  .pipe-step h3{ font-size:14px; font-weight:700; margin-bottom:2px; }
-  .pipe-step p{ font-size:12.5px; color:var(--muted); }
-  .pipe-arrow{ text-align:center; color:var(--dim); font-size:14px; margin:-2px 0 8px; }
-
-  /* ---------- philosophy ---------- */
-  .job-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:26px; }
-  .job-chips span{
-    font-size:12px; color:var(--muted); background:var(--bg-raised);
-    border:1px solid var(--border); border-radius:4px; padding:7px 12px;
-  }
-  .job-chips span::before{ content:'# '; color:var(--accent); }
-  .stance{
-    background:var(--bg-raised); border:1px solid var(--border); border-left:3px solid var(--ok);
-    border-radius:6px; padding:16px 18px; font-size:13px; color:var(--muted);
-    max-width:640px;
-  }
-  .stance b{ color:var(--text); font-weight:600; }
-
-  /* ---------- vision product cards ---------- */
-  .cat-tabs{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:22px; }
-  .cat-tab{
-    background:var(--bg-raised); border:1px solid var(--border); color:var(--muted);
-    font-family:var(--mono); font-size:11.5px; padding:7px 12px; border-radius:4px;
-    cursor:pointer; transition:border-color .15s, color .15s;
-  }
-  .cat-tab.active{ border-color:var(--accent); color:var(--accent); }
-  .cat-tab:hover{ border-color:var(--accent-dim); color:var(--accent); }
-
-  .products-grid{ display:grid; grid-template-columns:1fr; gap:12px; }
-  .pcard{
-    background:var(--card); border:1px solid var(--border); border-radius:8px;
-    padding:18px; display:flex; flex-direction:column; gap:8px;
-    transition:border-color .15s;
-  }
-  .pcard:hover{ border-color:var(--accent-dim); }
-  .pcard.hidden{ display:none; }
-  .pcat{ font-size:10px; letter-spacing:.08em; color:var(--dim); text-transform:uppercase; }
-  .pcard h3{ font-size:14.5px; font-weight:700; color:var(--text); }
-  .pcard p{ font-size:12.5px; color:var(--muted); flex:1; }
-  .pcard .meta{
-    font-size:10.5px; color:var(--dim); display:flex; flex-wrap:wrap; gap:4px 14px;
-    border-top:1px solid var(--border); padding-top:10px; margin-top:4px;
-  }
-  .pcard .meta b{ color:var(--ok); font-weight:600; }
-  .pcard .replaces{ font-size:10.5px; color:var(--accent-dim); }
-  .pcard .want-this{
-    align-self:flex-start; background:none; border:1px solid var(--border-bright);
-    color:var(--muted); font-family:var(--mono); font-size:11px; padding:6px 12px;
-    border-radius:4px; cursor:pointer; transition:border-color .15s, color .15s;
-  }
-  .pcard .want-this:hover{ border-color:var(--accent); color:var(--accent); }
-
-  .shop-jump{
-    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-    background:var(--bg-raised); border:1px solid var(--border);
-    border-radius:8px; padding:16px 18px; margin-top:26px; font-size:13px;
-  }
-  .shop-jump span{ color:var(--muted); flex:1; min-width:200px; }
-  .shop-jump b{ color:var(--text); }
-
-  /* ---------- comparison ---------- */
-  .table-frame{
-    background:var(--card); border:1px solid var(--border); border-radius:8px;
-    overflow-x:auto; -webkit-overflow-scrolling:touch;
-  }
-  .table-frame-head{
-    padding:11px 16px; border-bottom:1px solid var(--border); background:var(--bg-raised);
-    font-size:11.5px; color:var(--dim);
-  }
-  table.cmp{ width:100%; border-collapse:collapse; font-size:12.5px; min-width:560px; }
-  table.cmp th{
-    text-align:left; padding:12px 16px; font-size:11px; letter-spacing:.04em;
-    color:var(--dim); text-transform:uppercase; border-bottom:1px solid var(--border);
-  }
-  table.cmp th:nth-child(2){ color:var(--muted); }
-  table.cmp th:nth-child(3){ color:var(--accent); }
-  table.cmp td{
-    padding:12px 16px; border-bottom:1px solid var(--border); color:var(--muted); vertical-align:top;
-  }
-  table.cmp tr:last-child td{ border-bottom:none; }
-  table.cmp td.win{ color:var(--ok); font-weight:600; }
-  table.cmp td.k{ color:var(--text); }
-  .table-note{ font-size:11.5px; color:var(--dim); margin-top:12px; max-width:620px; }
-
-  /* ---------- why boxes ---------- */
-  .why-grid{ display:grid; grid-template-columns:1fr; gap:12px; }
-  .why-box{
-    background:var(--card); border:1px solid var(--border); border-radius:8px;
-    padding:18px; display:flex; gap:14px;
-  }
-  .why-box .ic{
-    flex-shrink:0; width:34px; height:34px; border-radius:6px;
-    border:1px solid var(--border-bright); color:var(--accent);
-    display:flex; align-items:center; justify-content:center; font-size:15px;
-  }
-  .why-box h3{ font-size:14px; font-weight:700; margin-bottom:4px; }
-  .why-box p{ font-size:12.5px; color:var(--muted); }
-
-  /* ---------- engineering proof ---------- */
-  .eng-grid{ display:grid; grid-template-columns:1fr; gap:12px; }
-  .eng-stage{
-    background:var(--card); border:1px solid var(--border); border-radius:8px;
-    padding:16px 18px; display:flex; gap:14px; align-items:flex-start;
-  }
-  .eng-stage .stepno{
-    font-size:11px; color:var(--accent); letter-spacing:.1em; white-space:nowrap;
-    padding-top:2px;
-  }
-  .eng-stage h3{ font-size:13.5px; font-weight:700; margin-bottom:3px; }
-  .eng-stage p{ font-size:12px; color:var(--muted); }
-  .eng-stage img{ width:72px; height:72px; object-fit:cover; border-radius:6px; border:1px solid var(--border); }
-  .eng-stage .photo-slot{
-    width:72px; height:72px; flex-shrink:0; border-radius:6px; border:1px dashed var(--border-bright);
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    font-size:9px; color:var(--dim); text-align:center; gap:2px; padding:4px;
-  }
-  .eng-stage .photo-slot b{ font-size:11px; color:var(--muted); }
-  .eng-lineup{
-    margin-top:24px; background:var(--bg-raised); border:1px solid var(--border);
-    border-radius:8px; padding:20px; text-align:center;
-  }
-  .eng-lineup h3{ font-size:15px; margin-bottom:8px; }
-  .eng-lineup .sub{ font-size:11px; color:var(--dim); letter-spacing:.1em; margin-bottom:14px; }
-  .eng-lineup .lineup{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:18px; }
-  .eng-lineup .lineup span{
-    font-size:11.5px; color:var(--muted); background:var(--card);
-    border:1px solid var(--border); border-radius:4px; padding:6px 10px;
-  }
-
-  /* ---------- shop ---------- */
-  .product-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
-  .card{
-    background:var(--card); border:1px solid var(--border); border-radius:10px;
-    overflow:hidden; display:flex; flex-direction:column;
-    transition:border-color .15s;
-  }
-  .card:hover{ border-color:var(--accent-dim); }
-  .card-img{
-    position:relative; background:var(--bg-raised);
-    border-bottom:1px solid var(--border); aspect-ratio:16/9;
-    display:flex; align-items:center; justify-content:center; overflow:hidden;
-  }
-  .card-img img{ width:100%; height:100%; object-fit:cover; }
-  .card-img.placeholder{ flex-direction:column; gap:4px; }
-  .stock-badge{
-    position:absolute; top:10px; left:10px; z-index:2;
-    background:rgba(10,22,40,.85); border:1px solid var(--ok);
-    color:var(--ok); font-size:9.5px; letter-spacing:.06em;
-    padding:3px 8px; border-radius:3px;
-  }
-  .card-img .chip{
-    font-size:11px; color:var(--dim); border:1px solid var(--border-bright);
-    border-radius:6px; padding:10px 14px; letter-spacing:.08em;
-  }
-  .card-img .pending{ font-size:9.5px; color:var(--dim); }
-  .card-body{ padding:16px 18px 18px; display:flex; flex-direction:column; gap:8px; flex:1; }
-  .card-cat{ font-size:10px; letter-spacing:.08em; color:var(--dim); text-transform:uppercase; }
-  .card-job{ font-size:11px; color:var(--accent); }
-  .card-title{ font-size:15px; font-weight:700; color:var(--text); }
-  .card-spec{ font-size:12px; color:var(--muted); }
-  .card-meta{
-    font-size:10.5px; color:var(--dim); display:flex; flex-wrap:wrap; gap:4px 14px;
-    border-top:1px solid var(--border); padding-top:10px; margin-top:2px;
-  }
-  .card-meta b{ color:var(--ok); font-weight:600; }
-  .card-footer{
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-    margin-top:auto; padding-top:12px;
-  }
-  .card-price{ font-size:17px; font-weight:700; color:var(--accent); }
-  .card-price small{ display:block; font-size:9.5px; color:var(--dim); font-weight:400; }
-  .card-add{
-    background:none; border:1px solid var(--border-bright); color:var(--text);
-    font-family:var(--mono); font-size:11.5px; padding:9px 14px; border-radius:4px;
-    cursor:pointer; transition:border-color .15s, color .15s, background .15s;
-  }
-  .card-add:hover{ background:var(--accent); border-color:var(--accent); color:#0d1117; font-weight:700; }
-  .card.ghost{
-    border-style:dashed; align-items:center; justify-content:center; text-align:center;
-    gap:8px; padding:32px 20px; color:var(--dim);
-  }
-  .card.ghost .plus{
-    width:44px; height:44px; border-radius:50%; border:1px dashed var(--border-bright);
-    display:flex; align-items:center; justify-content:center; font-size:22px; color:var(--accent);
-  }
-  .card.ghost b{ color:var(--muted); font-size:13px; }
-  .card.ghost span{ font-size:11.5px; }
-
-  /* volume pricing */
-  .price-panel{ display:grid; grid-template-columns:1fr; gap:14px; margin-top:20px; }
-  .price-card{
-    background:var(--card); border:1px solid var(--border); border-radius:10px;
-    padding:18px; display:flex; gap:16px; align-items:flex-start;
-  }
-  .price-card img{ width:96px; height:96px; object-fit:cover; border-radius:6px; border:1px solid var(--border); }
-  .price-card-body{ flex:1; min-width:0; }
-  .price-card-body h3{ font-size:13.5px; }
-  .price-card-body .sub{ font-size:11px; color:var(--dim); margin-bottom:12px; }
-  .price-card-body input[type=range]{ width:100%; accent-color:var(--accent); }
-  .qty-row{ display:flex; justify-content:space-between; font-size:11px; color:var(--dim); margin:6px 0 4px; }
-  .qty-row b{ color:var(--text); }
-  .price-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
-  .price-row .amt{ font-size:18px; font-weight:700; color:var(--accent); }
-  .price-row .amt small{ display:block; font-size:9.5px; color:var(--dim); font-weight:400; }
-
-  /* ---------- own it pitch ---------- */
-  .ownit{
-    background:var(--bg-raised); border:1px solid var(--border); border-radius:12px;
-    padding:26px 20px; position:relative; overflow:hidden;
-  }
-  .ownit::before{
-    content:'$'; position:absolute; right:-20px; top:-30px; font-size:150px;
-    color:var(--border); opacity:.35; line-height:1; pointer-events:none;
-  }
-  .ownit h3{ font-size:19px; font-weight:700; margin-bottom:10px; }
-  .ownit p{ font-size:13px; color:var(--muted); max-width:600px; margin-bottom:18px; }
-  .ownit .example{
-    font-size:11.5px; color:var(--dim); background:var(--card); border:1px solid var(--border);
-    border-radius:4px; padding:8px 12px; margin-bottom:8px; max-width:600px;
-  }
-  .ownit .example b{ color:var(--ok); font-weight:600; }
-
-  /* ---------- trust ---------- */
-  .trust-grid{ display:grid; grid-template-columns:1fr; gap:12px; }
-  .trust-card{
-    background:var(--card); border:1px solid var(--border); border-radius:8px; padding:18px;
-  }
-  .trust-card h3{ font-size:13.5px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
-  .trust-card h3::before{ content:'✓'; color:var(--ok); font-weight:700; }
-  .trust-card p{ font-size:12.5px; color:var(--muted); }
-  .trust-card ul{ list-style:none; }
-  .trust-card li{ font-size:12.5px; color:var(--muted); padding:3px 0; }
-  .trust-card li b{ color:var(--text); font-weight:600; }
-  .contact-rows{ display:flex; flex-direction:column; gap:10px; }
-  .contact-row{ display:flex; gap:12px; font-size:12.5px; color:var(--muted); }
-  .contact-row .k{ color:var(--dim); min-width:110px; flex-shrink:0; }
-  .contact-row .v{ color:var(--text); }
-  .contact-row a{ color:var(--accent); text-decoration:underline; }
-  .faq details{
-    background:var(--card); border:1px solid var(--border); border-radius:8px;
-    padding:14px 16px; margin-bottom:10px;
-  }
-  .faq summary{ cursor:pointer; font-size:13px; font-weight:700; color:var(--text); }
-  .faq details p{ font-size:12.5px; color:var(--muted); margin-top:8px; }
-
-  /* ---------- trust bar ---------- */
-  .trust-bar{ border-bottom:1px solid var(--border); background:var(--bg-raised); }
-  .trust-bar .trust-grid{
-    display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:18px 0;
-  }
-  .trust-item{ display:flex; align-items:center; gap:8px; font-size:11.5px; color:var(--muted); }
-  .trust-item .ok{ color:var(--ok); }
-
-  footer{ padding:40px 0 28px; border-top:1px solid var(--border); }
-  .footer-grid{ display:grid; grid-template-columns:1fr; gap:26px; margin-bottom:30px; }
-  .footer-brand p{ font-size:12.5px; color:var(--muted); max-width:340px; margin-top:8px; }
-  .footer-col h4{
-    font-size:11px; letter-spacing:.08em; text-transform:uppercase;
-    color:var(--dim); margin-bottom:12px;
-  }
-  .footer-col a{ display:block; font-size:12.5px; color:var(--muted); padding:4px 0; transition:color .15s; }
-  .footer-col a:hover{ color:var(--accent); }
-  .footer-bottom{
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
-    font-size:12px; color:var(--dim); border-top:1px solid var(--border); padding-top:22px;
-  }
-  .footer-bottom a{ color:var(--dim); }
-  .footer-bottom a:hover{ color:var(--accent); }
-
-  /* ---------- fab ---------- */
-  .fab-stack{ position:fixed; right:14px; bottom:14px; z-index:80; display:flex; flex-direction:column-reverse; align-items:flex-end; gap:12px; }
-  .fab{
-    display:flex; align-items:center; justify-content:center;
-    width:52px; height:52px; border-radius:50%;
-    border:1px solid var(--border-bright); cursor:pointer;
-    box-shadow:0 6px 18px rgba(0,0,0,.45);
-    transition:transform .15s, filter .15s, opacity .2s;
-  }
-  .fab:hover{ transform:translateY(-2px); filter:brightness(1.08); }
-  .fab svg{ width:24px; height:24px; }
-  .fab-whatsapp{ background:#25D366; border-color:#1ea952; }
-  .fab-whatsapp svg{ fill:#0a1628; }
-  .fab-cart{ background:var(--card); color:var(--text); position:relative; }
-  .fab-cart svg{ fill:var(--accent); }
-  .fab-cart-count{
-    position:absolute; top:-6px; right:-6px; background:var(--accent); color:#0d1117;
-    font-size:10px; font-weight:700; border-radius:9px; min-width:18px; height:18px;
-    display:flex; align-items:center; justify-content:center; padding:0 4px;
-  }
-  .fab-label{
-    font-family:var(--mono); font-size:11px; color:var(--muted);
-    background:var(--card); border:1px solid var(--border);
-    padding:4px 8px; border-radius:4px; white-space:nowrap;
-    opacity:0; transform:translateX(6px); transition:opacity .15s, transform .15s;
-    pointer-events:none;
-  }
-  .fab-row{ display:flex; align-items:center; gap:10px; }
-  .fab-row:hover .fab-label{ opacity:1; transform:translateX(0); }
-  #cartFab{ display:none; }
-  #cartFab.show{ display:flex; }
-
-  /* ---------- cart drawer ---------- */
-  .cart-overlay{
-    position:fixed; inset:0; background:rgba(4,9,16,.7); z-index:95;
-    opacity:0; pointer-events:none; transition:opacity .25s;
-  }
-  .cart-overlay.open{ opacity:1; pointer-events:auto; }
-  .cart-drawer{
-    position:fixed; top:0; right:0; height:100%; width:min(400px, 100%);
-    background:var(--bg-raised); border-left:1px solid var(--border);
-    z-index:96; display:flex; flex-direction:column;
-    transform:translateX(100%); transition:transform .28s ease;
-  }
-  .cart-drawer.open{ transform:translateX(0); }
-  .cart-head{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 18px; border-bottom:1px solid var(--border);
-  }
-  .cart-head h3{ font-size:13px; color:var(--dim); }
-  .cart-close{
-    background:none; border:1px solid var(--border); color:var(--muted);
-    font-size:16px; width:32px; height:32px; border-radius:4px; cursor:pointer;
-  }
-  .cart-close:hover{ border-color:var(--err); color:var(--err); }
-  .cart-body{ flex:1; overflow-y:auto; padding:14px 18px; }
-  .cart-empty{ font-size:12.5px; color:var(--dim); padding:24px 0; text-align:center; }
-  .cart-item{ padding:12px 0; border-bottom:1px solid var(--border); }
-  .cart-item:last-child{ border-bottom:none; }
-  .cart-item-info{ flex:1; min-width:0; }
-  .cart-item-name{ font-size:13px; font-weight:600; margin-bottom:3px; }
-  .cart-item-price{ font-size:11px; color:var(--dim); margin-bottom:8px; }
-  .cart-item-controls{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-  .qty-btn{
-    width:26px; height:26px; border-radius:4px; border:1px solid var(--border);
-    background:none; color:var(--muted); cursor:pointer; font-size:14px;
-    display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  }
-  .qty-btn:hover{ border-color:var(--accent-dim); color:var(--accent); }
-  .qty-input{
-    width:60px; font-family:var(--mono); font-size:13px; text-align:center;
-    color:var(--text); background:var(--bg); border:1px solid var(--border);
-    border-radius:4px; padding:3px 2px; outline:none;
-  }
-  .qty-input:focus{ border-color:var(--accent); }
-  .qty-input::-webkit-inner-spin-button, .qty-input::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
-  .qty-input[type=number]{ -moz-appearance:textfield; appearance:textfield; }
-  .cart-item-remove{
-    background:none; border:none; color:var(--dim); cursor:pointer;
-    font-size:10.5px; text-decoration:underline; font-family:var(--mono); margin-left:auto;
-  }
-  .cart-item-remove:hover{ color:var(--err); }
-  .cart-item-linetotal{ font-size:13px; color:var(--accent); font-weight:700; }
-  .cart-foot{ border-top:1px solid var(--border); padding:14px 18px 18px; }
-  .cart-subtotal{ display:flex; justify-content:space-between; font-size:12px; color:var(--dim); margin-bottom:12px; }
-  .cart-subtotal b{ font-size:15px; color:var(--text); }
-  .cart-checkout-btn{
-    background:#1fae5e; color:#fff; font-weight:700; font-family:var(--mono); font-size:12.5px;
-    border:none; border-radius:4px; padding:13px; width:100%; cursor:pointer;
-    display:flex; align-items:center; justify-content:center; gap:9px; margin-bottom:8px;
-  }
-  .cart-checkout-btn svg{ width:16px; height:16px; fill:#fff; }
-  .cart-checkout-btn:hover{ filter:brightness(1.08); }
-  .cart-continue-btn{
-    background:var(--accent); color:#0d1117; font-weight:700; font-family:var(--mono);
-    font-size:12.5px; border:none; border-radius:4px; padding:13px; width:100%; cursor:pointer;
-  }
-  .cart-continue-btn:hover{ filter:brightness(1.1); }
-  .cart-ref{ font-size:10.5px; color:var(--dim); text-align:center; margin-top:10px; }
-
-  /* ---------- toast ---------- */
-  .toast{
-    position:fixed; left:50%; bottom:28px; transform:translate(-50%, 12px);
-    background:var(--card); border:1px solid var(--ok); color:var(--text);
-    font-family:var(--mono); font-size:13px;
-    padding:10px 18px; border-radius:6px; z-index:99;
-    opacity:0; pointer-events:none; transition:opacity .2s, transform .2s;
-    box-shadow:0 6px 18px rgba(0,0,0,.4); max-width:calc(100vw - 40px);
-  }
-  .toast.show{ opacity:1; transform:translate(-50%, 0); }
-  .toast b{ color:var(--ok); }
-
-  /* ---------- desktop enhancements (mobile first) ---------- */
-  @media (min-width:561px){
-    .wrap{ padding:0 24px; }
-    .statusbar .sys{ display:inline; }
-    section{ padding:72px 0 92px; }
-    h2.section-title{ font-size:32px; }
-    p.section-sub{ margin-bottom:40px; font-size:15px; }
-    .hero{ padding:80px 0 100px; }
-    .hero h1{ font-size:52px; }
-    .hero p.lead{ font-size:16px; }
-    .hero-ctas .btn-primary, .hero-ctas .btn-ghost{ width:auto; }
-    .products-grid{ grid-template-columns:1fr 1fr; }
-    .why-grid{ grid-template-columns:1fr 1fr; }
-    .eng-grid{ grid-template-columns:1fr 1fr; }
-    .product-grid{ grid-template-columns:1fr 1fr; }
-    .price-panel{ grid-template-columns:1fr 1fr; }
-    .trust-grid{ grid-template-columns:1fr 1fr; }
-    .footer-grid{ grid-template-columns:1fr 1fr; }
-  }
-  @media (min-width:901px){
-    .navlinks{ display:flex; }
-    .hero-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center; }
-    .hero-readout{ margin-top:0; }
-    .pipe-step{ margin-bottom:0; }
-    .pipeline{ display:grid; grid-template-columns:1fr; }
-    .products-grid{ grid-template-columns:repeat(3, 1fr); }
-    .why-grid{ grid-template-columns:repeat(3, 1fr); }
-    .eng-grid{ grid-template-columns:repeat(4, 1fr); }
-    .eng-stage{ flex-direction:column; }
-    .product-grid{ grid-template-columns:repeat(3, 1fr); }
-    .trust-grid{ grid-template-columns:repeat(2, 1fr); }
-    .footer-grid{ grid-template-columns:2fr 1fr 1fr 1fr; }
-    .trust-bar .trust-grid{ grid-template-columns:repeat(4, 1fr); }
-  }
-</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="statusbar">
-    <div class="wrap">
-      <span>CKTHUB · STANDALONE HARDWARE, NO SUBSCRIPTIONS <span class="blink">●</span> PUNE, IN</span>
-      <span class="sys">ckthub@store:~$ echo subscription:false</span>
+<header class="site-head">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">CktHub<small>hardware you own</small></a>
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="#idea">The idea</a>
+      <a href="#products">Products</a>
+      <a href="#why">Why it matters</a>
+      <a href="#shop">Shop</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="navright">
+      <div class="seg" role="tablist" aria-label="Switch between store and fab">
+        <a href="index.html" class="active" aria-current="page">Store</a>
+        <a href="fab.html">Fab</a>
+      </div>
+      <button class="cart-chip" onclick="openCart()" aria-label="Open cart">
+        Cart <span class="cart-count">0</span>
+      </button>
     </div>
   </div>
-
-  <header>
-    <div class="wrap nav">
-      <div class="brand"><span class="prompt">$</span> ckthub<small>hardware you own</small></div>
-      <nav class="navlinks" aria-label="Main navigation">
-        <a href="#idea">Idea</a>
-        <a href="#philosophy">Philosophy</a>
-        <a href="#products">Products</a>
-        <a href="#why">Why</a>
-        <a href="#shop">Shop</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="navright">
-        <div class="site-tabs" role="tablist" aria-label="Switch between store and fab">
-          <a href="index.html" class="site-tab active">Store</a>
-          <a href="ckthub-fab.html" class="site-tab">Fab</a>
-        </div>
-        <button class="icon-btn cart-btn" onclick="openCart()" aria-label="Open cart">
-          <span>cart</span><span class="cart-count">0</span>
-        </button>
-      </div>
-    </div>
-  </header>
+</header>
 
 <main id="main">
 
   <!-- 01 · HERO -->
   <section class="hero" aria-labelledby="hero-title">
-    <div class="wrap">
-      <div class="hero-grid">
-        <div>
-          <div class="hero-label"><span>subscription:</span><b>false</b></div>
-          <h1 id="hero-title">Stop Renting Software.<br><span class="hl">Own the Box.</span></h1>
-          <p class="lead">CktHub builds standalone devices that do the work of subscription-based tools locally. Your data stays with you, the device keeps working without the cloud, and there is nothing to renew every month.</p>
-          <div class="hero-badges">
-            <span>Pay once, use for years</span>
-            <span>Works offline</span>
-            <span>No cloud subscription</span>
-            <span>Your data stays on the device</span>
-            <span>Built in-house: PCB → SMT → firmware</span>
-          </div>
-          <div class="hero-ctas">
-            <button class="btn-primary lg" onclick="document.getElementById('products').scrollIntoView()">Explore the Hardware</button>
-            <a class="btn-ghost" href="ckthub-fab.html">Build Your Own →</a>
-          </div>
-        </div>
-        <div class="hero-readout">
-          <div class="readout">
-            <div class="readout-head">
-              <span class="dot live"></span><span class="dot"></span><span class="dot"></span>
-              <span class="file">device --status</span>
-            </div>
-            <div class="readout-body">
-              <div class="readout-row"><span class="k">cloud dependency</span><span class="v ok">none — local-only</span></div>
-              <div class="readout-row"><span class="k">monthly bill</span><span class="v accent">₹0 / forever</span></div>
-              <div class="readout-row"><span class="k">data location</span><span class="v">on-device</span></div>
-              <div class="readout-row"><span class="k">uptime</span><span class="v">runs while your router is down</span></div>
-              <div class="readout-row"><span class="k">vendor lock-in</span><span class="v ok">none</span></div>
-              <div class="readout-foot">Every unit is designed, assembled and firmware-flashed at our Pune facility. We don't just sell modules — we build products.</div>
-            </div>
-          </div>
-        </div>
+    <div class="wrap center">
+      <h1 id="hero-title">Stop Renting Software. Own the Box.</h1>
+      <p class="lead">CktHub builds standalone devices that do the work of subscription-based tools locally. Your data stays with you, the device keeps working without the cloud, and there is nothing to renew every month.</p>
+      <div class="hero-ctas">
+        <button class="btn lg" onclick="document.getElementById('products').scrollIntoView()">Explore the hardware</button>
+        <a class="btn-text" href="fab.html">Build your own device <span class="arr">→</span></a>
+      </div>
+      <div class="hero-tiles">
+        <a class="tile reveal" href="#shop">
+          <div class="tile-img"><img src="https://ckthub.com/wrover-devkit.png" alt="ESP32-WROVER-DevKit-Lipo development board"></div>
+          <div class="tile-name">ESP32-WROVER-DevKit-Lipo</div>
+          <div class="tile-price">₹499 incl. GST</div>
+          <div class="tile-cta"><span class="btn-text">Buy <span class="arr">→</span></span></div>
+        </a>
+        <a class="tile reveal" href="#shop">
+          <div class="tile-img"><img src="https://ckthub.com/s3-devkit.png" alt="ESP32-S3-DevKit-Lipo development board"></div>
+          <div class="tile-name">ESP32-S3-DevKit-Lipo</div>
+          <div class="tile-price">₹799 incl. GST</div>
+          <div class="tile-cta"><span class="btn-text">Buy <span class="arr">→</span></span></div>
+        </a>
       </div>
     </div>
   </section>
 
+  <div class="trust-strip">
+    <div class="wrap strip-inner">
+      <span><span class="tick">✓</span> Pay once, use for years</span>
+      <span><span class="tick">✓</span> Works offline</span>
+      <span><span class="tick">✓</span> No cloud subscription</span>
+      <span><span class="tick">✓</span> Your data stays on the device</span>
+      <span><span class="tick">✓</span> Built in-house: PCB → SMT → firmware</span>
+    </div>
+  </div>
+
   <!-- 02 · THE IDEA -->
   <section id="idea" aria-labelledby="idea-title">
     <div class="wrap">
-      <div class="num-tag">02 — <b>the idea</b></div>
-      <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~</span>$ pipe subscription.json → hardware.obj</div>
-      <h2 class="section-title" id="idea-title">Software you rent → Hardware you own.</h2>
-      <p class="section-sub">Some software jobs can run perfectly well on dedicated hardware. Here's the transformation, step by step — this is how every CktHub product gets made.</p>
-
-      <div class="pipeline" id="pipeline">
-        <div class="pipe-step">
-          <div class="stepno">01</div>
+      <div class="section-head reveal">
+        <div class="eyebrow">01 — The idea</div>
+        <h2 class="section-title" id="idea-title">Software you rent → Hardware you own.</h2>
+        <p class="section-sub">Some software jobs can run perfectly well on dedicated hardware. Here's the transformation, step by step — this is how every CktHub product gets made.</p>
+      </div>
+      <div class="process">
+        <div class="step reveal">
+          <div class="n">01</div>
           <div><h3>Monthly SaaS</h3><p>You pay every month for a tool that does one job — monitoring, attendance, inventory, a dashboard, an alert.</p></div>
         </div>
-        <div class="pipe-arrow">↓</div>
-        <div class="pipe-step">
-          <div class="stepno">02</div>
+        <div class="step reveal">
+          <div class="n">02</div>
           <div><h3>Identify the useful function</h3><p>Strip the tool down to the actual job you rely on. Ignore the platform features you never open.</p></div>
         </div>
-        <div class="pipe-arrow">↓</div>
-        <div class="pipe-step">
-          <div class="stepno">03</div>
+        <div class="step reveal">
+          <div class="n">03</div>
           <div><h3>Run it locally</h3><p>Move that job onto hardware in your building — no cloud round-trip needed for it to work.</p></div>
         </div>
-        <div class="pipe-arrow">↓</div>
-        <div class="pipe-step">
-          <div class="stepno">04</div>
+        <div class="step reveal">
+          <div class="n">04</div>
           <div><h3>Dedicated hardware</h3><p>One box, one job. An ESP32 or ESP32-S3 core with the exact sensors, display and I/O the job needs.</p></div>
         </div>
-        <div class="pipe-arrow">↓</div>
-        <div class="pipe-step">
-          <div class="stepno">05</div>
+        <div class="step reveal">
+          <div class="n">05</div>
           <div><h3>Buy once</h3><p>One payment. The device is yours — the firmware is flashed in, nothing to license.</p></div>
         </div>
-        <div class="pipe-arrow">↓</div>
-        <div class="pipe-step">
-          <div class="stepno">06</div>
+        <div class="step reveal">
+          <div class="n">06</div>
           <div><h3>Own it</h3><p>It keeps working offline, your data stays local, and the monthly invoice stops.</p></div>
         </div>
       </div>
@@ -797,27 +167,29 @@
   <!-- 03 · PHILOSOPHY -->
   <section id="philosophy" aria-labelledby="philosophy-title">
     <div class="wrap">
-      <div class="num-tag">03 — <b>the philosophy</b></div>
-      <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~</span>$ cat philosophy.txt</div>
-      <h2 class="section-title" id="philosophy-title">What if software didn't need a subscription?</h2>
-      <p class="section-sub">Lots of tools perform simple, repetitive jobs: watch a sensor, count something, show a number, log an event. Those jobs can run on a box sitting next to you instead of a server billing you monthly.</p>
-      <div class="job-chips">
-        <span>monitoring</span><span>dashboards</span><span>alerts</span><span>counters</span>
-        <span>attendance</span><span>inventory</span><span>logging</span><span>automation</span>
-        <span>local data collection</span><span>control systems</span><span>small business tools</span>
+      <div class="section-head reveal">
+        <div class="eyebrow">02 — The philosophy</div>
+        <h2 class="section-title" id="philosophy-title">What if software didn't need a subscription?</h2>
+        <p class="section-sub">Lots of tools perform simple, repetitive jobs: watch a sensor, count something, show a number, log an event. Those jobs can run on a box sitting next to you instead of a server billing you monthly.</p>
       </div>
-      <p class="section-sub" style="margin-bottom:18px;">Not every SaaS product can or should become hardware — big analytics, collaboration and anything that genuinely needs a network of servers stays in software. But for the jobs that are really just <em>a sensor, a screen, and a bit of logic</em>, the subscription is the expensive part.</p>
-      <div class="stance">Use software when software makes sense. <b>Own hardware when the job doesn't need a subscription.</b> That's the whole idea — nothing ideological about it.</div>
+      <div class="chips">
+        <span class="chip">monitoring</span><span class="chip">dashboards</span><span class="chip">alerts</span><span class="chip">counters</span>
+        <span class="chip">attendance</span><span class="chip">inventory</span><span class="chip">logging</span><span class="chip">automation</span>
+        <span class="chip">local data collection</span><span class="chip">control systems</span><span class="chip">small business tools</span>
+      </div>
+      <p class="section-sub" style="margin:26px 0 18px;">Not every SaaS product can or should become hardware — big analytics, collaboration and anything that genuinely needs a network of servers stays in software. But for the jobs that are really just <em>a sensor, a screen, and a bit of logic</em>, the subscription is the expensive part.</p>
+      <div class="stance reveal">Use software when software makes sense. <b>Own hardware when the job doesn't need a subscription.</b> That's the whole idea — nothing ideological about it.</div>
     </div>
   </section>
 
   <!-- 04 · WHAT WE BUILD (vision roadmap) -->
   <section id="products" aria-labelledby="products-title">
     <div class="wrap">
-      <div class="num-tag">04 — <b>what we build</b></div>
-      <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~/products</span>$ ls --by-category</div>
-      <h2 class="section-title" id="products-title">Hardware that does the job.</h2>
-      <p class="section-sub">The device roadmap: standalone boxes that take over the work of familiar subscription tools. Each one runs locally, keeps your data on-site, and has no monthly fee. Working on one? Tell us — it moves up the build queue.</p>
+      <div class="section-head reveal">
+        <div class="eyebrow">03 — What we build</div>
+        <h2 class="section-title" id="products-title">Hardware that does the job.</h2>
+        <p class="section-sub">The device roadmap: standalone boxes that take over the work of familiar subscription tools. Each one runs locally, keeps your data on-site, and has no monthly fee. Working on one? Tell us — it moves up the build queue.</p>
+      </div>
 
       <div class="cat-tabs" role="tablist" aria-label="Filter product concepts by category">
         <button class="cat-tab active" onclick="filterCat('all', this)">All</button>
@@ -971,9 +343,9 @@
         </div>
       </div>
 
-      <div class="shop-jump">
-        <span><b>Want to buy something today?</b> Boards, adapters and accessories are in stock now.</span>
-        <a class="btn-primary" href="#shop">Go to the shop ↓</a>
+      <div class="cta-band reveal">
+        <p><b>Want to buy something today?</b> Boards, adapters and accessories are in stock now.</p>
+        <a class="btn" href="#shop">Go to the shop</a>
       </div>
     </div>
   </section>
@@ -981,34 +353,37 @@
   <!-- 05 · WHY IT MATTERS -->
   <section id="why" aria-labelledby="why-title">
     <div class="wrap">
-      <div class="num-tag">05 — <b>why it matters</b></div>
-      <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~</span>$ cat comparison.md</div>
-      <h2 class="section-title" id="why-title">Rent software or own the hardware?</h2>
-      <p class="section-sub">For certain jobs, hardware ownership can make more economic and practical sense than a subscription. Here's the honest comparison.</p>
+      <div class="section-head reveal">
+        <div class="eyebrow">04 — Why it matters</div>
+        <h2 class="section-title" id="why-title">Rent software or own the hardware?</h2>
+        <p class="section-sub">For certain jobs, hardware ownership can make more economic and practical sense than a subscription. Here's the honest comparison.</p>
+      </div>
 
-      <div class="table-frame">
-        <div class="table-frame-head">compare.output — subscription vs owned hardware</div>
-        <table class="cmp">
-          <thead>
-            <tr>
-              <th scope="col">Factor</th>
-              <th scope="col">Subscription software</th>
-              <th scope="col">CktHub hardware</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td class="k">Initial cost</td><td>Low</td><td class="win">One-time purchase</td></tr>
-            <tr><td class="k">Monthly fee</td><td>Yes</td><td class="win">No</td></tr>
-            <tr><td class="k">Internet dependency</td><td>Often</td><td class="win">Designed for local operation</td></tr>
-            <tr><td class="k">Data</td><td>Cloud dependent</td><td class="win">Device / local</td></tr>
-            <tr><td class="k">Ownership</td><td>Software access</td><td class="win">Physical device</td></tr>
-            <tr><td class="k">Long-term cost</td><td>Recurring</td><td class="win">One-time hardware purchase</td></tr>
-          </tbody>
-        </table>
+      <div class="table-frame reveal">
+        <div class="table-frame-head">Subscription vs owned hardware</div>
+        <div class="table-scroll">
+          <table class="cmp">
+            <thead>
+              <tr>
+                <th scope="col">Factor</th>
+                <th scope="col">Subscription software</th>
+                <th scope="col">CktHub hardware</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="k">Initial cost</td><td>Low</td><td class="win">One-time purchase</td></tr>
+              <tr><td class="k">Monthly fee</td><td>Yes</td><td class="win">No</td></tr>
+              <tr><td class="k">Internet dependency</td><td>Often</td><td class="win">Designed for local operation</td></tr>
+              <tr><td class="k">Data</td><td>Cloud dependent</td><td class="win">Device / local</td></tr>
+              <tr><td class="k">Ownership</td><td>Software access</td><td class="win">Physical device</td></tr>
+              <tr><td class="k">Long-term cost</td><td>Recurring</td><td class="win">One-time hardware purchase</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <p class="table-note">We're not against software — we build with it every day. This table just shows where the economics of a monthly bill stop making sense for a job a box can do.</p>
 
-      <div class="why-grid" style="margin-top:36px;">
+      <div class="why-grid">
         <div class="why-box">
           <div class="ic">₹</div>
           <div><h3>No recurring bill</h3><p>Buy the hardware once. The invoice stops at the payment — no renewal, no price hike.</p></div>
@@ -1040,49 +415,58 @@
   <!-- 06 · PROOF -->
   <section id="proof" aria-labelledby="proof-title">
     <div class="wrap">
-      <div class="num-tag">06 — <b>the proof</b></div>
-      <div class="shell-label"><span class="p1">ckthub@facility</span>:<span class="p2">~</span>$ cat build.log</div>
-      <h2 class="section-title" id="proof-title">Built from the board up.</h2>
-      <p class="section-sub">We don't just sell modules. Every product goes through the full chain in-house: concept, circuit design, PCB, SMT assembly, firmware, enclosure, testing. One facility, one team, end to end.</p>
+      <div class="section-head reveal">
+        <div class="eyebrow">05 — The proof</div>
+        <h2 class="section-title" id="proof-title">Built from the board up.</h2>
+        <p class="section-sub">We don't just sell modules. Every product goes through the full chain in-house: concept, circuit design, PCB, SMT assembly, firmware, enclosure, testing. One facility, one team, end to end.</p>
+      </div>
 
       <div class="eng-grid">
-        <div class="eng-stage">
-          <div class="stepno">01 / CONCEPT</div>
-          <div><h3>Product concept</h3><p>We start from the job — the subscription function — and work out what the box needs to do.</p></div>
+        <div class="eng-stage reveal">
+          <div class="stepno">01 / Concept</div>
+          <h3>Product concept</h3>
+          <p>We start from the job — the subscription function — and work out what the box needs to do.</p>
         </div>
-        <div class="eng-stage">
-          <div class="stepno">02 / DESIGN</div>
-          <div><h3>Circuit design</h3><p>Schematic, power tree, and the exact sensor / display / I/O the job requires.</p></div>
+        <div class="eng-stage reveal">
+          <div class="stepno">02 / Design</div>
+          <h3>Circuit design</h3>
+          <p>Schematic, power tree, and the exact sensor / display / I/O the job requires.</p>
         </div>
-        <div class="eng-stage">
+        <div class="eng-stage reveal">
           <div class="stepno">03 / PCB</div>
-          <div><h3>PCB layout</h3><p>Compact layout — our DevKit boards fit in 48 × 28 mm, charger and sensing included.</p></div>
+          <h3>PCB layout</h3>
+          <p>Compact layout — our DevKit boards fit in 48 × 28 mm, charger and sensing included.</p>
         </div>
-        <div class="eng-stage">
+        <div class="eng-stage reveal">
           <div class="stepno">04 / SMT</div>
-          <div><h3>SMT assembly</h3><p>Pick-and-place and reflow at our Pune facility. In-house means we control every joint.</p></div>
+          <h3>SMT assembly</h3>
+          <p>Pick-and-place and reflow at our Pune facility. In-house means we control every joint.</p>
         </div>
-        <div class="eng-stage">
-          <div class="stepno">05 / FW</div>
-          <div><h3>Firmware</h3><p>Flashed before shipping — the device arrives doing its job, not as a bare chip.</p></div>
+        <div class="eng-stage reveal">
+          <div class="stepno">05 / Firmware</div>
+          <h3>Firmware</h3>
+          <p>Flashed before shipping — the device arrives doing its job, not as a bare chip.</p>
         </div>
-        <div class="eng-stage">
-          <div class="stepno">06 / ENCLOSURE</div>
-          <div><h3>Enclosure</h3><p>Designed for the board, sized for the wall or the desk it will live on.</p></div>
+        <div class="eng-stage reveal">
+          <div class="stepno">06 / Enclosure</div>
+          <h3>Enclosure</h3>
+          <p>Designed for the board, sized for the wall or the desk it will live on.</p>
         </div>
-        <div class="eng-stage">
-          <div class="stepno">07 / TEST</div>
-          <div><h3>Testing</h3><p>Bring-up, functional test and bench validation on every unit before it ships.</p></div>
+        <div class="eng-stage reveal">
+          <div class="stepno">07 / Test</div>
+          <h3>Testing</h3>
+          <p>Bring-up, functional test and bench validation on every unit before it ships.</p>
         </div>
-        <div class="eng-stage">
-          <div class="stepno">08 / FINISHED</div>
-          <div><h3>Finished hardware</h3><p>Assembled, tested, packaged — and ready to outlive the subscription it replaces.</p></div>
+        <div class="eng-stage reveal">
+          <div class="stepno">08 / Finished</div>
+          <h3>Finished hardware</h3>
+          <p>Assembled, tested, packaged — and ready to outlive the subscription it replaces.</p>
         </div>
       </div>
 
-      <div class="eng-lineup">
+      <div class="eng-lineup reveal">
         <h3>One partner. Complete electronics development.</h3>
-        <div class="sub">DESIGN · BUILD · TEST · MANUFACTURE</div>
+        <div class="sub">Design · Build · Test · Manufacture</div>
         <div class="lineup">
           <span>ESP32-WROVER-DevKit-Lipo</span>
           <span>ESP32-S3-DevKit-Lipo</span>
@@ -1091,7 +475,7 @@
           <span>AI Voice Adapter</span>
           <span>Industrial I/O Adapter</span>
         </div>
-        <a class="btn-ghost" href="ckthub-fab.html">Build Your Product With Us →</a>
+        <a class="btn" href="fab.html">Build your product with us</a>
       </div>
     </div>
   </section>
@@ -1099,294 +483,307 @@
   <!-- 07 · THE SHOP -->
   <section id="shop" aria-labelledby="shop-title">
     <div class="wrap">
-      <div class="num-tag">07 — <b>what you can buy</b></div>
-      <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~/shop</span>$ ls -la --grid</div>
-      <h2 class="section-title" id="shop-title">Hardware that does the job — buy it now.</h2>
-      <p class="section-sub">These are the building blocks every CktHub product is made from, in stock and shipped from Pune. Each one is subscription-free and works offline. Checkout is on WhatsApp, payment by UPI QR or bank transfer.</p>
+      <div class="section-head reveal">
+        <div class="eyebrow">06 — What you can buy</div>
+        <h2 class="section-title" id="shop-title">Hardware that does the job — buy it now.</h2>
+        <p class="section-sub">These are the building blocks every CktHub product is made from, in stock and shipped from Pune. Each one is subscription-free and works offline. Checkout is on WhatsApp, payment by UPI QR or bank transfer.</p>
+      </div>
 
       <!-- boards -->
-      <h3 style="font-size:15px; margin-bottom:16px;">Boards <span style="color:var(--dim); font-weight:400; font-size:12px;">— the core of your standalone device</span></h3>
-      <div class="product-grid" style="margin-bottom:40px;">
-        <div class="card">
-          <div class="card-img">
-            <span class="stock-badge">in stock</span>
-            <img src="https://ckthub.com/wrover-devkit.png" alt="ESP32-WROVER-DevKit-Lipo development board" width="400" height="225">
-          </div>
-          <div class="card-body">
-            <div class="card-cat">01 · Generalist</div>
-            <div class="card-job">job: local dashboards &amp; monitoring</div>
-            <div class="card-title">ESP32-WROVER-DevKit-Lipo</div>
-            <div class="card-spec">WROOM-32E / 32UE / WROVER-E · <b>4MB flash</b>, up to <b>8MB PSRAM</b> · micro USB · dual header rows</div>
-            <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
-            <div class="card-footer">
-              <div class="card-price">₹499<small>incl. GST</small></div>
-              <button class="card-add">Add to cart</button>
+      <div class="shop-block" id="boards">
+        <h3 class="shop-cat">Boards <small>the core of your standalone device</small></h3>
+        <div class="product-grid">
+          <div class="card reveal">
+            <div class="card-img">
+              <span class="stock-badge">in stock</span>
+              <img src="https://ckthub.com/wrover-devkit.png" alt="ESP32-WROVER-DevKit-Lipo development board">
+            </div>
+            <div class="card-body">
+              <div class="card-cat">01 · Generalist</div>
+              <div class="card-job">job: local dashboards &amp; monitoring</div>
+              <div class="card-title">ESP32-WROVER-DevKit-Lipo</div>
+              <div class="card-spec">WROOM-32E / 32UE / WROVER-E · <b>4MB flash</b>, up to <b>8MB PSRAM</b> · micro USB · dual header rows</div>
+              <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
+              <div class="card-footer">
+                <div class="card-price">₹499<small>incl. GST</small></div>
+                <button class="card-add">Add to cart</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card">
-          <div class="card-img">
-            <span class="stock-badge">in stock</span>
-            <img src="https://ckthub.com/s3-devkit.png" alt="ESP32-S3-DevKit-Lipo development board" width="400" height="225">
-          </div>
-          <div class="card-body">
-            <div class="card-cat">02 · Dual USB-C</div>
-            <div class="card-job">job: on-device AI, voice &amp; displays</div>
-            <div class="card-title">ESP32-S3-DevKit-Lipo</div>
-            <div class="card-spec">ESP32-S3-WROOM-1-N8R8 · <b>8MB flash</b>, <b>8MB PSRAM</b> · native USB OTG/JTAG + USB-serial</div>
-            <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
-            <div class="card-footer">
-              <div class="card-price">₹799<small>incl. GST</small></div>
-              <button class="card-add">Add to cart</button>
+          <div class="card reveal">
+            <div class="card-img">
+              <span class="stock-badge">in stock</span>
+              <img src="https://ckthub.com/s3-devkit.png" alt="ESP32-S3-DevKit-Lipo development board">
+            </div>
+            <div class="card-body">
+              <div class="card-cat">02 · Dual USB-C</div>
+              <div class="card-job">job: on-device AI, voice &amp; displays</div>
+              <div class="card-title">ESP32-S3-DevKit-Lipo</div>
+              <div class="card-spec">ESP32-S3-WROOM-1-N8R8 · <b>8MB flash</b>, <b>8MB PSRAM</b> · native USB OTG/JTAG + USB-serial</div>
+              <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
+              <div class="card-footer">
+                <div class="card-price">₹799<small>incl. GST</small></div>
+                <button class="card-add">Add to cart</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card">
-          <div class="card-img placeholder">
-            <span class="stock-badge">in stock</span>
-            <div class="chip">D1</div>
-            <span class="pending">photo pending</span>
-          </div>
-          <div class="card-body">
-            <div class="card-cat">03 · Compact / ESP8266</div>
-            <div class="card-job">job: tiny local automation nodes</div>
-            <div class="card-title">D1-Mini</div>
-            <div class="card-spec">ESP8266, Wemos D1 Mini footprint · <b>4MB flash</b> · micro USB · header pinout matches our D1-Mini adapters</div>
-            <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
-            <div class="card-footer">
-              <div class="card-price">₹349<small>incl. GST</small></div>
-              <button class="card-add">Add to cart</button>
+          <div class="card reveal">
+            <div class="card-img placeholder">
+              <span class="stock-badge">in stock</span>
+              <div class="chip">D1</div>
+              <span class="pending">photo pending</span>
+            </div>
+            <div class="card-body">
+              <div class="card-cat">03 · Compact / ESP8266</div>
+              <div class="card-job">job: tiny local automation nodes</div>
+              <div class="card-title">D1-Mini</div>
+              <div class="card-spec">ESP8266, Wemos D1 Mini footprint · <b>4MB flash</b> · micro USB · header pinout matches our D1-Mini adapters</div>
+              <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
+              <div class="card-footer">
+                <div class="card-price">₹349<small>incl. GST</small></div>
+                <button class="card-add">Add to cart</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card">
-          <div class="card-img placeholder">
-            <span class="stock-badge">in stock</span>
-            <div class="chip">CH32</div>
-            <span class="pending">photo pending</span>
-          </div>
-          <div class="card-body">
-            <div class="card-cat">04 · RISC-V, low cost</div>
-            <div class="card-job">job: wired controllers, no WiFi</div>
-            <div class="card-title">CH32-DevKit</div>
-            <div class="card-spec">CH32V203, RISC-V core · USB-C programming · full GPIO breakout · for cost-sensitive, no-WiFi builds</div>
-            <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
-            <div class="card-footer">
-              <div class="card-price">₹199<small>incl. GST</small></div>
-              <button class="card-add">Add to cart</button>
+          <div class="card reveal">
+            <div class="card-img placeholder">
+              <span class="stock-badge">in stock</span>
+              <div class="chip">CH32</div>
+              <span class="pending">photo pending</span>
+            </div>
+            <div class="card-body">
+              <div class="card-cat">04 · RISC-V, low cost</div>
+              <div class="card-job">job: wired controllers, no WiFi</div>
+              <div class="card-title">CH32-DevKit</div>
+              <div class="card-spec">CH32V203, RISC-V core · USB-C programming · full GPIO breakout · for cost-sensitive, no-WiFi builds</div>
+              <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
+              <div class="card-footer">
+                <div class="card-price">₹199<small>incl. GST</small></div>
+                <button class="card-add">Add to cart</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- adapters -->
-      <h3 style="font-size:15px; margin-bottom:16px;">Adapters <span style="color:var(--dim); font-weight:400; font-size:12px;">— stack straight onto the boards</span></h3>
-      <div class="product-grid" style="margin-bottom:40px;">
-        <div class="card">
-          <div class="card-img placeholder">
-            <span class="stock-badge">in stock</span>
-            <div class="chip">MIC+OLED</div>
-            <span class="pending">photo pending</span>
-          </div>
-          <div class="card-body">
-            <div class="card-cat">A1 · Voice / AI</div>
-            <div class="card-job">job: voice + display add-on</div>
-            <div class="card-title">AI Voice Adapter</div>
-            <div class="card-spec">I2S mic · 128×64 OLED · DFPlayer Mini header for audio playback · drops onto the DevKit-Lipo GPIO rows</div>
-            <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
-            <div class="card-footer">
-              <div class="card-price">₹399<small>incl. GST</small></div>
-              <button class="card-add">Add to cart</button>
+      <div class="shop-block" id="adapters">
+        <h3 class="shop-cat">Adapters <small>stack straight onto the boards</small></h3>
+        <div class="product-grid">
+          <div class="card reveal">
+            <div class="card-img placeholder">
+              <span class="stock-badge">in stock</span>
+              <div class="chip">MIC+OLED</div>
+              <span class="pending">photo pending</span>
+            </div>
+            <div class="card-body">
+              <div class="card-cat">A1 · Voice / AI</div>
+              <div class="card-job">job: voice + display add-on</div>
+              <div class="card-title">AI Voice Adapter</div>
+              <div class="card-spec">I2S mic · 128×64 OLED · DFPlayer Mini header for audio playback · drops onto the DevKit-Lipo GPIO rows</div>
+              <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
+              <div class="card-footer">
+                <div class="card-price">₹399<small>incl. GST</small></div>
+                <button class="card-add">Add to cart</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card">
-          <div class="card-img placeholder">
-            <span class="stock-badge">in stock</span>
-            <div class="chip">W5500</div>
-            <span class="pending">photo pending</span>
-          </div>
-          <div class="card-body">
-            <div class="card-cat">A2 · Industrial I/O</div>
-            <div class="card-job">job: industrial / PLC &amp; HMI builds</div>
-            <div class="card-title">Industrial I/O Adapter</div>
-            <div class="card-spec">W5500 wired Ethernet · RS485 · TTL UART · 24V DC input with onboard regulation, for PLC/HMI builds</div>
-            <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
-            <div class="card-footer">
-              <div class="card-price">₹599<small>incl. GST</small></div>
-              <button class="card-add">Add to cart</button>
+          <div class="card reveal">
+            <div class="card-img placeholder">
+              <span class="stock-badge">in stock</span>
+              <div class="chip">W5500</div>
+              <span class="pending">photo pending</span>
+            </div>
+            <div class="card-body">
+              <div class="card-cat">A2 · Industrial I/O</div>
+              <div class="card-job">job: industrial / PLC &amp; HMI builds</div>
+              <div class="card-title">Industrial I/O Adapter</div>
+              <div class="card-spec">W5500 wired Ethernet · RS485 · TTL UART · 24V DC input with onboard regulation, for PLC/HMI builds</div>
+              <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
+              <div class="card-footer">
+                <div class="card-price">₹599<small>incl. GST</small></div>
+                <button class="card-add">Add to cart</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card">
-          <div class="card-img placeholder">
-            <span class="stock-badge">in stock</span>
-            <div class="chip">PAM8403</div>
-            <span class="pending">photo pending</span>
-          </div>
-          <div class="card-body">
-            <div class="card-cat">A3 · Audio / D1-Mini</div>
-            <div class="card-job">job: audio + local logging</div>
-            <div class="card-title">Audio + microSD Adapter</div>
-            <div class="card-spec">PAM8403 stereo amp · microSD slot for playback/logging · drops onto the D1-Mini header</div>
-            <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
-            <div class="card-footer">
-              <div class="card-price">₹249<small>incl. GST</small></div>
-              <button class="card-add">Add to cart</button>
+          <div class="card reveal">
+            <div class="card-img placeholder">
+              <span class="stock-badge">in stock</span>
+              <div class="chip">PAM8403</div>
+              <span class="pending">photo pending</span>
+            </div>
+            <div class="card-body">
+              <div class="card-cat">A3 · Audio / D1-Mini</div>
+              <div class="card-job">job: audio + local logging</div>
+              <div class="card-title">Audio + microSD Adapter</div>
+              <div class="card-spec">PAM8403 stereo amp · microSD slot for playback/logging · drops onto the D1-Mini header</div>
+              <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
+              <div class="card-footer">
+                <div class="card-price">₹249<small>incl. GST</small></div>
+                <button class="card-add">Add to cart</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card">
-          <div class="card-img placeholder">
-            <span class="stock-badge">in stock</span>
-            <div class="chip">LIPO+W5500</div>
-            <span class="pending">photo pending</span>
-          </div>
-          <div class="card-body">
-            <div class="card-cat">A4 · Power + Ethernet / D1-Mini</div>
-            <div class="card-job">job: battery-powered local nodes</div>
-            <div class="card-title">Charging + Ethernet Adapter</div>
-            <div class="card-spec">LiPo charge controller · W5500 wired Ethernet · drops onto the D1-Mini header</div>
-            <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
-            <div class="card-footer">
-              <div class="card-price">₹499<small>incl. GST</small></div>
-              <button class="card-add">Add to cart</button>
+          <div class="card reveal">
+            <div class="card-img placeholder">
+              <span class="stock-badge">in stock</span>
+              <div class="chip">LIPO+W5500</div>
+              <span class="pending">photo pending</span>
+            </div>
+            <div class="card-body">
+              <div class="card-cat">A4 · Power + Ethernet / D1-Mini</div>
+              <div class="card-job">job: battery-powered local nodes</div>
+              <div class="card-title">Charging + Ethernet Adapter</div>
+              <div class="card-spec">LiPo charge controller · W5500 wired Ethernet · drops onto the D1-Mini header</div>
+              <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
+              <div class="card-footer">
+                <div class="card-price">₹499<small>incl. GST</small></div>
+                <button class="card-add">Add to cart</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card ghost">
-          <div class="plus">+</div>
-          <b>More adapters — coming soon</b>
-          <span>Motor driver and relay adapters are next in queue.</span>
+          <div class="card ghost reveal">
+            <div class="plus">+</div>
+            <b>More adapters — coming soon</b>
+            <span>Motor driver and relay adapters are next in queue.</span>
+          </div>
         </div>
       </div>
 
       <!-- accessories -->
-      <h3 style="font-size:15px; margin-bottom:16px;">Accessories <span style="color:var(--dim); font-weight:400; font-size:12px;">— built to go with the boards</span></h3>
-      <div class="product-grid" style="margin-bottom:40px;">
-        <div class="card">
-          <div class="card-img">
-            <span class="stock-badge">in stock</span>
-            <img src="https://ckthub.com/wrover-devkit.png" alt="3.7V single-cell LiPo battery pack" width="400" height="225">
-          </div>
-          <div class="card-body">
-            <div class="card-cat">Battery</div>
-            <div class="card-title">3.7V 1000mAh LiPo cell</div>
-            <div class="card-spec">JST-PH 2.0 connector · matches J2/J3 on both boards directly</div>
-            <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
-            <div class="card-footer">
-              <div class="card-price">₹249<small>incl. GST</small></div>
-              <button class="card-add">Add to cart</button>
+      <div class="shop-block" id="accessories">
+        <h3 class="shop-cat">Accessories <small>built to go with the boards</small></h3>
+        <div class="product-grid">
+          <div class="card reveal">
+            <div class="card-img">
+              <span class="stock-badge">in stock</span>
+              <img src="https://ckthub.com/wrover-devkit.png" alt="3.7V single-cell LiPo battery pack">
+            </div>
+            <div class="card-body">
+              <div class="card-cat">Battery</div>
+              <div class="card-title">3.7V 1000mAh LiPo cell</div>
+              <div class="card-spec">JST-PH 2.0 connector · matches J2/J3 on both boards directly</div>
+              <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
+              <div class="card-footer">
+                <div class="card-price">₹249<small>incl. GST</small></div>
+                <button class="card-add">Add to cart</button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="card-img">
-            <span class="stock-badge">in stock</span>
-            <img src="https://ckthub.com/s3-devkit.png" alt="USB-C to USB-C data cable" width="400" height="225">
-          </div>
-          <div class="card-body">
-            <div class="card-cat">Cable</div>
-            <div class="card-title">USB-C to USB-C, data-rated</div>
-            <div class="card-spec">Verified for JTAG/OTG on the S3 board — not a charge-only cable</div>
-            <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
-            <div class="card-footer">
-              <div class="card-price">₹199<small>incl. GST</small></div>
-              <button class="card-add">Add to cart</button>
+          <div class="card reveal">
+            <div class="card-img">
+              <span class="stock-badge">in stock</span>
+              <img src="https://ckthub.com/s3-devkit.png" alt="USB-C to USB-C data cable">
+            </div>
+            <div class="card-body">
+              <div class="card-cat">Cable</div>
+              <div class="card-title">USB-C to USB-C, data-rated</div>
+              <div class="card-spec">Verified for JTAG/OTG on the S3 board — not a charge-only cable</div>
+              <div class="card-meta"><span>subscription: <b>no</b></span><span>offline: <b>yes</b></span></div>
+              <div class="card-footer">
+                <div class="card-price">₹199<small>incl. GST</small></div>
+                <button class="card-add">Add to cart</button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card ghost">
-          <div class="plus">+</div>
-          <b>Enclosures — coming soon</b>
-          <span>Snap-fit case for the S3 board, in testing.</span>
+          <div class="card ghost reveal">
+            <div class="plus">+</div>
+            <b>Enclosures — coming soon</b>
+            <span>Snap-fit case for the S3 board, in testing.</span>
+          </div>
         </div>
       </div>
 
       <!-- volume pricing -->
-      <div class="price-panel">
-        <div class="price-card">
-          <img src="https://ckthub.com/wrover-devkit.png" alt="ESP32-WROVER-DevKit-Lipo" width="96" height="96">
-          <div class="price-card-body">
-            <h3>ESP32-WROVER-DevKit-Lipo</h3>
-            <div class="sub">WROVER-E variant · 4MB flash · 8MB PSRAM</div>
-            <input type="range" min="1" max="200" value="1" oninput="updatePrice(this,'wrover')" aria-label="WROVER quantity">
-            <div class="qty-row"><span>Quantity</span><b id="wrover-qty">1</b></div>
-            <div class="price-row">
-              <div class="amt" id="wrover-price">₹499<small>per unit, incl. GST</small></div>
-              <button class="card-add">Add to cart</button>
+      <div class="shop-block" id="volume">
+        <h3 class="shop-cat">Volume pricing <small>the same tiers we quote for bulk</small></h3>
+        <div class="price-panel">
+          <div class="price-card">
+            <img src="https://ckthub.com/wrover-devkit.png" alt="ESP32-WROVER-DevKit-Lipo">
+            <div class="price-card-body">
+              <h3>ESP32-WROVER-DevKit-Lipo</h3>
+              <div class="sub">WROVER-E variant · 4MB flash · 8MB PSRAM</div>
+              <input type="range" min="1" max="200" value="1" oninput="updatePrice(this,'wrover')" aria-label="WROVER quantity">
+              <div class="qty-row"><span>Quantity</span><b id="wrover-qty">1</b></div>
+              <div class="price-row">
+                <div class="amt" id="wrover-price">₹499<small>per unit, incl. GST</small></div>
+                <button class="card-add">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="price-card">
+            <img src="https://ckthub.com/s3-devkit.png" alt="ESP32-S3-DevKit-Lipo">
+            <div class="price-card-body">
+              <h3>ESP32-S3-DevKit-Lipo</h3>
+              <div class="sub">PCB antenna variant · 8MB flash · 8MB PSRAM</div>
+              <input type="range" min="1" max="200" value="1" oninput="updatePrice(this,'s3')" aria-label="S3 quantity">
+              <div class="qty-row"><span>Quantity</span><b id="s3-qty">1</b></div>
+              <div class="price-row">
+                <div class="amt" id="s3-price">₹799<small>per unit, incl. GST</small></div>
+                <button class="card-add">Add to cart</button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="price-card">
-          <img src="https://ckthub.com/s3-devkit.png" alt="ESP32-S3-DevKit-Lipo" width="96" height="96">
-          <div class="price-card-body">
-            <h3>ESP32-S3-DevKit-Lipo</h3>
-            <div class="sub">PCB antenna variant · 8MB flash · 8MB PSRAM</div>
-            <input type="range" min="1" max="200" value="1" oninput="updatePrice(this,'s3')" aria-label="S3 quantity">
-            <div class="qty-row"><span>Quantity</span><b id="s3-qty">1</b></div>
-            <div class="price-row">
-              <div class="amt" id="s3-price">₹799<small>per unit, incl. GST</small></div>
-              <button class="card-add">Add to cart</button>
-            </div>
-          </div>
-        </div>
+        <p class="volume-note">Volume tiers: 5+ units −4% · 25+ units −10% · 100+ units −18%. The slider above mirrors the same tiers we quote for bulk.</p>
       </div>
-      <p style="font-size:11.5px; color:var(--dim); margin-top:12px;">Volume tiers: 5+ units −4% · 25+ units −10% · 100+ units −18%. The slider above mirrors the same tiers we quote for bulk.</p>
     </div>
   </section>
 
   <!-- 08 · OWN IT -->
   <section id="ownit" aria-labelledby="ownit-title">
     <div class="wrap">
-      <div class="num-tag">08 — <b>what we can build next</b></div>
-      <div class="ownit">
+      <div class="ownit reveal">
         <h3 id="ownit-title">Have a software subscription you'd rather own?</h3>
         <p>Tell us the job. We'll explore whether it can become a box. Software name, what you use it for, what it costs you, how many devices — send it over and we'll tell you honestly whether hardware makes sense for it.</p>
-        <div class="example"><b>$</b> e.g. "We pay ₹1,200/month for a cloud attendance tool for 40 staff. We want a wall kiosk that logs check-in locally."</div>
-        <div class="example"><b>$</b> e.g. "₹800/month for a temperature logger at our cold room. We want a standalone unit with local alerts."</div>
-        <a class="btn-primary lg" href="own-it.html">Tell Us What You Want to Replace →</a>
+        <div class="example">"We pay ₹1,200/month for a cloud attendance tool for 40 staff. We want a wall kiosk that logs check-in locally."</div>
+        <div class="example">"₹800/month for a temperature logger at our cold room. We want a standalone unit with local alerts."</div>
+        <a class="btn lg" href="own-it.html">Tell us what you want to replace</a>
       </div>
     </div>
   </section>
 
-  <!-- 09 · BUILD YOUR OWN (secondary) -->
+  <!-- 09 · BUILD YOUR OWN -->
   <section id="build" aria-labelledby="build-title">
     <div class="wrap">
-      <div class="num-tag">09 — <b>build your own</b></div>
-      <div class="shell-label"><span class="p1">ckthub@facility</span>:<span class="p2">~</span>$ ./build --your-own</div>
-      <h2 class="section-title" id="build-title">Need hardware for your own product?</h2>
-      <p class="section-sub">ESP32 and ESP32-S3 design, custom PCBs, embedded firmware, local web interfaces, sensors, displays, connectivity, enclosures and small-batch production — the same team that builds our own products will build yours.</p>
-      <div class="job-chips">
-        <span>ESP32</span><span>ESP32-S3</span><span>custom PCB</span><span>embedded firmware</span>
-        <span>local web interfaces</span><span>sensors</span><span>displays</span><span>connectivity</span>
-        <span>enclosure</span><span>small-batch production</span>
+      <div class="section-head center reveal">
+        <div class="eyebrow">07 — Build your own</div>
+        <h2 class="section-title" id="build-title">Need hardware for your own product?</h2>
+        <p class="section-sub">ESP32 and ESP32-S3 design, custom PCBs, embedded firmware, local web interfaces, sensors, displays, connectivity, enclosures and small-batch production — the same team that builds our own products will build yours.</p>
       </div>
-      <a class="btn-ghost" href="ckthub-fab.html">Build Your Own Device →</a>
+      <div class="chips" style="justify-content:center;">
+        <span class="chip">ESP32</span><span class="chip">ESP32-S3</span><span class="chip">custom PCB</span><span class="chip">embedded firmware</span>
+        <span class="chip">local web interfaces</span><span class="chip">sensors</span><span class="chip">displays</span><span class="chip">connectivity</span>
+        <span class="chip">enclosure</span><span class="chip">small-batch production</span>
+      </div>
+      <div class="cta-band">
+        <a class="btn" href="fab.html">Build your own device</a>
+      </div>
     </div>
   </section>
 
   <!-- 10 · TRUST -->
   <section id="contact" aria-labelledby="contact-title">
     <div class="wrap">
-      <div class="num-tag">10 — <b>who's behind it</b></div>
-      <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~</span>$ cat company.json</div>
-      <h2 class="section-title" id="contact-title">A real company, real hardware, no vague promises.</h2>
-      <p class="section-sub">Here's exactly who operates CktHub, where things are built, and how warranty, shipping and returns work.</p>
+      <div class="section-head reveal">
+        <div class="eyebrow">08 — Who's behind it</div>
+        <h2 class="section-title" id="contact-title">A real company, real hardware, no vague promises.</h2>
+        <p class="section-sub">Here's exactly who operates CktHub, where things are built, and how warranty, shipping and returns work.</p>
+      </div>
 
       <div class="trust-grid">
-        <div class="trust-card">
+        <div class="trust-card reveal">
           <h3>Who we are</h3>
           <p>CktHub is a brand of <b>Ambivert Technologies Private Limited</b> — an Indian electronics company. Products are designed and assembled in-house in Pune; firmware is written and flashed by the same team.</p>
         </div>
-        <div class="trust-card">
+        <div class="trust-card reveal">
           <h3>Where things are made</h3>
           <ul>
             <li><b>Designed:</b> Pune, Maharashtra</li>
@@ -1395,7 +792,7 @@
             <li><b>Materials:</b> RoHS-compliant</li>
           </ul>
         </div>
-        <div class="trust-card">
+        <div class="trust-card reveal">
           <h3>Warranty, shipping &amp; returns</h3>
           <ul>
             <li><b>Warranty:</b> 12 months against manufacturing defects</li>
@@ -1404,7 +801,7 @@
             <li><b>Returns:</b> 7 days from delivery for DOA / wrong item</li>
           </ul>
         </div>
-        <div class="trust-card">
+        <div class="trust-card reveal">
           <h3>Contact</h3>
           <div class="contact-rows">
             <div class="contact-row"><span class="k">Address</span><span class="v">Excellaa Plazzo, A107, near Bharat Petrol Pump, Ambegaon Budruk, Pune, Maharashtra 411046, India</span></div>
@@ -1415,21 +812,20 @@
         </div>
       </div>
 
-      <div class="faq" style="margin-top:26px;">
-        <h3 style="font-size:15px; margin-bottom:14px;">Common questions</h3>
-        <details>
+      <div class="faq">
+        <details class="reveal">
           <summary>Do your devices need the internet?</summary>
           <p>No. The products are designed for local operation — data stays on the device or your network. Internet is optional, and only where a specific feature genuinely needs it.</p>
         </details>
-        <details>
+        <details class="reveal">
           <summary>How do I pay?</summary>
           <p>Order on WhatsApp, then pay by UPI QR (9960160016@superyes) for orders up to ₹1,00,000, or by bank transfer with UTR for larger orders. GST invoice included.</p>
         </details>
-        <details>
+        <details class="reveal">
           <summary>Can you build a custom device for my business?</summary>
-          <p>Yes. That's the core of what we do — tell us the job you're paying a subscription for and we'll assess whether hardware can do it. Start from the <a href="own-it.html" style="color:var(--accent); text-decoration:underline;">Tell Us What You Want to Replace</a> page or the <a href="ckthub-fab.html" style="color:var(--accent); text-decoration:underline;">Build Your Own</a> page.</p>
+          <p>Yes. That's the core of what we do — tell us the job you're paying a subscription for and we'll assess whether hardware can do it. Start from the <a href="own-it.html">Tell Us What You Want to Replace</a> page or the <a href="fab.html">Build Your Own</a> page.</p>
         </details>
-        <details>
+        <details class="reveal">
           <summary>Do you ship outside India?</summary>
           <p>Currently shipping within India. For bulk or international orders, message us on WhatsApp and we'll work out the logistics.</p>
         </details>
@@ -1439,52 +835,52 @@
 
 </main>
 
-  <div class="trust-bar">
-    <div class="wrap trust-grid">
-      <div class="trust-item"><span class="ok">[OK]</span><span class="label">Bench-tested before it ships</span></div>
-      <div class="trust-item"><span class="ok">[OK]</span><span class="label">Assembled in-house, Pune</span></div>
-      <div class="trust-item"><span class="ok">[OK]</span><span class="label">RoHS-compliant materials</span></div>
-      <div class="trust-item"><span class="ok">[OK]</span><span class="label">12-month warranty</span></div>
+<div class="trust-strip">
+  <div class="wrap strip-inner">
+    <span><span class="tick">✓</span> Bench-tested before it ships</span>
+    <span><span class="tick">✓</span> Assembled in-house, Pune</span>
+    <span><span class="tick">✓</span> RoHS-compliant materials</span>
+    <span><span class="tick">✓</span> 12-month warranty</span>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">CktHub<small>hardware you own</small></a>
+        <p>A brand of Ambivert Technologies Private Limited. Standalone hardware that replaces recurring software subscriptions. Designed and assembled in-house in Pune, India.</p>
+      </div>
+      <div class="footer-col">
+        <h4>The idea</h4>
+        <a href="#idea">Software → Hardware</a>
+        <a href="#philosophy">Philosophy</a>
+        <a href="#products">Product roadmap</a>
+        <a href="own-it.html">Tell us what to replace</a>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#boards">Boards</a>
+        <a href="#adapters">Adapters</a>
+        <a href="#accessories">Accessories</a>
+        <a href="#volume">Volume pricing</a>
+        <a href="ckthub-cart.html">Cart &amp; checkout</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="fab.html">Build Your Own</a>
+        <a href="#contact">Warranty &amp; support</a>
+        <a href="contact.html">Contact &amp; map</a>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="terms.html">Terms &amp; conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
+      <span><a href="index.html">Store</a> · <a href="fab.html">Fab</a></span>
     </div>
   </div>
-
-  <footer>
-    <div class="wrap">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="brand"><span class="prompt">$</span> ckthub<small>hardware you own</small></div>
-          <p>A brand of Ambivert Technologies Private Limited. Standalone hardware that replaces recurring software subscriptions. Designed and assembled in-house in Pune, India.</p>
-        </div>
-        <div class="footer-col">
-          <h4>The idea</h4>
-          <a href="#idea">Software → Hardware</a>
-          <a href="#philosophy">Philosophy</a>
-          <a href="#products">Product roadmap</a>
-          <a href="own-it.html">Tell us what to replace</a>
-        </div>
-        <div class="footer-col">
-          <h4>Shop</h4>
-          <a href="#boards">Boards</a>
-          <a href="#adapters">Adapters</a>
-          <a href="#accessories">Accessories</a>
-          <a href="#shop">Volume pricing</a>
-          <a href="ckthub-cart.html">Cart &amp; checkout</a>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <a href="ckthub-fab.html">Build Your Own</a>
-          <a href="#contact">Warranty &amp; support</a>
-          <a href="contact.html">Contact &amp; map</a>
-          <a href="privacy.html">Privacy policy</a>
-          <a href="terms.html">Terms &amp; conditions</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
-        <span><a href="index.html">ckthub store</a> · <a href="ckthub-fab.html">ckthub fab</a> · ckthub@store:~$ <span style="color:var(--ok)">exit 0</span></span>
-      </div>
-    </div>
-  </footer>
+</footer>
 
 <!-- FLOATING ACTION BUTTONS -->
 <div class="fab-stack">
@@ -1507,7 +903,7 @@
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
   <div class="cart-head">
-    <h3>ckthub@store:~/cart$</h3>
+    <h3>Your cart</h3>
     <button class="cart-close" onclick="closeCart()" aria-label="Close cart">×</button>
   </div>
   <div class="cart-body" id="cartBody">
@@ -1729,29 +1125,23 @@
       '₹' + unit.toLocaleString('en-IN') + '<small>per unit, incl. GST</small>';
   }
 
-  // ---------- idea pipeline animation ----------
+  // ---------- reveal on scroll ----------
   (function(){
-    var pipeline = document.getElementById('pipeline');
-    if(!pipeline) return;
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var steps = pipeline.querySelectorAll('.pipe-step');
-
-    function reveal(){
-      steps.forEach(function(step){
-        var rect = step.getBoundingClientRect();
-        if(rect.top < window.innerHeight - 60){
-          step.classList.add('on');
-        }
-      });
-    }
-
-    if(reduceMotion){
-      steps.forEach(function(s){ s.classList.add('on'); });
+    var els = document.querySelectorAll('.reveal');
+    if(els.length === 0) return;
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(el){ el.classList.add('in'); });
       return;
     }
-
-    reveal();
-    window.addEventListener('scroll', reveal, { passive: true });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add('in');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el){ io.observe(el); });
   })();
 </script>
 

@@ -3,394 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cart — Ckthub, Pune</title>
+<title>Cart &amp; Checkout — CktHub</title>
+<meta name="description" content="Review your CktHub cart, add delivery details and pay by UPI QR — or bank transfer above ₹1,00,000 — then confirm the whole order on WhatsApp.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ckthub.com/ckthub-cart.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cart &amp; Checkout — CktHub">
+<meta property="og:description" content="Your cart, ready to ship. Pay by UPI QR or bank transfer, confirm on WhatsApp.">
+<meta property="og:url" content="https://ckthub.com/ckthub-cart.html">
+<link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<style>
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/JetBrains-Mono/2.304/css/jetbrains-mono.min.css');
-
-  :root{
-    --bg: #0a1628;
-    --bg-raised: #0f2038;
-    --card: #12253f;
-    --card-hover: #172c4a;
-    --border: #21395a;
-    --border-bright: #33507a;
-    --text: #e9eef6;
-    --muted: #8fa3c0;
-    --dim: #5b7194;
-    --accent: #ff7a3d;
-    --accent-dim: #c85f2e;
-    --ok: #7ee787;
-    --warn: #f2b544;
-    --err: #ff6b6b;
-    --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-  }
-
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
-  body{
-    background:var(--bg); color:var(--text); font-family:var(--mono);
-    font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
-  }
-  a{ color:inherit; text-decoration:none; }
-  ::selection{ background:var(--accent); color:#0d1117; }
-
-  .wrap{ max-width:1180px; margin:0 auto; padding:0 16px; }
-
-  /* ---------- store/fab tab switcher ---------- */
-  .site-tabs{
-    display:flex; align-items:center; gap:2px;
-    background:var(--bg-raised); border:1px solid var(--border);
-    border-radius:20px; padding:3px;
-  }
-  .site-tab{
-    font-family:var(--mono); font-size:12px; padding:7px 14px; border-radius:16px;
-    color:var(--muted); transition:background .18s, color .18s;
-  }
-  .site-tab:hover{ color:var(--text); }
-  .site-tab.active{ background:var(--accent); color:#0a1628; font-weight:700; }
-
-  /* ---------- top status bar ---------- */
-  .statusbar{
-    background:#060f1c; border-bottom:1px solid var(--border);
-    font-size:11px; letter-spacing:.04em; color:var(--dim);
-    padding:6px 0; overflow:hidden; white-space:nowrap;
-  }
-  .statusbar .wrap{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
-  .statusbar .sys{ display:none; }
-  .statusbar .blink{ color:var(--ok); animation:blink 1.4s steps(1) infinite; }
-  @keyframes blink{ 50%{ opacity:.25; } }
-
-  /* ---------- header ---------- */
-  header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(10,22,40,.92); backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--border);
-  }
-  .nav{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:14px 0; gap:24px;
-  }
-  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; }
-  .brand .prompt{ color:var(--accent); }
-  .brand small{ display:block; font-weight:400; color:var(--dim); font-size:10px; letter-spacing:.08em; }
-
-  .navlinks{ display:none; gap:28px; font-size:13px; }
-  .navlinks a{ color:var(--muted); padding:4px 0; transition:color .15s; }
-  .navlinks a::before{ content:'/'; color:var(--dim); margin-right:6px; }
-  .navlinks a:hover{ color:var(--accent); }
-
-  .navright{ display:flex; align-items:center; gap:10px; }
-  .icon-btn{
-    display:flex; align-items:center; gap:6px;
-    background:transparent; border:1px solid var(--border);
-    color:var(--muted); font-family:var(--mono); font-size:12px;
-    padding:7px 12px; border-radius:4px; cursor:pointer;
-    transition:border-color .15s, color .15s;
-  }
-  .icon-btn:hover{ border-color:var(--accent-dim); color:var(--accent); }
-  .cart-count{
-    background:var(--accent); color:#0d1117; font-weight:700;
-    font-size:10px; border-radius:9px; min-width:16px; height:16px;
-    display:flex; align-items:center; justify-content:center; padding:0 4px;
-  }
-  .btn-primary{
-    background:var(--accent); color:#0d1117; font-weight:700;
-    font-family:var(--mono); font-size:12px; letter-spacing:.03em;
-    padding:10px 18px; border:none; border-radius:4px; cursor:pointer;
-    display:inline-flex; align-items:center; justify-content:center;
-  }
-  .btn-primary:hover{ filter:brightness(1.1); }
-  .btn-ghost{
-    background:transparent; border:1px solid var(--border-bright); color:var(--text);
-    font-family:var(--mono); font-size:13px; padding:11px 18px; border-radius:4px;
-    cursor:pointer; display:inline-flex; align-items:center; justify-content:center;
-    transition:border-color .15s, color .15s;
-  }
-  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
-  .btn-ghost.full{ width:100%; }
-  .btn-wa{
-    background:#1fae5e; color:#fff; font-weight:700; font-family:var(--mono); font-size:13px;
-    padding:13px 22px; border:none; border-radius:4px; cursor:pointer; display:flex;
-    align-items:center; justify-content:center; gap:9px; width:100%;
-  }
-  .btn-wa:hover{ filter:brightness(1.08); }
-  .btn-wa:disabled{ opacity:.4; cursor:not-allowed; }
-
-  /* ---------- section label ---------- */
-  .shell-label{
-    display:flex; align-items:center; gap:10px;
-    color:var(--dim); font-size:12px; margin-bottom:14px;
-  }
-  .shell-label .p1{ color:var(--ok); }
-  .shell-label .p2{ color:var(--accent); }
-  .shell-label::after{ content:''; flex:1; height:1px; background:var(--border); }
-
-  section{ padding:36px 0 64px; }
-  h2.section-title{ font-size:24px; font-weight:700; letter-spacing:-.01em; margin-bottom:12px; }
-  p.section-sub{ color:var(--muted); max-width:620px; margin-bottom:28px; font-size:14px; }
-
-  /* ---------- cart layout (mobile first: single column) ---------- */
-  .cart-grid{ display:grid; grid-template-columns:1fr; gap:22px; align-items:start; }
-
-  .panel{ background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:22px; }
-  .panel-head{
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    padding:13px 20px; border-bottom:1px solid var(--border); background:var(--bg-raised);
-    font-size:12px; color:var(--dim);
-  }
-  .panel-head b{ color:var(--text); font-size:13px; }
-  .panel-head .hint{ color:var(--dim); font-size:11px; }
-  .panel-head .count{ color:var(--accent); font-size:11px; }
-
-  /* cart item rows */
-  .cart-item{
-    display:flex; flex-wrap:wrap; align-items:center; gap:12px 16px;
-    padding:18px 16px; border-bottom:1px solid var(--border);
-  }
-  .cart-item:last-child{ border-bottom:none; }
-  .cart-item-info{ flex:1; min-width:0; }
-  .cart-item-name{ font-size:13.5px; font-weight:600; color:var(--text); }
-  .cart-item-spec{ font-size:11px; color:var(--dim); margin-top:3px; }
-  .cart-item-controls{ display:flex; align-items:center; gap:8px; }
-  .qty-btn{
-    width:26px; height:26px; border-radius:4px; border:1px solid var(--border);
-    background:none; color:var(--muted); cursor:pointer; font-size:14px;
-    display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  }
-  .qty-btn:hover{ border-color:var(--accent-dim); color:var(--accent); }
-  .qty-input{
-    width:64px; font-family:var(--mono); font-size:13px; text-align:center;
-    color:var(--text); background:var(--bg); border:1px solid var(--border);
-    border-radius:4px; padding:3px 2px; outline:none;
-  }
-  .qty-input:focus{ border-color:var(--accent); }
-  .qty-input::-webkit-inner-spin-button, .qty-input::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
-  .qty-input[type=number]{ -moz-appearance:textfield; appearance:textfield; }
-  .cart-item-price{ text-align:right; min-width:auto; margin-left:auto; }
-  .cart-item-price .line{ font-size:14px; font-weight:700; color:var(--accent); }
-  .cart-item-price .each{ font-size:10.5px; color:var(--dim); }
-  .cart-item-remove{
-    background:none; border:none; color:var(--dim); cursor:pointer;
-    font-size:11px; text-decoration:underline; font-family:var(--mono);
-  }
-  .cart-item-remove:hover{ color:var(--err); }
-
-  .cart-empty-box{ padding:56px 24px; text-align:center; }
-  .cart-empty-box .ic{
-    width:56px; height:56px; margin:0 auto 14px; border:1.5px dashed var(--border-bright);
-    border-radius:8px; display:flex; align-items:center; justify-content:center;
-    font-size:20px; color:var(--dim);
-  }
-  .cart-empty-box b{ display:block; color:var(--muted); font-size:13.5px; margin-bottom:4px; }
-  .cart-empty-box span{ font-size:12px; color:var(--dim); display:block; margin-bottom:22px; }
-
-  .panel-actions{
-    display:flex; justify-content:space-between; align-items:center;
-    padding:14px 20px; background:var(--bg-raised); border-top:1px solid var(--border);
-  }
-  .panel-actions .clear{
-    background:none; border:none; color:var(--dim); font-family:var(--mono);
-    font-size:11.5px; text-decoration:underline; cursor:pointer;
-  }
-  .panel-actions .clear:hover{ color:var(--err); }
-  .panel-actions .note{ font-size:11px; color:var(--dim); }
-
-  /* ---------- shipping form (mobile first: single column) ---------- */
-  .ship-grid{ display:grid; grid-template-columns:1fr; gap:14px; padding:20px 16px; }
-  .field{ display:flex; flex-direction:column; gap:6px; }
-  .field.span2{ grid-column:1; }
-  .field label{ font-size:11px; color:var(--dim); letter-spacing:.03em; }
-  .field input, .field textarea{
-    background:var(--bg); border:1px solid var(--border); border-radius:4px; color:var(--text);
-    font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none; resize:vertical;
-  }
-  .field input:focus, .field textarea:focus{ border-color:var(--accent); }
-  .field input.err, .field textarea.err{ border-color:var(--err); }
-  .field .ferr{ font-size:10.5px; color:var(--err); display:none; }
-  .field.has-err .ferr{ display:block; }
-
-  /* ---------- summary readout ---------- */
-  .readout{ background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-  .readout-head{
-    display:flex; align-items:center; gap:8px; padding:13px 18px;
-    border-bottom:1px solid var(--border); background:var(--bg-raised);
-  }
-  .readout-head .dot{ width:9px; height:9px; border-radius:50%; background:var(--border-bright); }
-  .readout-head .dot.live{ background:var(--ok); }
-  .readout-head span.file{ margin-left:auto; font-size:11px; color:var(--dim); }
-  .readout-body{ padding:18px 20px 22px; }
-  .qr-line{ display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border); font-size:13px; }
-  .qr-line:last-of-type{ border-bottom:none; }
-  .qr-line .k{ color:var(--muted); }
-  .qr-line .v{ color:var(--text); font-weight:600; }
-  .qr-line .v.accent{ color:var(--accent); }
-  .qr-line .v.dim{ color:var(--dim); font-weight:400; }
-  .qr-line .v small{ display:block; font-size:10px; color:var(--dim); font-weight:400; }
-  .qr-total{
-    display:flex; justify-content:space-between; align-items:baseline;
-    padding-top:16px; margin-top:6px; border-top:1px solid var(--border-bright);
-  }
-  .qr-total .k{ font-size:13px; color:var(--text); }
-  .qr-total .v{ font-size:26px; font-weight:700; color:var(--accent); }
-  .qr-note{ font-size:11px; color:var(--dim); margin:12px 0 18px; line-height:1.6; }
-  .qr-note b{ color:var(--ok); font-weight:600; }
-  .summary .btn-ghost{ margin-top:10px; }
-
-  /* ---------- toast ---------- */
-  .toast{
-    position:fixed; left:50%; bottom:28px; transform:translate(-50%, 12px);
-    background:var(--card); border:1px solid var(--ok); color:var(--text);
-    font-family:var(--mono); font-size:13px;
-    padding:10px 18px; border-radius:6px; z-index:90;
-    opacity:0; pointer-events:none; transition:opacity .2s, transform .2s;
-    box-shadow:0 6px 18px rgba(0,0,0,.4);
-  }
-  .toast.show{ opacity:1; transform:translate(-50%, 0); }
-  .toast.err{ border-color:var(--err); }
-  .toast.err b{ color:var(--err); }
-  .toast b{ color:var(--ok); }
-
-  /* ---------- fab ---------- */
-  .fab-stack{ position:fixed; right:20px; bottom:20px; z-index:80; display:flex; flex-direction:column-reverse; align-items:flex-end; gap:14px; }
-  .fab{
-    display:flex; align-items:center; justify-content:center;
-    width:54px; height:54px; border-radius:50%;
-    border:1px solid var(--border-bright); cursor:pointer;
-    box-shadow:0 6px 18px rgba(0,0,0,.45);
-    transition:transform .15s, filter .15s;
-  }
-  .fab:hover{ transform:translateY(-2px); filter:brightness(1.08); }
-  .fab svg{ width:24px; height:24px; }
-  .fab-whatsapp{ background:#25D366; border-color:#1ea952; }
-  .fab-whatsapp svg{ fill:#0a1628; }
-  .fab-label{
-    font-family:var(--mono); font-size:11px; color:var(--muted);
-    background:var(--card); border:1px solid var(--border);
-    padding:4px 8px; border-radius:4px; white-space:nowrap;
-    opacity:0; transform:translateX(6px); transition:opacity .15s, transform .15s;
-    pointer-events:none;
-  }
-  .fab-row{ display:flex; align-items:center; gap:10px; }
-  .fab-row:hover .fab-label{ opacity:1; transform:translateX(0); }
-
-  /* ---------- payment panel ---------- */
-  .pay-divider{ height:1px; background:var(--border); margin:16px 0 14px; }
-  .pay-head{
-    display:flex; align-items:center; justify-content:space-between;
-    font-size:11px; color:var(--dim); letter-spacing:.04em; margin-bottom:12px;
-  }
-  .pay-head b{ color:var(--text); font-size:12px; }
-  .pay-head .amt{ color:var(--accent); font-weight:700; font-size:13px; }
-  .pay-qr-box{ display:flex; justify-content:center; margin-bottom:12px; }
-  .pay-qr-box #qrBox{
-    background:#fff; border-radius:8px; padding:8px; width:172px; height:172px;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .pay-qr-box #qrBox canvas, .pay-qr-box #qrBox img{ width:156px !important; height:156px !important; }
-  .pay-upi{ font-size:12px; color:var(--muted); text-align:center; margin-bottom:10px; }
-  .pay-upi b{ color:var(--text); }
-  .pay-instr{ font-size:11px; color:var(--dim); line-height:1.6; margin-bottom:14px; }
-  .pay-instr b{ color:var(--ok); font-weight:600; }
-  .bank-box{
-    background:var(--bg); border:1px solid var(--border); border-radius:6px;
-    padding:12px 14px; margin-bottom:12px; font-size:12px; display:flex; flex-direction:column; gap:6px;
-  }
-  .bank-box .k{ color:var(--dim); font-size:10.5px; letter-spacing:.03em; }
-  .bank-box .v{ color:var(--text); font-weight:600; word-break:break-all; }
-  .bank-box .copy{
-    background:none; border:1px solid var(--border); color:var(--muted);
-    font-family:var(--mono); font-size:10.5px; padding:3px 8px; border-radius:3px;
-    cursor:pointer; margin-left:8px;
-  }
-  .bank-box .copy:hover{ border-color:var(--accent); color:var(--accent); }
-  .bank-note{ font-size:10.5px; color:var(--warn); margin-bottom:12px; line-height:1.5; }
-
-  footer{ padding:40px 0 28px; border-top:1px solid var(--border); }
-  .footer-bottom{
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
-    font-size:12px; color:var(--dim);
-  }
-  .footer-bottom a{ color:var(--dim); }
-  .footer-bottom a:hover{ color:var(--accent); }
-
-  /* ---------- desktop enhancements (mobile first) ---------- */
-  @media (min-width:561px){
-    .wrap{ padding:0 24px; }
-    .statusbar .sys{ display:inline; }
-    section{ padding:56px 0 88px; }
-    h2.section-title{ font-size:28px; }
-    p.section-sub{ margin-bottom:36px; }
-    .navright{ gap:18px; }
-    .cart-item{ flex-wrap:nowrap; padding:18px 20px; }
-    .cart-item-price{ min-width:86px; }
-    .ship-grid{ grid-template-columns:1fr 1fr; padding:20px; }
-    .field.span2{ grid-column:1 / -1; }
-  }
-  @media (min-width:901px){
-    .navlinks{ display:flex; }
-    .cart-grid{ grid-template-columns:1.15fr .85fr; }
-    .readout{ position:sticky; top:84px; }
-  }
-</style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="statusbar">
-    <div class="wrap">
-      <span>CKTHUB STORE · CART · PIN→SHIPPING ROUTER ONLINE <span class="blink">●</span> PUNE, IN</span>
-      <span class="sys">ckthub@store:~$ cart --status <span style="color:var(--ok)">ready</span></span>
-    </div>
-  </div>
-
-  <header>
-    <div class="wrap nav">
-      <div class="brand"><span class="prompt">$</span> ckthub<small>a brand of Ambivert Technologies</small></div>
-      <nav class="navlinks">
-        <a href="index.html#products">What we build</a>
-        <a href="index.html#shop">Boards</a>
-        <a href="index.html#shop">Adapters</a>
-        <a href="index.html#shop">Accessories</a>
-        <a href="index.html#contact">Support</a>
-      </nav>
-      <div class="navright">
-        <div class="site-tabs" role="tablist" aria-label="Switch between store and fab">
-          <a href="index.html" class="site-tab active">Store</a>
-          <a href="ckthub-fab.html" class="site-tab">Fab</a>
-        </div>
+<header class="site-head">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">CktHub<small>hardware you own</small></a>
+    <div class="navright">
+      <div class="seg" role="tablist" aria-label="Switch between store and fab">
+        <a href="index.html" class="active" aria-current="page">Store</a>
+        <a href="fab.html">Fab</a>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- CART -->
-  <section id="cart">
+<main id="main">
+  <section id="cart" aria-labelledby="cart-title">
     <div class="wrap">
-      <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~/cart</span>$ ls -la</div>
-      <h2 class="section-title">Your cart, ready to ship.</h2>
-      <p class="section-sub">Adjust quantities, add delivery details and pay by UPI QR — or bank transfer above ₹1,00,000 — then confirm the whole order on WhatsApp.</p>
+      <div class="section-head reveal">
+        <div class="eyebrow">Checkout</div>
+        <h1 id="cart-title">Your cart, ready to ship.</h1>
+        <p class="section-sub">Adjust quantities, add delivery details and pay by UPI QR — or bank transfer above ₹1,00,000 — then confirm the whole order on WhatsApp.</p>
+      </div>
 
       <div class="cart-grid">
         <div class="cart-col-main">
 
           <!-- items -->
           <div class="panel">
-            <div class="panel-head"><b>cart.items</b><span class="count" id="itemCount">0 items</span></div>
+            <div class="panel-head"><b>Your items</b><span class="count" id="itemCount">0 items</span></div>
             <div id="cartItems"></div>
             <div id="cartEmpty" class="cart-empty-box" style="display:none;">
               <div class="ic">∅</div>
               <b>Your cart is empty.</b>
               <span>Add a board or adapter from the store first.</span>
-              <a class="btn-primary" href="index.html#shop">Back to the store</a>
+              <a class="btn" href="index.html#shop">Back to the store</a>
             </div>
             <div class="panel-actions" id="panelActions">
               <span class="note">Estimated weight shown as ≈10 g per unit, billed per kg.</span>
-              <button class="clear" onclick="clearCart()">clear cart</button>
+              <button class="clear" onclick="clearCart()">Clear cart</button>
             </div>
           </div>
 
           <!-- shipping details -->
           <div class="panel" id="shipPanel">
-            <div class="panel-head"><b>ship.to</b><span class="hint">delivery details</span></div>
+            <div class="panel-head"><b>Delivery details</b><span class="hint">ship to</span></div>
             <div class="ship-grid">
               <div class="field span2">
                 <label>Full name</label>
@@ -413,7 +82,7 @@
                 <span class="ferr">Enter a valid 6-digit PIN code.</span>
               </div>
               <div class="field">
-                <label>GSTIN <span style="color:var(--dim);">(optional — for business invoices)</span></label>
+                <label>GSTIN <span style="color:var(--text-2);font-weight:400;">(optional — for business invoices)</span></label>
                 <input id="shipGst" type="text" maxlength="15" placeholder="27ABCDE1234F1Z5" style="text-transform:uppercase;">
                 <span class="ferr">That doesn't look like a valid GSTIN (15 characters).</span>
               </div>
@@ -427,10 +96,10 @@
 
         </div>
 
-        <!-- summary -->
+        <!-- summary + payment -->
         <div class="cart-col-side">
           <div class="readout">
-            <div class="readout-head"><span class="dot live"></span><span class="dot"></span><span class="dot"></span><span class="file">order --summary</span></div>
+            <div class="readout-head"><span>Order summary</span></div>
             <div class="readout-body">
               <div class="qr-line"><span class="k">Items</span><span class="v" id="sumItems">0</span></div>
               <div class="qr-line"><span class="k">Weight</span><span class="v" id="sumWeight">0 g</span></div>
@@ -441,7 +110,7 @@
               <p class="qr-note" id="shipNote">Enter a 6-digit PIN to route delivery: <b>PIN starting with 4</b> = Maharashtra (₹40/kg), everywhere else ₹80/kg.</p>
 
               <div class="pay-divider"></div>
-              <div class="pay-head"><b>payment.method</b><span class="amt" id="payAmt">—</span></div>
+              <div class="pay-head"><b>Payment method</b><span class="amt" id="payAmt">—</span></div>
 
               <!-- UPI QR (orders up to ₹1,00,000) -->
               <div id="payUpi" style="display:none;">
@@ -459,7 +128,7 @@
                 </div>
                 <div class="bank-note">Amount exceeds ₹1,00,000 — please pay by bank transfer to the account above and share the UTR number to confirm.</div>
                 <div class="field" style="margin-bottom:14px;">
-                  <label>UTR number <span style="color:var(--warn);">(required for this order)</span></label>
+                  <label>UTR number <span style="color:var(--warn);font-weight:400;">(required for this order)</span></label>
                   <input id="utr" type="text" maxlength="30" placeholder="e.g. ICIC1234567890" style="text-transform:uppercase;">
                   <span class="ferr">Please enter the UTR number from your bank transfer.</span>
                 </div>
@@ -469,33 +138,64 @@
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;fill:#fff;"><path d="M12 2C6.48 2 2 6.36 2 11.74c0 2.04.62 3.93 1.68 5.5L2.5 21.5l4.42-1.13c1.5.86 3.24 1.36 5.08 1.36 5.52 0 10-4.36 10-9.74S17.52 2 12 2z"/></svg>
                 Confirm order on WhatsApp
               </button>
-              <a class="btn-ghost full" href="index.html#shop">← Back to store</a>
+              <div style="text-align:center; margin-top:14px;"><a class="btn-text" href="index.html#shop">← Back to store</a></div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+</main>
 
-  <footer>
-    <div class="wrap footer-bottom">
-      <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
-      <span><a href="index.html">ckthub store</a> · <a href="ckthub-fab.html">ckthub fab</a> · ckthub@store:~$ <span style="color:var(--ok)">exit 0</span></span>
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">CktHub<small>hardware you own</small></a>
+        <p>A brand of Ambivert Technologies Private Limited. Standalone hardware that replaces recurring software subscriptions. Designed and assembled in-house in Pune, India.</p>
+      </div>
+      <div class="footer-col">
+        <h4>The idea</h4>
+        <a href="index.html#idea">Software → Hardware</a>
+        <a href="index.html#philosophy">Philosophy</a>
+        <a href="index.html#products">Product roadmap</a>
+        <a href="own-it.html">Tell us what to replace</a>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="index.html#boards">Boards</a>
+        <a href="index.html#adapters">Adapters</a>
+        <a href="index.html#accessories">Accessories</a>
+        <a href="index.html#volume">Volume pricing</a>
+        <a href="ckthub-cart.html">Cart &amp; checkout</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="fab.html">Build Your Own</a>
+        <a href="contact.html">Contact &amp; map</a>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="terms.html">Terms &amp; conditions</a>
+      </div>
     </div>
-  </footer>
-
-  <!-- FAB -->
-  <div class="fab-stack">
-    <div class="fab-row">
-      <span class="fab-label">Chat on WhatsApp</span>
-      <button class="fab fab-whatsapp" aria-label="Chat on WhatsApp" onclick="window.open('https://wa.me/919960160016?text=' + encodeURIComponent('Hi Ckthub! Ref: ' + refCode + '. I have a question about my order.'), '_blank')">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.36 2 11.74c0 2.04.62 3.93 1.68 5.5L2.5 21.5l4.42-1.13c1.5.86 3.24 1.36 5.08 1.36 5.52 0 10-4.36 10-9.74S17.52 2 12 2zm5.3 13.86c-.23.63-1.32 1.2-1.83 1.27-.47.07-1.05.1-1.7-.1-.39-.13-.9-.3-1.54-.58-2.72-1.16-4.49-3.85-4.63-4.03-.14-.18-1.1-1.44-1.1-2.75s.7-1.94.94-2.2c.24-.27.53-.34.7-.34.18 0 .35 0 .5.01.16.01.38-.06.6.44.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.57.16.28.71 1.16 1.53 1.87 1.05.93 1.94 1.22 2.22 1.36.28.14.44.12.61-.07.16-.19.7-.79.89-1.06.19-.27.37-.22.62-.13.26.09 1.63.76 1.91.9.28.14.46.2.53.32.07.13.07.71-.16 1.34z"/></svg>
-      </button>
+    <div class="footer-bottom">
+      <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
+      <span><a href="index.html">Store</a> · <a href="fab.html">Fab</a> · <a href="own-it.html">Own-it</a></span>
     </div>
   </div>
+</footer>
 
-  <!-- TOAST -->
-  <div class="toast" id="toast"></div>
+<!-- FAB -->
+<div class="fab-stack">
+  <div class="fab-row">
+    <span class="fab-label">Chat on WhatsApp</span>
+    <button class="fab fab-whatsapp" aria-label="Chat on WhatsApp" onclick="window.open('https://wa.me/919960160016?text=' + encodeURIComponent('Hi Ckthub! Ref: ' + refCode + '. I have a question about my order.'), '_blank')">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.36 2 11.74c0 2.04.62 3.93 1.68 5.5L2.5 21.5l4.42-1.13c1.5.86 3.24 1.36 5.08 1.36 5.52 0 10-4.36 10-9.74S17.52 2 12 2zm5.3 13.86c-.23.63-1.32 1.2-1.83 1.27-.47.07-1.05.1-1.7-.1-.39-.13-.9-.3-1.54-.58-2.72-1.16-4.49-3.85-4.63-4.03-.14-.18-1.1-1.44-1.1-2.75s.7-1.94.94-2.2c.24-.27.53-.34.7-.34.18 0 .35 0 .5.01.16.01.38-.06.6.44.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.57.16.28.71 1.16 1.53 1.87 1.05.93 1.94 1.22 2.22 1.36.28.14.44.12.61-.07.16-.19.7-.79.89-1.06.19-.27.37-.22.62-.13.26.09 1.63.76 1.91.9.28.14.46.2.53.32.07.13.07.71-.16 1.34z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <script>
   /* ============================================================

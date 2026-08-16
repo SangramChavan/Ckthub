@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" class="pretransition">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Build Your Own — PCB, 3D Print, Laser & CNC — CktHub Fab, Pune</title>
 <meta name="description" content="CktHub Fab makes hardware. PCB fabrication, 3D printing, laser marking & cutting, and CNC/VMC machining — in Pune, quoted instantly, confirmed on WhatsApp. Every CktHub box starts here; so can yours.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://ckthub.com/ckthub-fab.html">
+<link rel="canonical" href="https://ckthub.com/fab.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Build Your Own — CktHub Fab, Pune">
 <meta property="og:description" content="PCB, 3D print, laser & CNC in Pune. Every CktHub box starts here; so can yours.">
-<meta property="og:url" content="https://ckthub.com/ckthub-fab.html">
+<meta property="og:url" content="https://ckthub.com/fab.html">
+<link rel="stylesheet" href="style.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "CktHub Fab",
   "description": "Hardware manufacturing in Pune, India: PCB fabrication, PCB assembly, 3D printing, laser marking & cutting, and CNC/VMC machining.",
-  "url": "https://ckthub.com/ckthub-fab.html",
+  "url": "https://ckthub.com/fab.html",
   "parentOrganization": {
     "@type": "Organization",
     "name": "Ambivert Technologies Private Limited",
@@ -42,338 +43,89 @@
   "telephone": "+91-99601-60016"
 }
 </script>
-<style>
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/JetBrains-Mono/2.304/css/jetbrains-mono.min.css');
-
-  /* native cross-document crossfade in browsers that support it (progressive enhancement) */
-  @view-transition{ navigation:auto; }
-
-  :root{
-    --bg: #0a1628;
-    --bg-raised: #0f2038;
-    --card: #12253f;
-    --card-hover: #172c4a;
-    --border: #21395a;
-    --border-bright: #33507a;
-    --text: #e9eef6;
-    --muted: #8fa3c0;
-    --dim: #5b7194;
-    --accent: #ff7a3d;
-    --accent-dim: #c85f2e;
-    --ok: #7ee787;
-    --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-  }
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
-  html.pretransition body{ opacity:0; }
-  body{ background:var(--bg); color:var(--text); font-family:var(--mono); font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased; opacity:1; transition:opacity .18s ease; }
-  body.page-exit{ opacity:0; }
-  a{ color:inherit; text-decoration:none; }
-  ::selection{ background:var(--accent); color:#0a1628; }
-  .wrap{ max-width:1180px; margin:0 auto; padding:0 16px; }
-
-  .skip-link{ position:absolute; left:-999px; top:0; z-index:200; background:var(--accent); color:#0d1117; font-size:13px; font-weight:700; padding:10px 16px; }
-  .skip-link:focus{ left:0; }
-
-  /* ---------- store/fab tab switcher ---------- */
-  .site-tabs{
-    display:flex; align-items:center; gap:2px;
-    background:var(--bg-raised); border:1px solid var(--border);
-    border-radius:20px; padding:3px;
-  }
-  .site-tab{
-    font-family:var(--mono); font-size:12px; padding:7px 14px; border-radius:16px;
-    color:var(--muted); transition:background .18s, color .18s;
-  }
-  .site-tab:hover{ color:var(--text); }
-  .site-tab.active{ background:var(--accent); color:#0a1628; font-weight:700; }
-  .icon-btn{
-    display:flex; align-items:center; gap:6px;
-    background:transparent; border:1px solid var(--border);
-    color:var(--muted); font-family:var(--mono); font-size:12px;
-    padding:7px 12px; border-radius:4px; cursor:pointer;
-    transition:border-color .15s, color .15s;
-  }
-  .icon-btn:hover{ border-color:var(--accent-dim); color:var(--accent); }
-  .cart-count{
-    background:var(--accent); color:#0a1628; font-weight:700;
-    font-size:10px; border-radius:9px; min-width:16px; height:16px;
-    display:flex; align-items:center; justify-content:center; padding:0 4px;
-  }
-  .navright{ display:flex; align-items:center; gap:12px; }
-
-  .statusbar{ background:#060f1c; border-bottom:1px solid var(--border); font-size:11px; letter-spacing:.04em; color:var(--dim); padding:6px 0; overflow:hidden; white-space:nowrap; }
-  .statusbar .wrap{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
-  .statusbar .sys{ display:none; }
-  .statusbar .blink{ color:var(--ok); animation:blink 1.4s steps(1) infinite; }
-  @keyframes blink{ 50%{ opacity:.25; } }
-
-  header{ position:sticky; top:0; z-index:50; background:rgba(10,22,40,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
-  .nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; gap:12px; }
-  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; white-space:nowrap; }
-  .brand .prompt{ color:var(--accent); }
-  .brand small{ display:block; font-weight:400; color:var(--dim); font-size:10px; letter-spacing:.06em; }
-  .navlinks{ display:none; gap:26px; font-size:13px; }
-  .navlinks a{ color:var(--muted); white-space:nowrap; }
-  .navlinks a::before{ content:'/'; color:var(--dim); margin-right:6px; }
-  .navlinks a:hover{ color:var(--accent); }
-
-  .btn-primary{ background:var(--accent); color:#0a1628; font-weight:700; font-family:var(--mono); font-size:12px; letter-spacing:.03em; padding:11px 18px; border:none; border-radius:4px; cursor:pointer; transition:filter .15s; }
-  .btn-primary:hover{ filter:brightness(1.1); }
-  .btn-primary.lg{ width:100%; font-size:13px; padding:14px 22px; }
-  .btn-ghost{ background:transparent; border:1px solid var(--border-bright); color:var(--text); font-family:var(--mono); font-size:13px; padding:13px 18px; border-radius:4px; cursor:pointer; transition:border-color .15s, color .15s; display:inline-flex; align-items:center; justify-content:center; }
-  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
-  .btn-wa{
-    background:#1fae5e; color:#fff; font-weight:700; font-family:var(--mono); font-size:13px;
-    padding:13px 22px; border:none; border-radius:4px; cursor:pointer; display:inline-flex; align-items:center; gap:9px;
-  }
-  .btn-wa:hover{ filter:brightness(1.08); }
-
-  .shell-label{ display:flex; align-items:center; gap:10px; color:var(--dim); font-size:12px; margin-bottom:14px; }
-  .shell-label .p1{ color:var(--ok); } .shell-label .p2{ color:var(--accent); }
-  .shell-label::after{ content:''; flex:1; height:1px; background:var(--border); }
-
-  section{ padding:48px 0 72px; border-bottom:1px solid var(--border); }
-  h2.section-title{ font-size:24px; font-weight:700; letter-spacing:-.01em; margin-bottom:12px; line-height:1.2; }
-  p.section-sub{ color:var(--muted); max-width:600px; margin-bottom:32px; font-size:13.5px; }
-
-  /* hero */
-  .hero{ padding:56px 0 72px; }
-  .hero-log{ font-size:11px; color:var(--dim); margin-bottom:24px; }
-  .hero-grid{ display:grid; grid-template-columns:1fr; gap:32px; align-items:center; }
-  .hero h1{ font-size:30px; line-height:1.16; font-weight:700; letter-spacing:-.02em; margin-bottom:16px; }
-  .hero h1 .hl{ color:var(--accent); }
-  .hero p.lead{ color:var(--muted); font-size:14px; max-width:480px; margin-bottom:24px; }
-  .hero-badges{ display:flex; flex-wrap:wrap; gap:10px 22px; margin-bottom:28px; }
-  .hero-badges span{ font-size:12px; color:var(--muted); display:flex; align-items:center; gap:7px; }
-  .hero-badges span::before{ content:'✓'; color:var(--ok); font-weight:700; }
-  .hero-ctas{ display:flex; gap:12px; flex-wrap:wrap; }
-  .hero-ctas .btn-primary, .hero-ctas .btn-ghost{ flex:1; min-width:200px; }
-
-  .readout{ background:var(--card); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
-  .readout-head{ display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--border); background:var(--bg-raised); }
-  .readout-head .dot{ width:9px; height:9px; border-radius:50%; background:var(--border-bright); }
-  .readout-head .dot.live{ background:var(--ok); }
-  .readout-head span.file{ margin-left:auto; font-size:11px; color:var(--dim); }
-  .readout-body{ padding:20px; }
-  .readout-row{ display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border); font-size:13px; }
-  .readout-row:last-child{ border-bottom:none; }
-  .readout-row .k{ color:var(--dim); }
-  .readout-row .v{ color:var(--text); font-weight:600; }
-  .readout-row .v.accent{ color:var(--accent); }
-  .readout-row .v.ok{ color:var(--ok); }
-
-  /* three paths */
-  .paths-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
-  .path-card{
-    background:var(--card); border:1px solid var(--border); border-radius:10px; padding:22px 20px;
-    display:flex; flex-direction:column; gap:10px; transition:border-color .15s, transform .15s;
-  }
-  .path-card:hover{ border-color:var(--accent-dim); transform:translateY(-2px); }
-  .path-card .tag{ font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
-  .path-card h3{ font-size:16px; font-weight:700; }
-  .path-card p{ font-size:12.5px; color:var(--muted); line-height:1.6; flex:1; }
-  .path-card .meta{ display:flex; justify-content:space-between; align-items:center; padding-top:12px; border-top:1px solid var(--border); font-size:11.5px; color:var(--dim); }
-  .path-card .meta b{ color:var(--accent); font-size:12.5px; }
-
-  /* services grid */
-  .svc-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
-  .svc-card{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:22px 20px; display:flex; flex-direction:column; gap:10px; transition:border-color .15s, transform .15s; }
-  .svc-card:hover{ border-color:var(--accent-dim); transform:translateY(-2px); }
-  .svc-card .tag{ font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
-  .svc-card h3{ font-size:15.5px; font-weight:700; }
-  .svc-card p{ font-size:12.5px; color:var(--muted); line-height:1.55; flex:1; }
-  .svc-card .meta{ display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:1px solid var(--border); font-size:11.5px; color:var(--dim); }
-  .svc-card .meta b{ color:var(--accent); font-size:13px; }
-  .svc-card .wa-link{ font-size:11.5px; color:var(--ok); margin-top:2px; }
-  .svc-card .wa-link:hover{ text-decoration:underline; }
-
-  .qtabs{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
-  .qtab{
-    background:transparent; border:1px solid var(--border); color:var(--muted);
-    font-family:var(--mono); font-size:12.5px; padding:9px 16px; border-radius:20px;
-    cursor:pointer; transition:border-color .15s, color .15s, background .15s;
-  }
-  .qtab:hover{ border-color:var(--border-bright); color:var(--text); }
-  .qtab.active{ background:var(--accent); border-color:var(--accent); color:#0a1628; font-weight:700; }
-  .qfields{ display:none; }
-  .qfields.active{ display:block; }
-  .qr-line .v.unset{ color:var(--dim); font-style:italic; font-weight:400; }
-
-  /* quote tool */
-  .quote-panel{ background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-  .quote-grid{ display:grid; grid-template-columns:1fr; }
-  .quote-left{ padding:20px; }
-  .quote-right{ padding:20px; background:var(--bg-raised); border-top:1px solid var(--border); }
-  .drop-zone{
-    border:1.5px dashed var(--border-bright); border-radius:8px; padding:28px 16px; text-align:center;
-    cursor:pointer; transition:border-color .15s, background .15s; margin-bottom:22px;
-  }
-  .drop-zone:hover{ border-color:var(--accent); background:rgba(255,122,61,.04); }
-  .drop-zone .ic{ font-size:22px; color:var(--dim); margin-bottom:8px; }
-  .drop-zone b{ display:block; font-size:13px; color:var(--text); margin-bottom:4px; }
-  .drop-zone span{ font-size:11.5px; color:var(--dim); }
-  .drop-zone.filled{ border-color:var(--ok); border-style:solid; }
-  .drop-zone.filled b{ color:var(--ok); }
-  .field-row{ display:grid; grid-template-columns:1fr; gap:14px; margin-bottom:14px; }
-  .field{ display:flex; flex-direction:column; gap:6px; }
-  .field label{ font-size:11px; color:var(--dim); letter-spacing:.03em; }
-  .field input, .field select{
-    background:var(--bg); border:1px solid var(--border); border-radius:4px; color:var(--text);
-    font-family:var(--mono); font-size:13px; padding:11px 12px; outline:none;
-  }
-  .field input:focus, .field select:focus{ border-color:var(--accent); }
-  .quote-btn{ width:100%; margin-top:8px; }
-
-  .quote-result{ }
-  .qr-line{ display:flex; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); font-size:13px; gap:12px; }
-  .qr-line:last-of-type{ border-bottom:none; }
-  .qr-line .k{ color:var(--muted); }
-  .qr-line .v{ color:var(--text); font-weight:600; text-align:right; }
-  .qr-line .v.strike{ color:var(--dim); text-decoration:line-through; font-weight:400; }
-  .qr-total{ display:flex; justify-content:space-between; align-items:baseline; padding-top:18px; margin-top:6px; border-top:1px solid var(--border-bright); gap:12px; }
-  .qr-total .k{ font-size:13px; color:var(--text); }
-  .qr-total .v{ font-size:26px; font-weight:700; color:var(--accent); }
-  .qr-note{ font-size:11px; color:var(--dim); margin:14px 0 22px; line-height:1.6; }
-  .qr-empty{ color:var(--dim); font-size:13px; text-align:center; padding:40px 10px; }
-
-  /* process */
-  .process-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
-  .proc-card{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:22px 20px; }
-  .proc-card .n{ font-size:12px; color:var(--accent); margin-bottom:10px; }
-  .proc-card h3{ font-size:15px; margin-bottom:8px; }
-  .proc-card p{ font-size:12.5px; color:var(--muted); line-height:1.6; }
-
-  /* trust bar */
-  .trust-bar{ background:var(--bg-raised); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-  .trust-grid{ display:grid; grid-template-columns:1fr; }
-  .trust-item{ padding:16px 20px; border-bottom:1px solid var(--border); font-size:12.5px; display:flex; align-items:center; gap:10px; }
-  .trust-item:last-child{ border-bottom:none; }
-  .trust-item .ok{ color:var(--ok); font-weight:700; }
-  .trust-item span.label{ color:var(--muted); }
-
-  footer{ padding:36px 0 24px; }
-  .footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px; color:var(--dim); }
-  .footer-bottom a{ color:var(--dim); }
-  .footer-bottom a:hover{ color:var(--accent); }
-
-  /* ---- mobile-first: widen up ---- */
-  @media (min-width:561px){
-    .wrap{ padding:0 24px; }
-    .statusbar .sys{ display:inline; }
-    section{ padding:64px 0 88px; }
-    h2.section-title{ font-size:28px; }
-    p.section-sub{ font-size:14px; }
-    .field-row{ grid-template-columns:1fr 1fr; }
-    .quote-left{ padding:32px; }
-    .quote-right{ padding:32px; }
-    .trust-grid{ grid-template-columns:1fr 1fr; }
-    .trust-item{ border-bottom:none; }
-    .trust-item:nth-child(-n+2){ border-bottom:1px solid var(--border); }
-  }
-  @media (min-width:901px){
-    .navlinks{ display:flex; }
-    .hero{ padding:64px 0 84px; }
-    .hero-grid{ grid-template-columns:1.1fr .9fr; gap:56px; }
-    .hero h1{ font-size:40px; }
-    .hero p.lead{ font-size:15px; }
-    .hero-ctas .btn-primary, .hero-ctas .btn-ghost{ flex:0 1 auto; min-width:0; }
-    .paths-grid{ grid-template-columns:repeat(3,1fr); gap:18px; }
-    .svc-grid{ grid-template-columns:repeat(3,1fr); gap:18px; }
-    .quote-grid{ grid-template-columns:1fr 1fr; }
-    .quote-right{ border-top:none; border-left:1px solid var(--border); }
-    .process-grid{ grid-template-columns:repeat(3,1fr); gap:20px; }
-    .trust-grid{ grid-template-columns:repeat(4,1fr); }
-    .trust-item{ border-bottom:none; border-right:1px solid var(--border); }
-    .trust-item:nth-child(-n+2){ border-bottom:none; }
-    .trust-item:last-child{ border-right:none; }
-  }
-</style>
-<noscript><style>html.pretransition body{ opacity:1 !important; }</style></noscript>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="statusbar">
-    <div class="wrap">
-      <span>CKTHUB FAB · BUILD YOUR OWN · GERBER-IN, PARTS-OUT <span class="blink">●</span> PUNE, IN</span>
-      <span class="sys">fab@ckthub:~$ ./queue --status <span style="color:var(--ok)">accepting jobs</span></span>
+<header class="site-head">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">CktHub<small>hardware you own</small></a>
+    <nav class="navlinks" aria-label="Page sections">
+      <a href="#paths">Paths</a>
+      <a href="#services">Services</a>
+      <a href="#quote">Instant quote</a>
+      <a href="#process">Process</a>
+    </nav>
+    <div class="navright">
+      <div class="seg" role="tablist" aria-label="Switch between store and fab">
+        <a href="index.html">Store</a>
+        <a href="fab.html" class="active" aria-current="page">Fab</a>
+      </div>
+      <a class="cart-chip" href="ckthub-cart.html" aria-label="Open cart">
+        Cart <span class="cart-count">0</span>
+      </a>
     </div>
   </div>
-
-  <header>
-    <div class="wrap nav">
-      <div class="brand"><span class="prompt">$</span> ckthub/fab<small>build your own — PCB · print · laser · CNC</small></div>
-      <nav class="navlinks" aria-label="Page sections">
-        <a href="#paths">Paths</a>
-        <a href="#quote">Instant Quote</a>
-        <a href="#services">Services</a>
-        <a href="#process">Process</a>
-      </nav>
-      <div class="navright">
-        <div class="site-tabs" role="tablist" aria-label="Switch between store and fab">
-          <a href="index.html" class="site-tab">Store</a>
-          <a href="ckthub-fab.html" class="site-tab active">Fab</a>
-        </div>
-        <a href="ckthub-cart.html" class="icon-btn" id="cartBtn">cart <span class="cart-count" id="cartCount">0</span></a>
-      </div>
-    </div>
-  </header>
+</header>
 
 <main id="main">
 
   <!-- HERO -->
-  <section class="hero" aria-labelledby="hero-title">
+  <section class="hero split" aria-labelledby="hero-title">
     <div class="wrap">
-      <div class="hero-log">fab-manifest.json</div>
       <div class="hero-grid">
         <div>
-          <h1 id="hero-title">Build your own <span class="hl">box.</span></h1>
+          <h1 id="hero-title">Build your own box.</h1>
           <p class="lead">Every product on ckthub.com is made here, in Pune. If you're designing your own hardware, the same machines can make yours — PCB, 3D print, laser and CNC, quoted instantly and confirmed on WhatsApp.</p>
-          <div class="hero-badges">
-            <span>Gerber / STEP / DXF uploads</span>
-            <span>In-house PCB, print, laser &amp; CNC</span>
-            <span>No customs, no import wait</span>
-            <span>Quoted and confirmed on WhatsApp</span>
-          </div>
           <div class="hero-ctas">
-            <button class="btn-primary" onclick="document.getElementById('quote').scrollIntoView()">Get instant quote</button>
-            <button class="btn-ghost" onclick="document.getElementById('services').scrollIntoView()">See all services</button>
+            <button class="btn" onclick="document.getElementById('quote').scrollIntoView()">Get instant quote</button>
+            <a class="btn-text" href="#services">See all services <span class="arr">→</span></a>
           </div>
         </div>
         <div class="readout">
-          <div class="readout-head"><span class="dot live"></span><span class="dot"></span><span class="dot"></span><span class="file">fab --status</span></div>
+          <div class="readout-head"><span>Fab · Status</span></div>
           <div class="readout-body">
-            <div class="readout-row"><span class="k">location</span><span class="v">Pune, India</span></div>
-            <div class="readout-row"><span class="k">processes</span><span class="v accent">PCB · Print · Laser · CNC</span></div>
-            <div class="readout-row"><span class="k">order in</span><span class="v ok">Gerber / STEP / DXF</span></div>
-            <div class="readout-row"><span class="k">confirm via</span><span class="v">WhatsApp</span></div>
+            <div class="readout-row"><span class="k">Location</span><span class="v">Pune, India</span></div>
+            <div class="readout-row"><span class="k">Processes</span><span class="v accent">PCB · Print · Laser · CNC</span></div>
+            <div class="readout-row"><span class="k">Order in</span><span class="v ok">Gerber / STEP / DXF</span></div>
+            <div class="readout-row"><span class="k">Confirm via</span><span class="v">WhatsApp</span></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <div class="trust-strip">
+    <div class="wrap strip-inner">
+      <span><span class="tick">✓</span> Gerber / STEP / DXF uploads</span>
+      <span><span class="tick">✓</span> In-house PCB, print, laser &amp; CNC</span>
+      <span><span class="tick">✓</span> No customs, no import wait</span>
+      <span><span class="tick">✓</span> Quoted and confirmed on WhatsApp</span>
+    </div>
+  </div>
+
   <!-- THREE PATHS -->
   <section id="paths" aria-labelledby="paths-title">
     <div class="wrap">
-      <div class="shell-label"><span class="p1">fab@ckthub</span>:<span class="p2">~</span>$ cat build-your-own.md</div>
-      <h2 class="section-title" id="paths-title">Three ways to own hardware.</h2>
-      <p class="section-sub">Pick the path that matches where you are — grab a finished board, fabricate your own design, or let us build the product end to end.</p>
+      <div class="section-head reveal">
+        <div class="eyebrow">01 — Paths</div>
+        <h2 class="section-title" id="paths-title">Three ways to own hardware.</h2>
+        <p class="section-sub">Pick the path that matches where you are — grab a finished board, fabricate your own design, or let us build the product end to end.</p>
+      </div>
       <div class="paths-grid">
-        <a href="index.html#shop" class="path-card">
+        <a href="index.html#shop" class="path-card reveal">
           <div class="tag">Path 01 · Ready-made</div>
           <h3>Start with a board</h3>
           <p>The dev boards in the store are the same hardware our boxes are built on. Get one, wire it up, and make your idea work today — no fab required.</p>
           <div class="meta"><span>What you get</span><b>wrover · s3 · d1</b></div>
         </a>
-        <a href="#quote" class="path-card">
+        <a href="#quote" class="path-card reveal">
           <div class="tag">Path 02 · Design &amp; fab</div>
           <h3>Design it, we make it</h3>
           <p>Upload your Gerbers, STL, DXF or STEP and get an instant price. We fabricate in-house in Pune, review your file with you, and ship the parts.</p>
           <div class="meta"><span>What you get</span><b>instant quote ↓</b></div>
         </a>
-        <a href="own-it.html" class="path-card">
+        <a href="own-it.html" class="path-card reveal">
           <div class="tag">Path 03 · Made for you</div>
           <h3>Have us build the product</h3>
           <p>Got a job you want as a finished device? Tell us what you're replacing and we'll explore whether it can become a box — concept, spec, fixed price.</p>
@@ -386,35 +138,37 @@
   <!-- SERVICES -->
   <section id="services" aria-labelledby="services-title">
     <div class="wrap">
-      <div class="shell-label"><span class="p1">fab@ckthub</span>:<span class="p2">~/services</span>$ ls -la</div>
-      <h2 class="section-title" id="services-title">Four processes, one order flow.</h2>
-      <p class="section-sub">Upload a design file for any of these and get a price back — the same workflow you already use, just fabricated locally.</p>
+      <div class="section-head reveal">
+        <div class="eyebrow">02 — Services</div>
+        <h2 class="section-title" id="services-title">Four processes, one order flow.</h2>
+        <p class="section-sub">Upload a design file for any of these and get a price back — the same workflow you already use, just fabricated locally.</p>
+      </div>
       <div class="svc-grid">
-        <div class="svc-card">
+        <div class="svc-card reveal">
           <div class="tag">01 · PCB</div>
           <h3>PCB Fabrication</h3>
           <p>2/4/6-layer boards from Gerber files — FR4, ENIG/HASL finish, silkscreen &amp; soldermask.</p>
           <div class="meta"><span>Turnaround</span><b>3–5 days</b></div>
         </div>
-        <div class="svc-card">
+        <div class="svc-card reveal">
           <div class="tag">02 · Print</div>
           <h3>3D Printing</h3>
           <p>FDM and resin printing for enclosures, jigs, fixtures and functional prototypes.</p>
           <div class="meta"><span>Turnaround</span><b>1–3 days</b></div>
         </div>
-        <div class="svc-card">
+        <div class="svc-card reveal">
           <div class="tag">03 · Laser</div>
           <h3>Laser Marking &amp; Cutting</h3>
           <p>Panel branding, enclosure engraving, and sheet cutting from DXF/AI files.</p>
           <div class="meta"><span>Turnaround</span><b>1–2 days</b></div>
         </div>
-        <div class="svc-card">
+        <div class="svc-card reveal">
           <div class="tag">04 · CNC</div>
           <h3>VMC &amp; CNC Machining</h3>
           <p>Milled aluminium/acrylic parts and panels from STEP files, for enclosures and fixtures.</p>
           <div class="meta"><span>Turnaround</span><b>4–7 days</b></div>
         </div>
-        <div class="svc-card">
+        <div class="svc-card reveal">
           <div class="tag">05 · PCBA</div>
           <h3>PCB Assembly</h3>
           <p>Component sourcing, SMT/THT placement, reflow and inspection on your fabricated boards.</p>
@@ -428,9 +182,11 @@
   <!-- INSTANT QUOTE -->
   <section id="quote" aria-labelledby="quote-title">
     <div class="wrap">
-      <div class="shell-label"><span class="p1">fab@ckthub</span>:<span class="p2">~</span>$ ./quote --all</div>
-      <h2 class="section-title" id="quote-title">Instant quote, any process.</h2>
-      <p class="section-sub">Pick a process, upload your file, enter the specs — get a price back immediately, then confirm the job on WhatsApp.</p>
+      <div class="section-head reveal">
+        <div class="eyebrow">03 — Instant quote</div>
+        <h2 class="section-title" id="quote-title">Instant quote, any process.</h2>
+        <p class="section-sub">Pick a process, upload your file, enter the specs — get a price back immediately, then confirm the job on WhatsApp.</p>
+      </div>
 
       <div class="qtabs" role="tablist">
         <button class="qtab active" onclick="selectService('pcb', this)">PCB Fabrication</button>
@@ -544,7 +300,7 @@
               </div>
             </div>
 
-            <button class="btn-primary quote-btn" id="calcBtn" disabled onclick="calcQuote(true)">Calculate price</button>
+            <button class="btn quote-btn" id="calcBtn" disabled onclick="calcQuote(true)">Calculate price</button>
           </div>
 
           <div class="quote-right">
@@ -559,20 +315,22 @@
   <!-- PROCESS -->
   <section id="process" aria-labelledby="process-title">
     <div class="wrap">
-      <div class="shell-label"><span class="p1">fab@ckthub</span>:<span class="p2">~</span>$ cat order-flow.log</div>
-      <h2 class="section-title" id="process-title">Three steps, no account needed.</h2>
+      <div class="section-head reveal">
+        <div class="eyebrow">04 — Process</div>
+        <h2 class="section-title" id="process-title">Three steps, no account needed.</h2>
+      </div>
       <div class="process-grid">
-        <div class="proc-card">
+        <div class="proc-card reveal">
           <div class="n">01</div>
           <h3>Upload your file</h3>
           <p>Gerber .zip for PCB, or STEP/DXF for print, laser and CNC jobs. Get a price back instantly.</p>
         </div>
-        <div class="proc-card">
+        <div class="proc-card reveal">
           <div class="n">02</div>
           <h3>Confirm on WhatsApp</h3>
           <p>We review the file, confirm spec and price, and share a payment link — no separate account or portal.</p>
         </div>
-        <div class="proc-card">
+        <div class="proc-card reveal">
           <div class="n">03</div>
           <h3>Made and shipped</h3>
           <p>Fabricated in-house in Pune and shipped, or ready for pickup if you're local.</p>
@@ -583,21 +341,51 @@
 
 </main>
 
-  <div class="trust-bar">
-    <div class="wrap trust-grid">
-      <div class="trust-item"><span class="ok">[OK]</span><span class="label">All processes in-house, Pune</span></div>
-      <div class="trust-item"><span class="ok">[OK]</span><span class="label">Files reviewed before production</span></div>
-      <div class="trust-item"><span class="ok">[OK]</span><span class="label">No customs, no import delay</span></div>
-      <div class="trust-item"><span class="ok">[OK]</span><span class="label">Order confirmed on WhatsApp</span></div>
+<div class="trust-strip">
+  <div class="wrap strip-inner">
+    <span><span class="tick">✓</span> All processes in-house, Pune</span>
+    <span><span class="tick">✓</span> Files reviewed before production</span>
+    <span><span class="tick">✓</span> No customs, no import delay</span>
+    <span><span class="tick">✓</span> Order confirmed on WhatsApp</span>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">CktHub<small>hardware you own</small></a>
+        <p>A brand of Ambivert Technologies Private Limited. Standalone hardware that replaces recurring software subscriptions. Designed and assembled in-house in Pune, India.</p>
+      </div>
+      <div class="footer-col">
+        <h4>The idea</h4>
+        <a href="index.html#idea">Software → Hardware</a>
+        <a href="index.html#philosophy">Philosophy</a>
+        <a href="index.html#products">Product roadmap</a>
+        <a href="own-it.html">Tell us what to replace</a>
+      </div>
+      <div class="footer-col">
+        <h4>Fab</h4>
+        <a href="#paths">Three paths</a>
+        <a href="#services">Services</a>
+        <a href="#quote">Instant quote</a>
+        <a href="#process">Process</a>
+        <a href="ckthub-cart.html">Cart &amp; checkout</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="index.html">Store</a>
+        <a href="contact.html">Contact &amp; map</a>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="terms.html">Terms &amp; conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
+      <span><a href="index.html">Store</a> · <a href="fab.html">Fab</a> · <a href="own-it.html">Own-it</a></span>
     </div>
   </div>
-
-  <footer>
-    <div class="wrap footer-bottom">
-      <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
-      <span><a href="index.html">ckthub store</a> · <a href="own-it.html">own-it</a> · <a href="contact.html">contact</a> · <a href="privacy.html">privacy</a> · <a href="terms.html">terms</a></span>
-    </div>
-  </footer>
+</footer>
 
 <script>
   /* ============================================================
@@ -655,20 +443,6 @@
       document.querySelectorAll('.cart-count').forEach(function(el){ el.textContent = count; });
     }catch(e){}
   })();
-
-  // ---------- smooth store/fab/cart page transitions ----------
-  window.addEventListener('DOMContentLoaded', function(){
-    requestAnimationFrame(function(){ document.documentElement.classList.remove('pretransition'); });
-  });
-  document.addEventListener('click', function(e){
-    var link = e.target.closest('[data-transition]');
-    if(!link) return;
-    var href = link.getAttribute('href');
-    if(!href || link.target === '_blank') return;
-    e.preventDefault();
-    document.body.classList.add('page-exit');
-    setTimeout(function(){ window.location.href = href; }, 170);
-  });
 
   var WHATSAPP_NUMBER = "919960160016";
 
