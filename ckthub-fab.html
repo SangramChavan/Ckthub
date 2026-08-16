@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en" class="pretransition">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ckthub Fab — PCB, 3D Print, Laser & CNC Manufacturing, Pune</title>
+<style>
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/JetBrains-Mono/2.304/css/jetbrains-mono.min.css');
+
+  /* native cross-document crossfade in browsers that support it (progressive enhancement) */
+  @view-transition{ navigation:auto; }
+
+  :root{
+    --bg: #0a1628;
+    --bg-raised: #0f2038;
+    --card: #12253f;
+    --card-hover: #172c4a;
+    --border: #21395a;
+    --border-bright: #33507a;
+    --text: #e9eef6;
+    --muted: #8fa3c0;
+    --dim: #5b7194;
+    --accent: #ff7a3d;
+    --accent-dim: #c85f2e;
+    --ok: #7ee787;
+    --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  html.pretransition body{ opacity:0; }
+  body{ background:var(--bg); color:var(--text); font-family:var(--mono); font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased; opacity:1; transition:opacity .18s ease; }
+  body.page-exit{ opacity:0; }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--accent); color:#0a1628; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- store/fab tab switcher ---------- */
+  .site-tabs{
+    display:flex; align-items:center; gap:2px;
+    background:var(--bg-raised); border:1px solid var(--border);
+    border-radius:20px; padding:3px;
+  }
+  .site-tab{
+    font-family:var(--mono); font-size:12px; padding:7px 14px; border-radius:16px;
+    color:var(--muted); transition:background .18s, color .18s;
+  }
+  .site-tab:hover{ color:var(--text); }
+  .site-tab.active{ background:var(--accent); color:#0a1628; font-weight:700; }
+  .icon-btn{
+    display:flex; align-items:center; gap:6px;
+    background:transparent; border:1px solid var(--border);
+    color:var(--muted); font-family:var(--mono); font-size:12px;
+    padding:7px 12px; border-radius:4px; cursor:pointer;
+    transition:border-color .15s, color .15s;
+  }
+  .icon-btn:hover{ border-color:var(--accent-dim); color:var(--accent); }
+  .cart-count{
+    background:var(--accent); color:#0a1628; font-weight:700;
+    font-size:10px; border-radius:9px; min-width:16px; height:16px;
+    display:flex; align-items:center; justify-content:center; padding:0 4px;
+  }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .menu-toggle{ display:none; background:none; border:1px solid var(--border); color:var(--text); padding:8px 10px; border-radius:4px; font-family:var(--mono); }
+
+  .statusbar{ background:#060f1c; border-bottom:1px solid var(--border); font-size:11px; letter-spacing:.04em; color:var(--dim); padding:6px 0; overflow:hidden; white-space:nowrap; }
+  .statusbar .wrap{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  .statusbar .blink{ color:var(--ok); animation:blink 1.4s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:.25; } }
+
+  header{ position:sticky; top:0; z-index:50; background:rgba(10,22,40,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:24px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; }
+  .brand .prompt{ color:var(--accent); }
+  .brand small{ display:block; font-weight:400; color:var(--dim); font-size:10px; letter-spacing:.06em; }
+  .navlinks{ display:flex; gap:26px; font-size:13px; }
+  .navlinks a{ color:var(--muted); }
+  .navlinks a::before{ content:'/'; color:var(--dim); margin-right:6px; }
+  .navlinks a:hover{ color:var(--accent); }
+  .btn-primary{ background:var(--accent); color:#0a1628; font-weight:700; font-family:var(--mono); font-size:12px; letter-spacing:.03em; padding:10px 18px; border:none; border-radius:4px; cursor:pointer; }
+  .btn-primary:hover{ filter:brightness(1.1); }
+  .btn-ghost{ background:transparent; border:1px solid var(--border-bright); color:var(--text); font-family:var(--mono); font-size:13px; padding:11px 18px; border-radius:4px; cursor:pointer; }
+  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
+  .btn-wa{
+    background:#1fae5e; color:#fff; font-weight:700; font-family:var(--mono); font-size:13px;
+    padding:13px 22px; border:none; border-radius:4px; cursor:pointer; display:inline-flex; align-items:center; gap:9px;
+  }
+  .btn-wa:hover{ filter:brightness(1.08); }
+  .btn-wa:disabled{ opacity:.4; cursor:not-allowed; }
+
+  .shell-label{ display:flex; align-items:center; gap:10px; color:var(--dim); font-size:12px; margin-bottom:14px; }
+  .shell-label .p1{ color:var(--ok); } .shell-label .p2{ color:var(--accent); }
+  .shell-label::after{ content:''; flex:1; height:1px; background:var(--border); }
+
+  section{ padding:80px 0; border-bottom:1px solid var(--border); }
+  h2.section-title{ font-size:28px; font-weight:700; letter-spacing:-.01em; margin-bottom:12px; }
+  p.section-sub{ color:var(--muted); max-width:600px; margin-bottom:40px; font-size:14px; }
+
+  /* hero */
+  .hero{ padding:64px 0 84px; }
+  .hero-log{ font-size:11px; color:var(--dim); margin-bottom:26px; }
+  .hero-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center; }
+  .hero h1{ font-size:40px; line-height:1.16; font-weight:700; letter-spacing:-.02em; margin-bottom:18px; }
+  .hero h1 .hl{ color:var(--accent); }
+  .hero p.lead{ color:var(--muted); font-size:15px; max-width:480px; margin-bottom:26px; }
+  .hero-badges{ display:flex; flex-wrap:wrap; gap:10px 22px; margin-bottom:30px; }
+  .hero-badges span{ font-size:12px; color:var(--muted); display:flex; align-items:center; gap:7px; }
+  .hero-badges span::before{ content:'✓'; color:var(--ok); font-weight:700; }
+  .hero-ctas{ display:flex; gap:12px; flex-wrap:wrap; }
+  .readout{ background:var(--card); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .readout-head{ display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--border); background:var(--bg-raised); }
+  .readout-head .dot{ width:9px; height:9px; border-radius:50%; background:var(--border-bright); }
+  .readout-head .dot.live{ background:var(--ok); }
+  .readout-head span.file{ margin-left:auto; font-size:11px; color:var(--dim); }
+  .readout-body{ padding:20px; }
+  .readout-row{ display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border); font-size:13px; }
+  .readout-row:last-child{ border-bottom:none; }
+  .readout-row .k{ color:var(--dim); }
+  .readout-row .v{ color:var(--text); font-weight:600; }
+  .readout-row .v.accent{ color:var(--accent); }
+  .readout-row .v.ok{ color:var(--ok); }
+
+  /* services grid */
+  .svc-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .svc-card{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:24px 20px; display:flex; flex-direction:column; gap:10px; transition:border-color .15s, transform .15s; }
+  .svc-card:hover{ border-color:var(--accent-dim); transform:translateY(-2px); }
+  .svc-card .tag{ font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+  .svc-card h3{ font-size:15.5px; font-weight:700; }
+  .svc-card p{ font-size:12.5px; color:var(--muted); line-height:1.55; flex:1; }
+  .svc-card .meta{ display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:1px solid var(--border); font-size:11.5px; color:var(--dim); }
+  .svc-card .meta b{ color:var(--accent); font-size:13px; }
+  .svc-card .wa-link{ font-size:11.5px; color:var(--ok); margin-top:2px; }
+  .svc-card .wa-link:hover{ text-decoration:underline; }
+
+  .qtabs{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
+  .qtab{
+    background:transparent; border:1px solid var(--border); color:var(--muted);
+    font-family:var(--mono); font-size:12.5px; padding:9px 16px; border-radius:20px;
+    cursor:pointer; transition:border-color .15s, color .15s, background .15s;
+  }
+  .qtab:hover{ border-color:var(--border-bright); color:var(--text); }
+  .qtab.active{ background:var(--accent); border-color:var(--accent); color:#0a1628; font-weight:700; }
+  .qfields{ display:none; }
+  .qfields.active{ display:block; }
+  .qr-line .v.unset{ color:var(--dim); font-style:italic; font-weight:400; }
+
+  /* quote tool */
+  .quote-panel{ background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .quote-grid{ display:grid; grid-template-columns:1fr 1fr; }
+  .quote-left{ padding:32px; border-right:1px solid var(--border); }
+  .quote-right{ padding:32px; background:var(--bg-raised); }
+  .drop-zone{
+    border:1.5px dashed var(--border-bright); border-radius:8px; padding:32px 20px; text-align:center;
+    cursor:pointer; transition:border-color .15s, background .15s; margin-bottom:24px;
+  }
+  .drop-zone:hover{ border-color:var(--accent); background:rgba(255,122,61,.04); }
+  .drop-zone .ic{ font-size:22px; color:var(--dim); margin-bottom:8px; }
+  .drop-zone b{ display:block; font-size:13px; color:var(--text); margin-bottom:4px; }
+  .drop-zone span{ font-size:11.5px; color:var(--dim); }
+  .drop-zone.filled{ border-color:var(--ok); border-style:solid; }
+  .drop-zone.filled b{ color:var(--ok); }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .field{ display:flex; flex-direction:column; gap:6px; }
+  .field label{ font-size:11px; color:var(--dim); letter-spacing:.03em; }
+  .field input, .field select{
+    background:var(--bg); border:1px solid var(--border); border-radius:4px; color:var(--text);
+    font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none;
+  }
+  .field input:focus, .field select:focus{ border-color:var(--accent); }
+  .quote-btn{ width:100%; margin-top:8px; }
+
+  .quote-result{ }
+  .qr-line{ display:flex; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); font-size:13px; }
+  .qr-line:last-of-type{ border-bottom:none; }
+  .qr-line .k{ color:var(--muted); }
+  .qr-line .v{ color:var(--text); font-weight:600; }
+  .qr-line .v.strike{ color:var(--dim); text-decoration:line-through; font-weight:400; }
+  .qr-total{ display:flex; justify-content:space-between; align-items:baseline; padding-top:18px; margin-top:6px; border-top:1px solid var(--border-bright); }
+  .qr-total .k{ font-size:13px; color:var(--text); }
+  .qr-total .v{ font-size:26px; font-weight:700; color:var(--accent); }
+  .qr-note{ font-size:11px; color:var(--dim); margin:14px 0 22px; line-height:1.6; }
+  .qr-empty{ color:var(--dim); font-size:13px; text-align:center; padding:40px 10px; }
+
+  /* process */
+  .process-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .proc-card{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:24px; }
+  .proc-card .n{ font-size:12px; color:var(--accent); margin-bottom:10px; }
+  .proc-card h3{ font-size:15px; margin-bottom:8px; }
+  .proc-card p{ font-size:12.5px; color:var(--muted); line-height:1.6; }
+
+  /* trust bar */
+  .trust-bar{ background:var(--bg-raised); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .trust-grid{ display:grid; grid-template-columns:repeat(4,1fr); }
+  .trust-item{ padding:22px 24px; border-right:1px solid var(--border); font-size:12.5px; display:flex; align-items:center; gap:10px; }
+  .trust-item:last-child{ border-right:none; }
+  .trust-item .ok{ color:var(--ok); font-weight:700; }
+  .trust-item span.label{ color:var(--muted); }
+
+  footer{ padding:48px 0 28px; }
+  .footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px; color:var(--dim); }
+  .footer-bottom a{ color:var(--dim); }
+  .footer-bottom a:hover{ color:var(--accent); }
+
+  @media (max-width:900px){
+    .navlinks{ display:none; }
+    .menu-toggle{ display:block; }
+    .hero-grid{ grid-template-columns:1fr; }
+    .svc-grid{ grid-template-columns:1fr 1fr; }
+    .quote-grid{ grid-template-columns:1fr; }
+    .quote-left{ border-right:none; border-bottom:1px solid var(--border); }
+    .process-grid{ grid-template-columns:1fr; }
+    .trust-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:560px){
+    .svc-grid{ grid-template-columns:1fr; }
+    .field-row{ grid-template-columns:1fr; }
+    .trust-grid{ grid-template-columns:1fr; }
+    .hero h1{ font-size:30px; }
+  }
+</style>
+<noscript><style>html.pretransition body{ opacity:1 !important; }</style></noscript>
+</head>
+<body>
+
+  <div class="statusbar">
+    <div class="wrap">
+      <span>CKTHUB FAB · GERBER-IN, PARTS-OUT <span class="blink">●</span> PUNE, IN</span>
+      <span>fab@ckthub:~$ queue --status <span style="color:var(--ok)">accepting jobs</span></span>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap nav">
+      <div class="brand"><span class="prompt">$</span> ckthub/fab<small>PCB · 3D print · laser · CNC — Pune</small></div>
+      <nav class="navlinks">
+        <a href="#quote">Instant Quote</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+      </nav>
+      <div class="navright">
+        <div class="site-tabs" role="tablist" aria-label="Switch between store and fab">
+          <a href="index.html" class="site-tab">Store</a>
+          <a href="ckthub-fab.html" class="site-tab active">Fab</a>
+        </div>
+        <a href="ckthub-cart.html" class="icon-btn" id="cartBtn">cart <span class="cart-count" id="cartCount">0</span></a>
+        <button class="btn-primary" onclick="document.getElementById('quote').scrollIntoView()">Get a quote</button>
+        <button class="menu-toggle">≡</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-log">fab-manifest.json</div>
+      <div class="hero-grid">
+        <div>
+          <h1>Upload Gerbers.<br>Get it <span class="hl">made in Pune.</span></h1>
+          <p class="lead">PCB fabrication, 3D printing, laser marking &amp; cutting, and CNC/VMC machining — ordered the same way you'd order from an overseas fab, produced down the road instead.</p>
+          <div class="hero-badges">
+            <span>Gerber / STEP / DXF uploads</span>
+            <span>In-house PCB, print, laser &amp; CNC</span>
+            <span>No customs, no import wait</span>
+            <span>Quoted and confirmed on WhatsApp</span>
+          </div>
+          <div class="hero-ctas">
+            <button class="btn-primary" onclick="document.getElementById('quote').scrollIntoView()">Get instant quote</button>
+            <button class="btn-ghost" onclick="document.getElementById('services').scrollIntoView()">See all services</button>
+          </div>
+        </div>
+        <div class="readout">
+          <div class="readout-head"><span class="dot live"></span><span class="dot"></span><span class="dot"></span><span class="file">fab --status</span></div>
+          <div class="readout-body">
+            <div class="readout-row"><span class="k">location</span><span class="v">Pune, India</span></div>
+            <div class="readout-row"><span class="k">processes</span><span class="v accent">PCB · Print · Laser · CNC</span></div>
+            <div class="readout-row"><span class="k">order in</span><span class="v ok">Gerber / STEP / DXF</span></div>
+            <div class="readout-row"><span class="k">confirm via</span><span class="v">WhatsApp</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="shell-label"><span class="p1">fab@ckthub</span>:<span class="p2">~/services</span>$ ls -la</div>
+      <h2 class="section-title">Four processes, one order flow.</h2>
+      <p class="section-sub">Upload a design file for any of these and get a price back — the same workflow you already use, just fabricated locally.</p>
+      <div class="svc-grid">
+        <div class="svc-card">
+          <div class="tag">01 · PCB</div>
+          <h3>PCB Fabrication</h3>
+          <p>2/4/6-layer boards from Gerber files — FR4, ENIG/HASL finish, silkscreen &amp; soldermask.</p>
+          <div class="meta"><span>Turnaround</span><b>3–5 days</b></div>
+        </div>
+        <div class="svc-card">
+          <div class="tag">02 · Print</div>
+          <h3>3D Printing</h3>
+          <p>FDM and resin printing for enclosures, jigs, fixtures and functional prototypes.</p>
+          <div class="meta"><span>Turnaround</span><b>1–3 days</b></div>
+        </div>
+        <div class="svc-card">
+          <div class="tag">03 · Laser</div>
+          <h3>Laser Marking &amp; Cutting</h3>
+          <p>Panel branding, enclosure engraving, and sheet cutting from DXF/AI files.</p>
+          <div class="meta"><span>Turnaround</span><b>1–2 days</b></div>
+        </div>
+        <div class="svc-card">
+          <div class="tag">04 · CNC</div>
+          <h3>VMC &amp; CNC Machining</h3>
+          <p>Milled aluminium/acrylic parts and panels from STEP files, for enclosures and fixtures.</p>
+          <div class="meta"><span>Turnaround</span><b>4–7 days</b></div>
+        </div>
+        <div class="svc-card">
+          <div class="tag">05 · PCBA</div>
+          <h3>PCB Assembly</h3>
+          <p>Component sourcing, SMT/THT placement, reflow and inspection on your fabricated boards.</p>
+          <div class="meta"><span>Turnaround</span><b>5–8 days</b></div>
+          <a class="wa-link" href="https://wa.me/919960160016?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20PCB%20Assembly%20(PCBA)." target="_blank" rel="noopener">Not in the instant quote yet — ask on WhatsApp →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTANT QUOTE -->
+  <section id="quote">
+    <div class="wrap">
+      <div class="shell-label"><span class="p1">fab@ckthub</span>:<span class="p2">~</span>$ ./quote --all</div>
+      <h2 class="section-title">Instant quote, any process.</h2>
+      <p class="section-sub">Pick a process, upload your file, enter the specs — get a price back immediately, then confirm the job on WhatsApp.</p>
+
+      <div class="qtabs" role="tablist">
+        <button class="qtab active" onclick="selectService('pcb', this)">PCB Fabrication</button>
+        <button class="qtab" onclick="selectService('print3d', this)">3D Printing</button>
+        <button class="qtab" onclick="selectService('laser', this)">Laser Marking / Cutting</button>
+        <button class="qtab" onclick="selectService('cnc', this)">VMC / CNC</button>
+      </div>
+
+      <div class="quote-panel">
+        <div class="quote-grid">
+          <div class="quote-left">
+            <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+              <div class="ic">⇪</div>
+              <b id="dropLabel">Upload Gerber .zip</b>
+              <span id="dropHint">click to browse — .zip, .rar, or .gbr</span>
+              <input type="file" id="fileInput" style="display:none" onchange="onFileSelected(this)">
+            </div>
+
+            <!-- PCB fields -->
+            <div class="qfields active" id="fields-pcb">
+              <div class="field-row">
+                <div class="field"><label>Board length (mm)</label><input type="number" id="pcbLength" value="100" min="5" oninput="calcQuote()"></div>
+                <div class="field"><label>Board width (mm)</label><input type="number" id="pcbWidth" value="80" min="5" oninput="calcQuote()"></div>
+              </div>
+              <div class="field-row">
+                <div class="field"><label>Quantity</label><input type="number" id="pcbQty" value="10" min="1" oninput="calcQuote()"></div>
+                <div class="field">
+                  <label>Layers</label>
+                  <select id="pcbLayers" onchange="calcQuote()">
+                    <option value="2">2-layer</option>
+                    <option value="4">4-layer</option>
+                    <option value="6">6-layer</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3D Print fields -->
+            <div class="qfields" id="fields-print3d">
+              <div class="field-row">
+                <div class="field">
+                  <label>Material</label>
+                  <select id="printMaterial" onchange="calcQuote()">
+                    <option value="PETG">PETG</option>
+                    <option value="PLA">PLA</option>
+                    <option value="ABS">ABS</option>
+                    <option value="RESIN">Resin</option>
+                  </select>
+                </div>
+                <div class="field"><label>Infill (%)</label><input type="number" id="printInfill" value="20" min="5" max="100" oninput="calcQuote()"></div>
+              </div>
+              <div class="field-row">
+                <div class="field"><label>Length (mm)</label><input type="number" id="printLength" value="60" min="5" oninput="calcQuote()"></div>
+                <div class="field"><label>Width (mm)</label><input type="number" id="printWidth" value="60" min="5" oninput="calcQuote()"></div>
+              </div>
+              <div class="field-row">
+                <div class="field"><label>Height (mm)</label><input type="number" id="printHeight" value="40" min="5" oninput="calcQuote()"></div>
+                <div class="field"><label>Quantity</label><input type="number" id="printQty" value="1" min="1" oninput="calcQuote()"></div>
+              </div>
+            </div>
+
+            <!-- Laser fields -->
+            <div class="qfields" id="fields-laser">
+              <div class="field-row">
+                <div class="field">
+                  <label>Material</label>
+                  <select id="laserMaterial" onchange="calcQuote()">
+                    <option value="Acrylic">Acrylic</option>
+                    <option value="MDF">MDF / Wood</option>
+                    <option value="Metal">Metal (marking only)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Mode</label>
+                  <select id="laserMode" onchange="calcQuote()">
+                    <option value="mark">Marking / engraving</option>
+                    <option value="cut">Cutting</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field"><label>Length (mm)</label><input type="number" id="laserLength" value="100" min="5" oninput="calcQuote()"></div>
+                <div class="field"><label>Width (mm)</label><input type="number" id="laserWidth" value="100" min="5" oninput="calcQuote()"></div>
+              </div>
+              <div class="field-row">
+                <div class="field"><label>Quantity</label><input type="number" id="laserQty" value="1" min="1" oninput="calcQuote()"></div>
+                <div class="field"></div>
+              </div>
+            </div>
+
+            <!-- CNC fields -->
+            <div class="qfields" id="fields-cnc">
+              <div class="field-row">
+                <div class="field">
+                  <label>Material</label>
+                  <select id="cncMaterial" onchange="calcQuote()">
+                    <option value="Aluminium">Aluminium</option>
+                    <option value="Acrylic">Acrylic</option>
+                    <option value="Brass">Brass</option>
+                  </select>
+                </div>
+                <div class="field"><label>Quantity</label><input type="number" id="cncQty" value="1" min="1" oninput="calcQuote()"></div>
+              </div>
+              <div class="field-row">
+                <div class="field"><label>Length (mm)</label><input type="number" id="cncLength" value="80" min="5" oninput="calcQuote()"></div>
+                <div class="field"><label>Width (mm)</label><input type="number" id="cncWidth" value="60" min="5" oninput="calcQuote()"></div>
+              </div>
+              <div class="field-row">
+                <div class="field"><label>Height / thickness (mm)</label><input type="number" id="cncHeight" value="10" min="1" oninput="calcQuote()"></div>
+                <div class="field"></div>
+              </div>
+            </div>
+
+            <button class="btn-primary quote-btn" id="calcBtn" disabled onclick="calcQuote(true)">Calculate price</button>
+          </div>
+
+          <div class="quote-right">
+            <div id="quoteEmpty" class="qr-empty">Upload a design file to see your instant price.</div>
+            <div id="quoteResult" class="quote-result" style="display:none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="wrap">
+      <div class="shell-label"><span class="p1">fab@ckthub</span>:<span class="p2">~</span>$ cat order-flow.log</div>
+      <h2 class="section-title">Three steps, no account needed.</h2>
+      <div class="process-grid">
+        <div class="proc-card">
+          <div class="n">01</div>
+          <h3>Upload your file</h3>
+          <p>Gerber .zip for PCB, or STEP/DXF for print, laser and CNC jobs. Get a price back instantly.</p>
+        </div>
+        <div class="proc-card">
+          <div class="n">02</div>
+          <h3>Confirm on WhatsApp</h3>
+          <p>We review the file, confirm spec and price, and share a payment link — no separate account or portal.</p>
+        </div>
+        <div class="proc-card">
+          <div class="n">03</div>
+          <h3>Made and shipped</h3>
+          <p>Fabricated in-house in Pune and shipped, or ready for pickup if you're local.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-bar">
+    <div class="wrap trust-grid">
+      <div class="trust-item"><span class="ok">[OK]</span><span class="label">All processes in-house, Pune</span></div>
+      <div class="trust-item"><span class="ok">[OK]</span><span class="label">Files reviewed before production</span></div>
+      <div class="trust-item"><span class="ok">[OK]</span><span class="label">No customs, no import delay</span></div>
+      <div class="trust-item"><span class="ok">[OK]</span><span class="label">Order confirmed on WhatsApp</span></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap footer-bottom">
+      <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
+      <span><a href="index.html" data-transition>ckthub store</a> · fab@ckthub:~$ <span style="color:var(--ok)">exit 0</span></span>
+    </div>
+  </footer>
+
+<script>
+  /* ============================================================
+     PRICING ENGINE — EDIT ONLY THE NUMBERS BELOW.
+     Nothing else in this file needs to change when a rate
+     changes. Set a material/mode value to null if it isn't
+     priced yet — the quote tool will show "contact us" for it
+     instead of a wrong number.
+     ============================================================ */
+  var PRICING = {
+    pcb: {
+      // Reference: typical overseas fab minimum price for a 100x100mm board
+      // at ~5pcs. Scales up from there by board area and quantity — never
+      // scales below this minimum, since overseas fabs price this way too.
+      overseasRefSizeCm2: 100,      // 100mm x 100mm = 100 cm²
+      overseasRefQty: 5,
+      overseasMinUSD: { 2: 8, 4: 14, 6: 22 },  // edit these as overseas pricing changes
+      usdToInr: 84,                  // exchange rate — edit as needed
+      shippingCustomsINR: { min: 2000, max: 3000 }, // typical, per shipment — not per board
+      markup: 3                      // your price = overseas board cost (INR) × markup
+    },
+    print3d: {
+      baseSetupINR: 50,
+      perGramINR: {                // ₹ per gram — only fill in materials you actually offer
+        PETG: 6,
+        PLA: null,
+        ABS: null,
+        RESIN: null
+      },
+      densityGPerCm3: {             // used only to estimate weight from L×W×H×infill
+        PETG: 1.27, PLA: 1.24, ABS: 1.04, RESIN: 1.10
+      }
+    },
+    laser: {
+      baseSetupINR: 40,
+      perCm2INR: { mark: 0.8, cut: 2.5 },
+      perPieceINR: 10
+    },
+    cnc: {
+      baseSetupINR: 300,
+      perCm3INR: { Aluminium: 4, Acrylic: 1.5, Brass: 6 },
+      perPieceINR: 50
+    }
+  };
+  /* ============================================================
+     End of pricing engine. Everything below just reads it.
+     ============================================================ */
+
+  // ---------- cart count (shared with store, read-only here) ----------
+  (function(){
+    try{
+      var raw = localStorage.getItem('ckthub_cart');
+      var cart = raw ? JSON.parse(raw) : [];
+      var count = cart.reduce(function(sum, item){ return sum + item.qty; }, 0);
+      document.querySelectorAll('.cart-count').forEach(function(el){ el.textContent = count; });
+    }catch(e){}
+  })();
+
+  // ---------- smooth store/fab/cart page transitions ----------
+  window.addEventListener('DOMContentLoaded', function(){
+    requestAnimationFrame(function(){ document.documentElement.classList.remove('pretransition'); });
+  });
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('[data-transition]');
+    if(!link) return;
+    var href = link.getAttribute('href');
+    if(!href || link.target === '_blank') return;
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = href; }, 170);
+  });
+
+  var WHATSAPP_NUMBER = "919960160016";
+
+  var activeService = 'pcb';
+  var uploadedFileName = null;
+
+  var DROP_HINTS = {
+    pcb:     { label: 'Upload Gerber .zip', hint: 'click to browse — .zip, .rar, or .gbr' },
+    print3d: { label: 'Upload STL / STEP', hint: 'click to browse — .stl, .step, or .obj' },
+    laser:   { label: 'Upload DXF / AI', hint: 'click to browse — .dxf, .ai, or .svg' },
+    cnc:     { label: 'Upload STEP / DXF', hint: 'click to browse — .step, .stp, or .dxf' }
+  };
+
+  function selectService(service, btn){
+    activeService = service;
+    document.querySelectorAll('.qtab').forEach(function(t){ t.classList.remove('active'); });
+    btn.classList.add('active');
+    document.querySelectorAll('.qfields').forEach(function(f){ f.classList.remove('active'); });
+    document.getElementById('fields-' + service).classList.add('active');
+
+    var hint = DROP_HINTS[service];
+    document.getElementById('dropHint').textContent = hint.hint;
+    if(!uploadedFileName){ document.getElementById('dropLabel').textContent = hint.label; }
+
+    document.getElementById('quoteEmpty').style.display = uploadedFileName ? 'none' : 'block';
+    document.getElementById('quoteResult').style.display = uploadedFileName ? 'block' : 'none';
+    if(uploadedFileName) calcQuote();
+  }
+
+  function onFileSelected(input){
+    var zone = document.getElementById('dropZone');
+    var label = document.getElementById('dropLabel');
+    var btn = document.getElementById('calcBtn');
+    if(input.files && input.files.length){
+      uploadedFileName = input.files[0].name;
+      zone.classList.add('filled');
+      label.textContent = uploadedFileName;
+      btn.disabled = false;
+      calcQuote();
+    } else {
+      uploadedFileName = null;
+      zone.classList.remove('filled');
+      label.textContent = DROP_HINTS[activeService].label;
+      btn.disabled = true;
+    }
+  }
+
+  function renderResult(rows, totalLabel, totalINR, waMessage){
+    var html = '';
+    rows.forEach(function(r){
+      var cls = r.unset ? 'v unset' : (r.strike ? 'v strike' : 'v');
+      html += '<div class="qr-line"><span class="k">' + r.k + '</span><span class="' + cls + '">' + r.v + '</span></div>';
+    });
+    if(totalINR === null){
+      html += '<div class="qr-total"><span class="k">' + totalLabel + '</span><span class="v unset">Contact us for this spec</span></div>';
+      html += '<p class="qr-note">This material/mode isn\'t priced in our system yet. Send us your file on WhatsApp and we\'ll quote it manually.</p>';
+    } else {
+      html += '<div class="qr-total"><span class="k">' + totalLabel + '</span><span class="v">₹' + Math.round(totalINR).toLocaleString('en-IN') + '</span></div>';
+      html += '<p class="qr-note">Indicative estimate — priced for local fabrication and fast turnaround. Final price is confirmed after we review your file on WhatsApp.</p>';
+    }
+    html += '<a class="btn-wa" id="waBtn" href="https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(waMessage) + '" target="_blank" rel="noopener"><span>WhatsApp</span> Order this on WhatsApp →</a>';
+    document.getElementById('quoteResult').innerHTML = html;
+    document.getElementById('quoteEmpty').style.display = 'none';
+    document.getElementById('quoteResult').style.display = 'block';
+  }
+
+  function calcQuote(){
+    if(!uploadedFileName) return;
+    if(activeService === 'pcb') return calcPCB();
+    if(activeService === 'print3d') return calcPrint3D();
+    if(activeService === 'laser') return calcLaser();
+    if(activeService === 'cnc') return calcCNC();
+  }
+
+  function calcPCB(){
+    var cfg = PRICING.pcb;
+    var L = parseFloat(document.getElementById('pcbLength').value) || 0;
+    var W = parseFloat(document.getElementById('pcbWidth').value) || 0;
+    var qty = parseInt(document.getElementById('pcbQty').value, 10) || 0;
+    var layers = parseInt(document.getElementById('pcbLayers').value, 10) || 2;
+    if(L <= 0 || W <= 0 || qty <= 0) return;
+
+    var areaCm2 = (L / 10) * (W / 10);
+    var minUSD = cfg.overseasMinUSD[layers] || cfg.overseasMinUSD[2];
+    var areaRatio = Math.max(1, areaCm2 / cfg.overseasRefSizeCm2);
+    var qtyRatio = Math.max(1, qty / cfg.overseasRefQty);
+    var overseasBoardUSD = minUSD * areaRatio * qtyRatio;
+    var overseasBoardINR = overseasBoardUSD * cfg.usdToInr;
+
+    var shipMin = cfg.shippingCustomsINR.min;
+    var shipMax = cfg.shippingCustomsINR.max;
+    var shipMid = (shipMin + shipMax) / 2;
+    var overseasLandedINR = overseasBoardINR + shipMid;
+
+    var total = overseasBoardINR * cfg.markup;
+
+    renderResult([
+      { k: 'Board size', v: L + ' × ' + W + ' mm' },
+      { k: 'Quantity × layers', v: qty + ' pcs · ' + layers + '-layer' },
+      { k: 'Typical overseas board price', v: '≈ ₹' + Math.round(overseasBoardINR).toLocaleString('en-IN'), strike: true },
+      { k: 'Typical shipping & customs', v: '₹' + shipMin.toLocaleString('en-IN') + '–' + shipMax.toLocaleString('en-IN') + ', per shipment', strike: true },
+      { k: 'Typical landed cost overseas', v: '≈ ₹' + Math.round(overseasLandedINR).toLocaleString('en-IN'), strike: true }
+    ], 'Your price, made in Pune', total,
+      "Hi, I'd like to order a PCB fab job:\nFile: " + uploadedFileName +
+      "\nSize: " + L + "x" + W + "mm, " + layers + "-layer, Qty: " + qty +
+      "\nQuoted price: ₹" + Math.round(total).toLocaleString('en-IN'));
+  }
+
+  function calcPrint3D(){
+    var cfg = PRICING.print3d;
+    var material = document.getElementById('printMaterial').value;
+    var infill = parseFloat(document.getElementById('printInfill').value) || 0;
+    var L = parseFloat(document.getElementById('printLength').value) || 0;
+    var W = parseFloat(document.getElementById('printWidth').value) || 0;
+    var H = parseFloat(document.getElementById('printHeight').value) || 0;
+    var qty = parseInt(document.getElementById('printQty').value, 10) || 0;
+    if(L <= 0 || W <= 0 || H <= 0 || qty <= 0) return;
+
+    var volumeCm3 = (L / 10) * (W / 10) * (H / 10) * (infill / 100);
+    var weightG = volumeCm3 * (cfg.densityGPerCm3[material] || 1.2);
+    var rate = cfg.perGramINR[material];
+
+    var rows = [
+      { k: 'Material', v: material },
+      { k: 'Dimensions', v: L + ' × ' + W + ' × ' + H + ' mm, ' + infill + '% infill' },
+      { k: 'Est. weight per part', v: Math.round(weightG) + ' g' },
+      { k: 'Quantity', v: qty + ' pcs' }
+    ];
+
+    if(rate === null || rate === undefined){
+      renderResult(rows, 'Total, ' + qty + ' pcs', null,
+        "Hi, I'd like a 3D print quote:\nFile: " + uploadedFileName +
+        "\nMaterial: " + material + " (not yet priced)\nDimensions: " + L + "x" + W + "x" + H + "mm, " + infill + "% infill, Qty: " + qty);
+      return;
+    }
+    var total = cfg.baseSetupINR + (weightG * qty * rate);
+    rows.push({ k: 'Rate', v: '₹' + rate + ' / g' });
+    renderResult(rows, 'Total, ' + qty + ' pcs', total,
+      "Hi, I'd like a 3D print quote:\nFile: " + uploadedFileName +
+      "\nMaterial: " + material + ", Dimensions: " + L + "x" + W + "x" + H + "mm, " + infill + "% infill, Qty: " + qty +
+      "\nQuoted price: ₹" + Math.round(total).toLocaleString('en-IN'));
+  }
+
+  function calcLaser(){
+    var cfg = PRICING.laser;
+    var material = document.getElementById('laserMaterial').value;
+    var mode = document.getElementById('laserMode').value;
+    var modeLabel = document.querySelector('#laserMode option:checked').textContent;
+    var L = parseFloat(document.getElementById('laserLength').value) || 0;
+    var W = parseFloat(document.getElementById('laserWidth').value) || 0;
+    var qty = parseInt(document.getElementById('laserQty').value, 10) || 0;
+    if(L <= 0 || W <= 0 || qty <= 0) return;
+
+    var areaCm2 = (L / 10) * (W / 10);
+    var rate = cfg.perCm2INR[mode];
+    var rows = [
+      { k: 'Material', v: material },
+      { k: 'Mode', v: modeLabel },
+      { k: 'Size × quantity', v: L + ' × ' + W + ' mm, ' + qty + ' pcs' }
+    ];
+    if(rate === null || rate === undefined){
+      renderResult(rows, 'Total, ' + qty + ' pcs', null,
+        "Hi, I'd like a laser " + mode + " quote:\nFile: " + uploadedFileName +
+        "\nMaterial: " + material + ", Size: " + L + "x" + W + "mm, Qty: " + qty);
+      return;
+    }
+    var total = cfg.baseSetupINR + (areaCm2 * qty * rate) + (cfg.perPieceINR * qty);
+    renderResult(rows, 'Total, ' + qty + ' pcs', total,
+      "Hi, I'd like a laser " + mode + " quote:\nFile: " + uploadedFileName +
+      "\nMaterial: " + material + ", Size: " + L + "x" + W + "mm, Qty: " + qty +
+      "\nQuoted price: ₹" + Math.round(total).toLocaleString('en-IN'));
+  }
+
+  function calcCNC(){
+    var cfg = PRICING.cnc;
+    var material = document.getElementById('cncMaterial').value;
+    var L = parseFloat(document.getElementById('cncLength').value) || 0;
+    var W = parseFloat(document.getElementById('cncWidth').value) || 0;
+    var H = parseFloat(document.getElementById('cncHeight').value) || 0;
+    var qty = parseInt(document.getElementById('cncQty').value, 10) || 0;
+    if(L <= 0 || W <= 0 || H <= 0 || qty <= 0) return;
+
+    var volumeCm3 = (L / 10) * (W / 10) * (H / 10);
+    var rate = cfg.perCm3INR[material];
+    var rows = [
+      { k: 'Material', v: material },
+      { k: 'Bounding box', v: L + ' × ' + W + ' × ' + H + ' mm' },
+      { k: 'Quantity', v: qty + ' pcs' }
+    ];
+    if(rate === null || rate === undefined){
+      renderResult(rows, 'Total, ' + qty + ' pcs', null,
+        "Hi, I'd like a CNC/VMC quote:\nFile: " + uploadedFileName +
+        "\nMaterial: " + material + ", Size: " + L + "x" + W + "x" + H + "mm, Qty: " + qty);
+      return;
+    }
+    var total = cfg.baseSetupINR + (volumeCm3 * qty * rate) + (cfg.perPieceINR * qty);
+    renderResult(rows, 'Total, ' + qty + ' pcs', total,
+      "Hi, I'd like a CNC/VMC quote:\nFile: " + uploadedFileName +
+      "\nMaterial: " + material + ", Size: " + L + "x" + W + "x" + H + "mm, Qty: " + qty +
+      "\nQuoted price: ₹" + Math.round(total).toLocaleString('en-IN'));
+  }
+</script>
+
+</body>
+</html>
