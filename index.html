@@ -290,22 +290,25 @@ p.sub{color:var(--text-2);max-width:62ch;font-size:1.06rem;margin-top:14px}
 
 /* ============ shop ============ */
 .shop-sec{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
-.shop-grid{display:grid;gap:22px}
-.s-card{display:grid;grid-template-columns:minmax(240px,320px) 1fr;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:transform .22s cubic-bezier(.16,1,.3,1),border-color .22s,box-shadow .22s}
-.s-card:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:0 14px 40px rgba(0,0,0,.25)}
-.s-card .media{position:relative;background:radial-gradient(120% 90% at 50% 0%,var(--accent-soft) 0%,transparent 60%),var(--bg-3);display:flex;align-items:center;justify-content:center;overflow:hidden;aspect-ratio:394/800}
-.s-card .media img{height:100%;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 16px 28px rgba(0,0,0,.4));transition:transform .3s}
-.s-card:hover .media img{transform:scale(1.03)}
-.s-card .body{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:clamp(20px,3.5vw,44px);justify-content:center}
-.s-card .body h3{font-size:clamp(1.25rem,2vw,1.6rem);line-height:1.2}
-.s-card .desc{color:var(--text-2);font-size:.96rem;line-height:1.6;max-width:52ch}
-.price{display:flex;flex-direction:column;gap:2px;font-family:var(--fm);font-size:1.5rem;font-weight:700;color:var(--text);letter-spacing:-.01em}
-.price small{font-family:var(--fd);font-size:.8rem;font-weight:500;color:var(--text-3)}
-.vol{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;width:100%;max-width:420px;margin-top:2px}
-.vol label{font-family:var(--fm);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.s-card{display:grid;grid-template-columns:minmax(88px,116px) 1fr;gap:20px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:22px;transition:border-color .22s,transform .22s}
+.s-card:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.s-card .media{position:relative;background:radial-gradient(120% 90% at 50% 0%,var(--accent-soft) 0%,transparent 60%),var(--bg-3);border-radius:calc(var(--r) - 6px);display:flex;align-items:center;justify-content:center;overflow:hidden;aspect-ratio:3/4}
+.s-card .media img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 16px rgba(0,0,0,.35))}
+.s-card .body{display:flex;flex-direction:column;gap:10px;justify-content:center;min-width:0}
+.s-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.s-card .body h3{font-size:1.02rem;line-height:1.25}
+.s-card .desc{color:var(--text-2);font-size:.9rem;line-height:1.55}
+.specs{display:flex;flex-wrap:wrap;gap:6px}
+.specs span{font-family:var(--fm);font-size:.68rem;letter-spacing:.04em;color:var(--text-2);border:1px solid var(--line);border-radius:999px;padding:3px 9px;background:var(--bg-3)}
+.price{font-family:var(--fm);font-size:1.35rem;font-weight:700;color:var(--accent);letter-spacing:-.01em;white-space:nowrap;text-align:right}
+.price small{display:block;font-family:var(--fd);font-size:.72rem;font-weight:500;color:var(--text-3)}
+.s-actions{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:2px}
+.vol{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;flex:1;min-width:0}
+.vol label{font-family:var(--fm);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
 .vol input[type=range]{width:100%;accent-color:var(--accent)}
-.vol-total{font-family:var(--fm);font-weight:700;color:var(--accent);min-width:64px;text-align:right;font-size:1.05rem}
-.s-card .btn.add{margin-top:4px}
+.vol-total{font-family:var(--fm);font-weight:700;color:var(--accent);min-width:56px;text-align:right;font-size:1rem}
+.s-card .btn.add{margin:0;flex-shrink:0}
 
 /* ============ build band ============ */
 .build-band{max-width:var(--maxw);margin:60px auto 0;padding:clamp(34px,5vw,56px);display:flex;align-items:center;justify-content:space-between;gap:34px;flex-wrap:wrap;border:1px solid var(--line-2);border-radius:22px;background:linear-gradient(150deg,var(--bg-3),var(--bg-2) 60%);position:relative;overflow:hidden}
@@ -396,8 +399,8 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   .steps{grid-template-columns:1fr;gap:34px}
   .steps .side{position:static}
   .calc-grid{grid-template-columns:1fr;gap:44px}
-  .s-card{grid-template-columns:1fr}
-  .s-card .media{aspect-ratio:394/540;max-height:540px}
+  .shop-grid{grid-template-columns:1fr}
+  .s-card{grid-template-columns:minmax(80px,100px) 1fr}
   .why-grid{grid-template-columns:1fr 1fr}
   .contact-grid{grid-template-columns:1fr 1fr}
   .ownit-grid{grid-template-columns:repeat(2,1fr)}
@@ -423,7 +426,6 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   .bill-card .stamp{top:14px;right:14px;font-size:.72rem}
   .why-grid{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr}
-  .s-card .media{aspect-ratio:394/480;max-height:480px}
   .scream{font-size:clamp(1.9rem,8vw,2.6rem)}
   .fab{width:48px;height:48px;font-size:1.15rem;right:14px;bottom:14px}
   .fab.wa{right:14px;bottom:74px}
@@ -431,6 +433,8 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
 @media (max-width:460px){
   .vol{grid-template-columns:1fr auto;gap:8px 12px}
   .vol label{grid-column:1/-1}
+  .s-actions{flex-direction:column;align-items:stretch}
+  .s-card .btn.add{width:100%}
   .hero-stat{gap:18px}
 }
 
@@ -451,8 +455,8 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   "@graph":[
     {"@type":"Organization","@id":"https://ckthub.com/#org","name":"Ambivert Technologies Private Limited","brand":{"@type":"Brand","name":"CktHub"},"url":"https://ckthub.com/","email":"hello@ambiverttech.com","telephone":"+91-99601-60016","address":{"@type":"PostalAddress","streetAddress":"Excellaa Plazzo, A107, near Bharat Petrol Pump, Ambegaon Budruk","addressLocality":"Pune","addressRegion":"Maharashtra","postalCode":"411046","addressCountry":"IN"},"description":"CktHub builds standalone ESP32 and ESP32-S3 hardware that replaces recurring software subscriptions. Designed and assembled in-house in Pune, India."},
     {"@type":"WebSite","@id":"https://ckthub.com/#website","url":"https://ckthub.com/","name":"CktHub","publisher":{"@id":"https://ckthub.com/#org"}},
-    {"@type":"Product","@id":"https://ckthub.com/#product-wrover","name":"ESP32-WROVER-DevKit-Lipo","image":"https://ckthub.com/wrover-devkit.png","description":"ESP32 development board with built-in LiPo charger and battery sensing. 4MB flash, up to 8MB PSRAM. Designed for standalone, local-first devices that replace subscription software.","brand":{"@type":"Brand","name":"CktHub"},"offers":{"@type":"Offer","price":"499","priceCurrency":"INR","availability":"https://schema.org/InStock"}},
-    {"@type":"Product","@id":"https://ckthub.com/#product-s3","name":"ESP32-S3-DevKit-Lipo","image":"https://ckthub.com/s3-devkit.png","description":"ESP32-S3 development board with 8MB flash, 8MB PSRAM, native USB OTG/JTAG and a built-in LiPo charger. Built for on-device AI, voice and local dashboard products.","brand":{"@type":"Brand","name":"CktHub"},"offers":{"@type":"Offer","price":"799","priceCurrency":"INR","availability":"https://schema.org/InStock"}}
+    {"@type":"Product","@id":"https://ckthub.com/#product-wrover","name":"ESP32-WROVER-DevKit-Lipo","image":"https://ckthub.com/wrover-devkit.png","description":"ESP32 development board with built-in LiPo charger and battery sensing. 4MB flash, up to 8MB PSRAM. Designed for standalone, local-first devices that replace subscription software.","brand":{"@type":"Brand","name":"CktHub"},"offers":{"@type":"Offer","price":"799","priceCurrency":"INR","availability":"https://schema.org/InStock"}},
+    {"@type":"Product","@id":"https://ckthub.com/#product-s3","name":"ESP32-S3-DevKitC-1","image":"https://ckthub.com/s3-devkit.png","description":"ESP32-S3 development board with 8MB flash, 8MB PSRAM and native USB OTG/JTAG. Built for on-device AI, voice and local dashboard products.","brand":{"@type":"Brand","name":"CktHub"},"offers":{"@type":"Offer","price":"499","priceCurrency":"INR","availability":"https://schema.org/InStock"}}
   ]
 }
 </script>
@@ -683,7 +687,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
 <section id="products" aria-labelledby="products-title">
   <div class="road">
     <h2 class="title rv" id="products-title">Hardware that does the job.</h2>
-    <p class="sub rv">Standalone boxes that take over the work of familiar subscription tools. Each one runs locally, keeps your data on-site, and has no monthly fee. Working on one? Tell us, it moves up the build queue.</p>
+    <p class="sub rv">Standalone boxes that take over the work of familiar subscription tools. Local data, no monthly fee. Working on one? Tell us, it moves up the build queue.</p>
     <div class="tabs rv" role="tablist" aria-label="Filter product concepts by category">
       <button type="button" class="on" data-cat="all" role="tab" aria-selected="true">All</button>
       <button type="button" data-cat="retail" role="tab" aria-selected="false">Retail &amp; Hospitality</button>
@@ -821,7 +825,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
 
     <div class="band rv">
       <p><b>Want to buy something today?</b> Boards, adapters and accessories are in stock now.</p>
-      <button class="btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">See the products</button>
+      <button class="btn" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Go to the shop</button>
     </div>
   </div>
 </section>
@@ -830,36 +834,46 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
 <section id="shop" aria-labelledby="shop-title">
   <div class="shop-sec">
     <h2 class="title rv" id="shop-title">In stock now.</h2>
-    <p class="sub rv">Finished boards, ready to ship from Pune. Same boards we use in our own products.</p>
+    <p class="sub rv">Finished boards, ready to ship from Pune. One-time price. Same boards we use in our own products.</p>
     <div class="shop-grid">
 
       <article class="s-card rv" data-pid="wrover">
         <div class="media"><img src="img/wrover-board.webp" alt="ESP32-WROVER-DevKit-Lipo board" width="394" height="800" loading="lazy"></div>
         <div class="body">
-          <h3>ESP32-WROVER-DevKit-Lipo</h3>
-          <p class="desc">Dev kit with ESP32-WROVER module, a 1.8&Prime; TFT display and an integrated battery charger.</p>
-          <div class="price">₹799 <small>inclusive of taxes</small></div>
-          <div class="vol">
-            <label for="vol-wrover">Quantity</label>
-            <input type="range" id="vol-wrover" min="1" max="10" value="1" step="1">
-            <span class="vol-total" id="vol-total-wrover">₹799</span>
+          <div class="s-head">
+            <h3>ESP32-WROVER-DevKit-Lipo</h3>
+            <div class="price">₹799 <small>incl. taxes</small></div>
           </div>
-          <button class="btn add" onclick="addToCart('wrover')">Add to cart</button>
+          <p class="desc">Dev kit with ESP32-WROVER module, 1.8&Prime; TFT display and integrated battery charger.</p>
+          <div class="specs"><span>4 MB flash</span><span>8 MB PSRAM</span><span>LiPo charger</span></div>
+          <div class="s-actions">
+            <div class="vol">
+              <label for="vol-wrover">Qty</label>
+              <input type="range" id="vol-wrover" min="1" max="10" value="1" step="1">
+              <span class="vol-total" id="vol-total-wrover">₹799</span>
+            </div>
+            <button class="btn add" onclick="addToCart('wrover')">Add to cart</button>
+          </div>
         </div>
       </article>
 
       <article class="s-card rv" data-pid="s3">
         <div class="media"><img src="img/s3-devkit.webp" alt="ESP32-S3-DevKitC-1 board" width="394" height="800" loading="lazy"></div>
         <div class="body">
-          <h3>ESP32-S3-DevKitC-1</h3>
-          <p class="desc">S3 module dev kit with Wi-Fi + BLE and a 1.8&Prime; TFT display. Good starting point for AI on the edge.</p>
-          <div class="price">₹499 <small>inclusive of taxes</small></div>
-          <div class="vol">
-            <label for="vol-s3">Quantity</label>
-            <input type="range" id="vol-s3" min="1" max="10" value="1" step="1">
-            <span class="vol-total" id="vol-total-s3">₹499</span>
+          <div class="s-head">
+            <h3>ESP32-S3-DevKitC-1</h3>
+            <div class="price">₹499 <small>incl. taxes</small></div>
           </div>
-          <button class="btn add" onclick="addToCart('s3')">Add to cart</button>
+          <p class="desc">S3 module dev kit, Wi-Fi + BLE and a 1.8&Prime; TFT display. Built for on-device AI and voice.</p>
+          <div class="specs"><span>8 MB flash</span><span>8 MB PSRAM</span><span>Native USB</span></div>
+          <div class="s-actions">
+            <div class="vol">
+              <label for="vol-s3">Qty</label>
+              <input type="range" id="vol-s3" min="1" max="10" value="1" step="1">
+              <span class="vol-total" id="vol-total-s3">₹499</span>
+            </div>
+            <button class="btn add" onclick="addToCart('s3')">Add to cart</button>
+          </div>
         </div>
       </article>
 
