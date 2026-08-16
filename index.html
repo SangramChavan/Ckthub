@@ -166,56 +166,6 @@ p.sub{color:var(--text-2);max-width:62ch;font-size:1.06rem;margin-top:14px}
 .stance{margin-top:34px;border:1px solid var(--line-2);border-left:3px solid var(--accent);background:var(--bg-2);border-radius:var(--r);padding:22px 26px;max-width:640px;font-size:1.05rem}
 .stance b{color:var(--accent)}
 
-/* ============ bill stage (scroll scrub: the bill becomes the box) ============ */
-.billstage-wrap{position:relative;margin-top:60px}
-.billstage{height:auto;position:relative}
-.billstage-pin{position:static;height:auto;display:flex;flex-direction:column;gap:26px;align-items:center;justify-content:center;overflow:hidden;padding:30px 0}
-.bill-line{display:none;position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform-origin:left;transform:scaleX(0);z-index:5;opacity:.9}
-.bill-layer{width:min(920px,94vw)}
-.bill-card{position:relative;background:var(--bg-2);border:1px solid var(--line-2);border-radius:18px;padding:clamp(28px,5vw,54px) clamp(24px,5vw,60px);box-shadow:var(--shadow)}
-.bill-card .rk{font-family:var(--fm);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
-.bill-card .amt{font-family:var(--fm);font-weight:600;font-size:clamp(2.4rem,6vw,4.2rem);letter-spacing:-.02em;margin-top:10px;line-height:1}
-.bill-card .amt small{font-size:.4em;color:var(--text-3);letter-spacing:0}
-.bill-what{margin-top:12px;font-size:.86rem;color:var(--text-2)}
-.bill-tape{margin-top:22px;border-top:1px dashed var(--line-2);padding-top:4px;display:flex;flex-direction:column}
-.tape-row{display:flex;justify-content:space-between;gap:20px;font-family:var(--fm);font-size:.92rem;padding:7px 0;border-bottom:1px dashed var(--line)}
-.tape-row span{color:var(--text-3);letter-spacing:.08em}
-.tape-row b{font-weight:600}
-.tape-row.dim{opacity:.45}
-.tape-row.dim b{font-weight:400}
-.bill-card .foot{margin-top:20px;font-size:.85rem;color:var(--text-3)}
-.bill-card .stamp{position:absolute;top:22px;right:22px;transform:rotate(9deg);border:3px solid var(--bad);color:var(--bad);font-family:var(--fm);font-weight:600;font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;border-radius:8px;opacity:.9}
-.bill-card .stamp.ok{border-color:var(--ok);color:var(--ok);transform:rotate(-7deg)}
-.bill-off .bill-visual{display:flex;align-items:center;gap:clamp(20px,4vw,44px)}
-.bill-off .imgwrap{flex:0 0 min(220px,32vw);position:relative}
-.bill-off .imgwrap img{width:100%;height:auto;filter:drop-shadow(0 24px 40px rgba(0,0,0,.5))}
-.bill-off .imgwrap::before{content:"";position:absolute;inset:-28%;background:radial-gradient(circle,var(--accent-soft),transparent 65%);z-index:-1}
-.bill-off .copy h3{font-size:clamp(1.6rem,3.4vw,2.5rem)}
-.bill-off .copy p{margin-top:12px;color:var(--text-2);max-width:46ch}
-.bill-off .copy .ticks{margin-top:20px;display:flex;flex-direction:column;gap:8px;font-size:.95rem}
-.bill-off .copy .ticks span{display:flex;align-items:center;gap:9px}
-.bill-off .copy .ticks .tick{color:var(--accent);font-weight:700}
-
-/* scrub wiring, only when scroll timelines are supported */
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .billstage{height:320vh;--scrub-a:30%;--scrub-b:96%;--scrub-b1:42%;--scrub-b2:66%;--scrub-b3:88%}
-    .billstage-pin{position:sticky;top:0;height:100dvh}
-    .bill-line{display:block;animation:lineGrow linear both;animation-timeline:scroll(root);animation-range:var(--scrub-a) var(--scrub-b)}
-    .bill-on,.bill-off{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-    .bill-on{animation:billOut linear both;animation-timeline:scroll(root);animation-range:var(--scrub-b1) var(--scrub-b2)}
-    .bill-off{opacity:0;animation:billIn linear both;animation-timeline:scroll(root);animation-range:var(--scrub-b2) var(--scrub-b3)}
-    .bill-on .amt{counter-reset:n var(--n);animation:nDown linear both;animation-timeline:scroll(root);animation-range:var(--scrub-a) var(--scrub-b2)}
-    .bill-on .amt>span{visibility:hidden}
-    .bill-on .amt::after{content:"₹ " counter(n) " / month"}
-    @property --n{syntax:'<integer>';inherits:false;initial-value:1200}
-    @keyframes lineGrow{to{transform:scaleX(1)}}
-    @keyframes billOut{to{opacity:0;transform:translateY(-30px) scale(.985)}}
-    @keyframes billIn{from{opacity:0;transform:translateY(34px) scale(.97)}to{opacity:1;transform:none}}
-    @keyframes nDown{from{--n:1200}to{--n:0}}
-  }
-}
-
 /* ============ steps ============ */
 .steps{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px}
 .steps .side{position:sticky;top:calc(var(--nav-h) + 40px);align-self:start}
@@ -419,15 +369,12 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   .section-pad{padding:70px 0}
   .road-grid{grid-template-columns:1fr}
   .job-pills{grid-template-columns:1fr}
-  .bill-off .bill-visual{flex-direction:column;text-align:center}
-  .bill-off .copy .ticks{align-items:flex-start;text-align:left}
   .cmp-head>div{padding:14px 16px;font-size:.92rem}
   .cmp-row>div{padding:13px 16px;font-size:.88rem}
   .trace{display:none}
   .badge-live{right:0}
   .foot-in{grid-template-columns:1fr;gap:30px}
   .thesis{padding-top:84px}
-  .bill-card .stamp{top:14px;right:14px;font-size:.72rem}
   .why-grid{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr}
   .scream{font-size:clamp(1.9rem,8vw,2.6rem)}
@@ -561,54 +508,6 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
     <h2 class="rv">Software you rent. <span class="dim">Hardware</span> you <span class="up">own.</span></h2>
     <p class="rv">Lots of tools do simple, repetitive jobs: watch a sensor, count something, show a number, log an event. Those jobs can run on a box sitting next to you instead of a server billing you monthly.</p>
     <div class="stance rv">Use software when software makes sense. <b>Own hardware when the job does not need a subscription.</b> That is the whole idea, nothing ideological about it.</div>
-  </div>
-
-  <!-- the scrub scene: the bill becomes the box -->
-  <div class="billstage-wrap">
-    <div class="billstage" id="billstage">
-      <div class="billstage-pin">
-        <div class="bill-line" aria-hidden="true"></div>
-
-        <div class="bill-layer bill-on">
-          <div class="bill-card">
-            <span class="rk">Monthly bill, every month</span>
-            <div class="amt"><span class="mono amt-num" id="billAmt">₹1,200 <small>/ month</small></span></div>
-            <p class="bill-what">Attendance software · 40 staff seats · cloud access ₹0</p>
-            <div class="bill-tape" role="img" aria-label="The same ₹1,200 billed every month: year 1 ₹14,400, year 5 ₹72,000, year 10 ₹1,44,000, forever">
-              <div class="tape-row"><span>YR 1</span><b>₹14,400</b></div>
-              <div class="tape-row"><span>YR 2</span><b>₹28,800</b></div>
-              <div class="tape-row"><span>YR 3</span><b>₹43,200</b></div>
-              <div class="tape-row"><span>YR 4</span><b>₹57,600</b></div>
-              <div class="tape-row"><span>YR 5</span><b>₹72,000</b></div>
-              <div class="tape-row dim"><span>⋯</span><b>⋯</b></div>
-              <div class="tape-row dim"><span>YR 10</span><b>₹1,44,000</b></div>
-            </div>
-            <div class="foot">The bill never stops.</div>
-            <span class="stamp">BILLED</span>
-          </div>
-        </div>
-
-        <div class="bill-layer bill-off">
-          <div class="bill-card">
-            <div class="bill-visual">
-              <div class="imgwrap"><img src="img/wrover-board.webp" alt="CktHub box running the same job locally" width="394" height="800"></div>
-              <div class="copy">
-                <span class="rk">Owned once, works for years</span>
-                <h3>The same job, on a box you own.</h3>
-                <p>One payment. The device arrives flashed and ready. It keeps working offline, your data stays on it, and the invoice stops.</p>
-                <div class="ticks">
-                  <span><span class="tick">✓</span> ₹0 / month, forever</span>
-                  <span><span class="tick">✓</span> Runs without the internet</span>
-                  <span><span class="tick">✓</span> Data lives on the device</span>
-                </div>
-              </div>
-            </div>
-            <span class="stamp ok">OWNED</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
   </div>
 
   <!-- the transformation -->
