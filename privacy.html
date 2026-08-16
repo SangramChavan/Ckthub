@@ -3,165 +3,289 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy — Ambivert Technologies Private Limited | Ckthub, Pune</title>
-<meta name="description" content="Privacy Policy for Ckthub, operated by Ambivert Technologies Private Limited, Pune, India.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css">
+<title>Privacy Policy — CktHub · Ambivert Technologies Private Limited, Pune</title>
+<meta name="description" content="Privacy Policy for CktHub, operated by Ambivert Technologies Private Limited, Pune, India.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ckthub.com/privacy.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Privacy Policy — CktHub">
+<meta property="og:url" content="https://ckthub.com/privacy.html">
+<style>
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/JetBrains-Mono/2.304/css/jetbrains-mono.min.css');
+
+  :root{
+    --bg: #0a1628;
+    --bg-raised: #0f2038;
+    --card: #12253f;
+    --border: #21395a;
+    --border-bright: #33507a;
+    --text: #e9eef6;
+    --muted: #8fa3c0;
+    --dim: #5b7194;
+    --accent: #ff7a3d;
+    --ok: #7ee787;
+    --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{ background:var(--bg); color:var(--text); font-family:var(--mono); font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--accent); color:#0a1628; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 16px; }
+
+  .skip-link{ position:absolute; left:-999px; top:0; z-index:200; background:var(--accent); color:#0d1117; font-size:13px; font-weight:700; padding:10px 16px; }
+  .skip-link:focus{ left:0; }
+
+  .site-tabs{
+    display:flex; align-items:center; gap:2px;
+    background:var(--bg-raised); border:1px solid var(--border);
+    border-radius:20px; padding:3px;
+  }
+  .site-tab{
+    font-family:var(--mono); font-size:12px; padding:7px 14px; border-radius:16px;
+    color:var(--muted); transition:background .18s, color .18s;
+  }
+  .site-tab:hover{ color:var(--text); }
+  .site-tab.active{ background:var(--accent); color:#0a1628; font-weight:700; }
+  .icon-btn{
+    display:flex; align-items:center; gap:6px;
+    background:transparent; border:1px solid var(--border);
+    color:var(--muted); font-family:var(--mono); font-size:12px;
+    padding:7px 12px; border-radius:4px; cursor:pointer;
+    transition:border-color .15s, color .15s;
+  }
+  .icon-btn:hover{ border-color:var(--accent-dim, #c85f2e); color:var(--accent); }
+  .cart-count{
+    background:var(--accent); color:#0a1628; font-weight:700;
+    font-size:10px; border-radius:9px; min-width:16px; height:16px;
+    display:flex; align-items:center; justify-content:center; padding:0 4px;
+  }
+  .navright{ display:flex; align-items:center; gap:12px; }
+
+  .statusbar{ background:#060f1c; border-bottom:1px solid var(--border); font-size:11px; letter-spacing:.04em; color:var(--dim); padding:6px 0; overflow:hidden; white-space:nowrap; }
+  .statusbar .wrap{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  .statusbar .sys{ display:none; }
+  .statusbar .blink{ color:var(--ok); animation:blink 1.4s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:.25; } }
+
+  header{ position:sticky; top:0; z-index:50; background:rgba(10,22,40,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; gap:12px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; white-space:nowrap; }
+  .brand .prompt{ color:var(--accent); }
+  .brand small{ display:block; font-weight:400; color:var(--dim); font-size:10px; letter-spacing:.06em; }
+
+  .shell-label{ display:flex; align-items:center; gap:10px; color:var(--dim); font-size:12px; margin-bottom:14px; }
+  .shell-label .p1{ color:var(--ok); } .shell-label .p2{ color:var(--accent); }
+  .shell-label::after{ content:''; flex:1; height:1px; background:var(--border); }
+
+  section{ padding:48px 0 72px; border-bottom:1px solid var(--border); }
+  h1{ font-size:28px; line-height:1.15; font-weight:700; letter-spacing:-.02em; margin-bottom:12px; }
+  p.lead{ color:var(--muted); font-size:13.5px; max-width:680px; margin-bottom:14px; }
+  .updated{ font-size:11px; color:var(--dim); margin-bottom:26px; }
+
+  .legal-layout{ display:grid; grid-template-columns:1fr; gap:28px; align-items:start; }
+  .legal-toc{
+    background:var(--card); border:1px solid var(--border); border-radius:8px;
+    padding:18px 20px; font-size:12.5px;
+  }
+  .legal-toc .toc-head{ color:var(--dim); font-size:11px; margin-bottom:12px; }
+  .legal-toc ol{ list-style:none; counter-reset:toc; }
+  .legal-toc li{ margin-bottom:7px; }
+  .legal-toc a{ color:var(--muted); display:flex; gap:8px; }
+  .legal-toc a:hover{ color:var(--accent); }
+  .legal-toc li::before{ counter-increment:toc; content:counter(toc) '.'; color:var(--dim); margin-right:8px; }
+
+  .legal-section{ margin-bottom:30px; scroll-margin-top:90px; }
+  .legal-section h2{ font-size:16px; font-weight:700; margin-bottom:10px; }
+  .legal-section p{ font-size:13px; color:var(--muted); margin-bottom:10px; }
+  .legal-section ul{ list-style:none; margin-bottom:10px; }
+  .legal-section li{ font-size:13px; color:var(--muted); margin-bottom:7px; padding-left:18px; position:relative; }
+  .legal-section li::before{ content:'›'; position:absolute; left:0; color:var(--accent); }
+  .legal-section .inline-link{ color:var(--accent); }
+  .legal-section .inline-link:hover{ text-decoration:underline; }
+  .legal-section strong{ color:var(--text); }
+
+  footer{ padding:36px 0 24px; }
+  .footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px; color:var(--dim); }
+  .footer-bottom a{ color:var(--dim); }
+  .footer-bottom a:hover{ color:var(--accent); }
+
+  @media (min-width:561px){
+    .wrap{ padding:0 24px; }
+    .statusbar .sys{ display:inline; }
+    section{ padding:64px 0 88px; }
+    h1{ font-size:36px; }
+    p.lead{ font-size:14.5px; }
+  }
+  @media (min-width:901px){
+    .legal-layout{ grid-template-columns:260px 1fr; gap:44px; }
+    .legal-toc{ position:sticky; top:88px; }
+  }
+</style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<div class="statusbar"><div class="wrap">
-  <span class="baud">DEVKIT-LIPO · SERIAL MONITOR</span>
-  <span>115200 baud · 8N1 · Ckthub · Pune, IN</span>
-</div></div>
-
-<nav class="nav">
-  <div class="wrap">
-    <a href="index.html" class="nav-mark"><span class="prompt">ckthub@devkit</span>:~$<span class="cursor"></span></a>
-    <div class="nav-links">
-      <a href="index.html#boards">Boards</a>
-      <a href="index.html#compare">Compare</a>
-      <a href="index.html#pricing">Pricing</a>
-      <a href="contact.html">Contact</a>
-    </div>
-    <a href="index.html#pricing" class="nav-cta">Buy now</a>
-  </div>
-</nav>
-
-<main>
-  <header class="legal-hero">
+  <div class="statusbar">
     <div class="wrap">
-      <div class="cmd-eyebrow">legal --privacy-policy</div>
-      <h1>Privacy Policy</h1>
-      <p>This Privacy Policy explains how Ambivert Technologies Private Limited ("Ckthub", "we", "us", "our") collects, uses, and protects information when you visit this website or place an order with us.</p>
-      <div class="legal-updated">Last updated: 12 July 2026</div>
+      <span>CKTHUB · HARDWARE YOU OWN <span class="blink">●</span> PUNE, IN</span>
+      <span class="sys">ckthub@store:~$ legal --privacy-policy</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap nav">
+      <div class="brand"><span class="prompt">$</span> ckthub<small>hardware you own</small></div>
+      <div class="navright">
+        <div class="site-tabs" role="tablist" aria-label="Switch between store and fab">
+          <a href="index.html" class="site-tab">Store</a>
+          <a href="ckthub-fab.html" class="site-tab">Fab</a>
+        </div>
+        <a href="ckthub-cart.html" class="icon-btn" id="cartBtn">cart <span class="cart-count" id="cartCount">0</span></a>
+      </div>
     </div>
   </header>
 
-  <section class="legal-body wrap">
-    <div class="legal-toc">
-      <div>$ table --of-contents</div>
-      <ol>
-        <li><a href="#info-we-collect">Information we collect</a></li>
-        <li><a href="#how-we-use">How we use your information</a></li>
-        <li><a href="#payment-info">Payment information</a></li>
-        <li><a href="#sharing">Sharing of information</a></li>
-        <li><a href="#cookies">Cookies and tracking</a></li>
-        <li><a href="#data-security">Data security</a></li>
-        <li><a href="#data-retention">Data retention</a></li>
-        <li><a href="#your-rights">Your rights and choices</a></li>
-        <li><a href="#children">Children's privacy</a></li>
-        <li><a href="#changes">Changes to this policy</a></li>
-        <li><a href="#contact-us">Contact us</a></li>
-      </ol>
-    </div>
+<main id="main">
+  <section aria-labelledby="page-title">
+    <div class="wrap">
+      <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~</span>$ legal --privacy-policy</div>
+      <h1 id="page-title">Privacy Policy</h1>
+      <p class="lead">This Privacy Policy explains how Ambivert Technologies Private Limited ("Ckthub", "we", "us", "our") collects, uses, and protects information when you visit this website or place an order with us.</p>
+      <div class="updated">Last updated: 12 July 2026</div>
 
-    <div id="info-we-collect" class="legal-section">
-      <h2>1. Information we collect</h2>
-      <p>We collect information you provide directly to us, including:</p>
-      <ul>
-        <li><strong>Contact and delivery details</strong> — name, mobile number, email address, delivery address, and pincode, provided when you place an order or contact us.</li>
-        <li><strong>Order details</strong> — the products, quantities, and amounts of orders you place.</li>
-        <li><strong>Communications</strong> — messages you send us via WhatsApp, email, or contact forms, including any information you choose to share in those messages.</li>
-        <li><strong>Technical information</strong> — automatically collected data such as IP address, browser type, device information, and pages visited, used for basic site analytics and security.</li>
-      </ul>
-    </div>
+      <div class="legal-layout">
+        <div class="legal-toc">
+          <div class="toc-head">$ table --of-contents</div>
+          <ol>
+            <li><a href="#info-we-collect">Information we collect</a></li>
+            <li><a href="#how-we-use">How we use your information</a></li>
+            <li><a href="#payment-info">Payment information</a></li>
+            <li><a href="#sharing">Sharing of information</a></li>
+            <li><a href="#cookies">Cookies and tracking</a></li>
+            <li><a href="#data-security">Data security</a></li>
+            <li><a href="#data-retention">Data retention</a></li>
+            <li><a href="#your-rights">Your rights and choices</a></li>
+            <li><a href="#children">Children's privacy</a></li>
+            <li><a href="#changes">Changes to this policy</a></li>
+            <li><a href="#contact-us">Contact us</a></li>
+          </ol>
+        </div>
 
-    <div id="how-we-use" class="legal-section">
-      <h2>2. How we use your information</h2>
-      <p>We use the information we collect to:</p>
-      <ul>
-        <li>Process, confirm, and fulfil your orders, including shipping and delivery.</li>
-        <li>Communicate with you about your order status, confirmations, and support queries.</li>
-        <li>Respond to enquiries sent via WhatsApp, email, or our contact page.</li>
-        <li>Improve our website, products, and customer experience.</li>
-        <li>Comply with applicable legal, tax, and regulatory obligations.</li>
-        <li>Prevent fraud and protect the security of our website and business.</li>
-      </ul>
-    </div>
+        <div>
+          <div id="info-we-collect" class="legal-section">
+            <h2>1. Information we collect</h2>
+            <p>We collect information you provide directly to us, including:</p>
+            <ul>
+              <li><strong>Contact and delivery details</strong> — name, mobile number, email address, delivery address, and pincode, provided when you place an order or contact us.</li>
+              <li><strong>Order details</strong> — the products, quantities, and amounts of orders you place.</li>
+              <li><strong>Communications</strong> — messages you send us via WhatsApp, email, or contact forms, including any information you choose to share in those messages.</li>
+              <li><strong>Technical information</strong> — automatically collected data such as IP address, browser type, device information, and pages visited, used for basic site analytics and security.</li>
+            </ul>
+          </div>
 
-    <div id="payment-info" class="legal-section">
-      <h2>3. Payment information</h2>
-      <p>Payments are made directly by you via UPI to our UPI ID, using your own UPI-enabled banking app. We do not collect, store, or have access to your bank account details, UPI PIN, card numbers, or other sensitive payment credentials — these remain solely between you and your banking or UPI application provider.</p>
-      <p>Order reference numbers, amounts, and the customer details you enter (name, mobile, address, pincode) are shared with us by you directly, typically via WhatsApp, so that we can identify and process your order.</p>
-    </div>
+          <div id="how-we-use" class="legal-section">
+            <h2>2. How we use your information</h2>
+            <p>We use the information we collect to:</p>
+            <ul>
+              <li>Process, confirm, and fulfil your orders, including shipping and delivery.</li>
+              <li>Communicate with you about your order status, confirmations, and support queries.</li>
+              <li>Respond to enquiries sent via WhatsApp, email, or our contact page.</li>
+              <li>Improve our website, products, and customer experience.</li>
+              <li>Comply with applicable legal, tax, and regulatory obligations.</li>
+              <li>Prevent fraud and protect the security of our website and business.</li>
+            </ul>
+          </div>
 
-    <div id="sharing" class="legal-section">
-      <h2>4. Sharing of information</h2>
-      <p>We do not sell or rent your personal information to third parties. We may share information only in the following circumstances:</p>
-      <ul>
-        <li>With logistics and courier partners, solely to the extent necessary to deliver your order.</li>
-        <li>With professional advisors (such as accountants) where necessary for our business operations.</li>
-        <li>Where required by law, regulation, legal process, or governmental request.</li>
-        <li>To protect the rights, property, or safety of Ambivert Technologies Private Limited, our customers, or others.</li>
-      </ul>
-    </div>
+          <div id="payment-info" class="legal-section">
+            <h2>3. Payment information</h2>
+            <p>Payments are made directly by you via UPI to our UPI ID, using your own UPI-enabled banking app. We do not collect, store, or have access to your bank account details, UPI PIN, card numbers, or other sensitive payment credentials — these remain solely between you and your banking or UPI application provider.</p>
+            <p>Order reference numbers, amounts, and the customer details you enter (name, mobile, address, pincode) are shared with us by you directly, typically via WhatsApp, so that we can identify and process your order.</p>
+          </div>
 
-    <div id="cookies" class="legal-section">
-      <h2>5. Cookies and tracking</h2>
-      <p>Our website may use minimal cookies or similar local storage strictly necessary for the site to function (for example, remembering items in your cart during a visit). We do not use invasive third-party advertising trackers on this site.</p>
-    </div>
+          <div id="sharing" class="legal-section">
+            <h2>4. Sharing of information</h2>
+            <p>We do not sell or rent your personal information to third parties. We may share information only in the following circumstances:</p>
+            <ul>
+              <li>With logistics and courier partners, solely to the extent necessary to deliver your order.</li>
+              <li>With professional advisors (such as accountants) where necessary for our business operations.</li>
+              <li>Where required by law, regulation, legal process, or governmental request.</li>
+              <li>To protect the rights, property, or safety of Ambivert Technologies Private Limited, our customers, or others.</li>
+            </ul>
+          </div>
 
-    <div id="data-security" class="legal-section">
-      <h2>6. Data security</h2>
-      <p>We take reasonable technical and organisational measures to protect the information you share with us from unauthorised access, alteration, disclosure, or destruction. However, no method of transmission over the internet or electronic storage is completely secure, and we cannot guarantee absolute security.</p>
-    </div>
+          <div id="cookies" class="legal-section">
+            <h2>5. Cookies and tracking</h2>
+            <p>Our website may use minimal cookies or similar local storage strictly necessary for the site to function (for example, remembering items in your cart during a visit). We do not use invasive third-party advertising trackers on this site.</p>
+          </div>
 
-    <div id="data-retention" class="legal-section">
-      <h2>7. Data retention</h2>
-      <p>We retain order and communication information for as long as necessary to fulfil the purposes described in this policy, including to comply with legal, accounting, and tax requirements, and thereafter delete or anonymise it where feasible.</p>
-    </div>
+          <div id="data-security" class="legal-section">
+            <h2>6. Data security</h2>
+            <p>We take reasonable technical and organisational measures to protect the information you share with us from unauthorised access, alteration, disclosure, or destruction. However, no method of transmission over the internet or electronic storage is completely secure, and we cannot guarantee absolute security.</p>
+          </div>
 
-    <div id="your-rights" class="legal-section">
-      <h2>8. Your rights and choices</h2>
-      <p>You may contact us at any time to:</p>
-      <ul>
-        <li>Ask what personal information we hold about you.</li>
-        <li>Request correction of inaccurate information.</li>
-        <li>Request deletion of your information, subject to our legal and operational retention requirements.</li>
-        <li>Withdraw consent for optional communications.</li>
-      </ul>
-      <p>To exercise any of these rights, please write to us at <a class="inline-link" href="mailto:hello@ambiverttech.com">hello@ambiverttech.com</a>.</p>
-    </div>
+          <div id="data-retention" class="legal-section">
+            <h2>7. Data retention</h2>
+            <p>We retain order and communication information for as long as necessary to fulfil the purposes described in this policy, including to comply with legal, accounting, and tax requirements, and thereafter delete or anonymise it where feasible.</p>
+          </div>
 
-    <div id="children" class="legal-section">
-      <h2>9. Children's privacy</h2>
-      <p>Our website and products are not directed at children, and we do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us so we can take appropriate action.</p>
-    </div>
+          <div id="your-rights" class="legal-section">
+            <h2>8. Your rights and choices</h2>
+            <p>You may contact us at any time to:</p>
+            <ul>
+              <li>Ask what personal information we hold about you.</li>
+              <li>Request correction of inaccurate information.</li>
+              <li>Request deletion of your information, subject to our legal and operational retention requirements.</li>
+              <li>Withdraw consent for optional communications.</li>
+            </ul>
+            <p>To exercise any of these rights, please write to us at <a class="inline-link" href="mailto:hello@ambiverttech.com">hello@ambiverttech.com</a>.</p>
+          </div>
 
-    <div id="changes" class="legal-section">
-      <h2>10. Changes to this policy</h2>
-      <p>We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, operational, or regulatory reasons. The "Last updated" date at the top of this page indicates when this policy was last revised. Continued use of our website after changes constitutes acceptance of the updated policy.</p>
-    </div>
+          <div id="children" class="legal-section">
+            <h2>9. Children's privacy</h2>
+            <p>Our website and products are not directed at children, and we do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us so we can take appropriate action.</p>
+          </div>
 
-    <div id="contact-us" class="legal-section">
-      <h2>11. Contact us</h2>
-      <p>If you have any questions or concerns about this Privacy Policy or our data practices, please contact:</p>
-      <p>
-        <strong>Ambivert Technologies Private Limited</strong><br>
-        Excellaa Plazzo, A107, near Bharat Petrol Pump,<br>
-        Ambegaon Budruk, Pune, Maharashtra 411046, India<br>
-        Mobile: <a class="inline-link" href="tel:+919960160016">+91 99601 60016</a><br>
-        Email: <a class="inline-link" href="mailto:hello@ambiverttech.com">hello@ambiverttech.com</a>
-      </p>
-      <p>This policy is governed by the laws of India, and any disputes relating to it are subject to the exclusive jurisdiction of the courts in Pune, Maharashtra.</p>
+          <div id="changes" class="legal-section">
+            <h2>10. Changes to this policy</h2>
+            <p>We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, operational, or regulatory reasons. The "Last updated" date at the top of this page indicates when this policy was last revised. Continued use of our website after changes constitutes acceptance of the updated policy.</p>
+          </div>
+
+          <div id="contact-us" class="legal-section">
+            <h2>11. Contact us</h2>
+            <p>If you have any questions or concerns about this Privacy Policy or our data practices, please contact:</p>
+            <p>
+              <strong>Ambivert Technologies Private Limited</strong><br>
+              Excellaa Plazzo, A107, near Bharat Petrol Pump,<br>
+              Ambegaon Budruk, Pune, Maharashtra 411046, India<br>
+              Mobile: <a class="inline-link" href="tel:+919960160016">+91 99601 60016</a><br>
+              Email: <a class="inline-link" href="mailto:hello@ambiverttech.com">hello@ambiverttech.com</a>
+            </p>
+            <p>This policy is governed by the laws of India, and any disputes relating to it are subject to the exclusive jurisdiction of the courts in Pune, Maharashtra.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <div class="foot-mark">Ckthub — a brand of Ambivert Technologies Private Limited, Pune, India</div>
-    <div class="foot-links">
-      <a href="index.html#specs">Datasheet</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
+  <footer>
+    <div class="wrap footer-bottom">
+      <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
+      <span><a href="index.html">ckthub store</a> · <a href="ckthub-fab.html">ckthub fab</a> · <a href="own-it.html">own-it</a> · <a href="contact.html">contact</a> · <a href="terms.html">terms</a></span>
     </div>
-  </div>
-</footer>
+  </footer>
+
+<script>
+  (function(){
+    try{
+      var raw = localStorage.getItem('ckthub_cart');
+      var cart = raw ? JSON.parse(raw) : [];
+      var count = cart.reduce(function(sum, item){ return sum + item.qty; }, 0);
+      document.querySelectorAll('.cart-count').forEach(function(el){ el.textContent = count; });
+    }catch(e){}
+  })();
+</script>
 
 </body>
 </html>

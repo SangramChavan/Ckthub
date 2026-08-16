@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tell Us What You Want to Replace — CktHub</title>
+<meta name="description" content="Have a software subscription you'd rather own? Tell CktHub the job — the software, what it costs you, and what you want the hardware to do. We'll explore whether it can become a box.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ckthub.com/own-it.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Have a software subscription you'd rather own? — CktHub">
+<meta property="og:description" content="Tell us the job. We'll explore whether it can become a box.">
+<meta property="og:url" content="https://ckthub.com/own-it.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What kinds of software can become hardware?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Tools that perform one simple, repetitive job locally — monitoring, dashboards, alerts, counters, attendance, inventory, logging, automation and small business tools. We assess each submission honestly; not every SaaS can or should become a box." }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it cost to explore an idea?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Nothing. Tell us the job and we'll give you an honest feasibility assessment. Only if we build the hardware is there a cost, quoted upfront." }
+    }
+  ]
+}
+</script>
+<style>
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/JetBrains-Mono/2.304/css/jetbrains-mono.min.css');
+
+  :root{
+    --bg: #0a1628;
+    --bg-raised: #0f2038;
+    --card: #12253f;
+    --card-hover: #172c4a;
+    --border: #21395a;
+    --border-bright: #33507a;
+    --text: #e9eef6;
+    --muted: #8fa3c0;
+    --dim: #5b7194;
+    --accent: #ff7a3d;
+    --accent-dim: #c85f2e;
+    --ok: #7ee787;
+    --warn: #f2b544;
+    --err: #ff6b6b;
+    --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg); color:var(--text); font-family:var(--mono);
+    font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--accent); color:#0d1117; }
+
+  .skip-link{ position:absolute; left:-999px; top:0; z-index:200; background:var(--accent); color:#0d1117; font-size:13px; font-weight:700; padding:10px 16px; }
+  .skip-link:focus{ left:0; }
+
+  .wrap{ max-width:920px; margin:0 auto; padding:0 16px; }
+
+  .site-tabs{
+    display:flex; align-items:center; gap:2px;
+    background:var(--bg-raised); border:1px solid var(--border);
+    border-radius:20px; padding:3px;
+  }
+  .site-tab{
+    font-family:var(--mono); font-size:12px; padding:7px 14px; border-radius:16px;
+    color:var(--muted); transition:background .18s, color .18s;
+  }
+  .site-tab:hover{ color:var(--text); }
+  .site-tab.active{ background:var(--accent); color:#0a1628; font-weight:700; }
+
+  .statusbar{
+    background:#060f1c; border-bottom:1px solid var(--border);
+    font-size:11px; letter-spacing:.04em; color:var(--dim);
+    padding:6px 0; overflow:hidden; white-space:nowrap;
+  }
+  .statusbar .wrap{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  .statusbar .sys{ display:none; }
+  .statusbar .blink{ color:var(--ok); animation:blink 1.4s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:.25; } }
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,22,40,.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 0; gap:12px;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; white-space:nowrap; }
+  .brand .prompt{ color:var(--accent); }
+  .brand small{ display:block; font-weight:400; color:var(--dim); font-size:10px; letter-spacing:.08em; }
+  .navright{ display:flex; align-items:center; gap:10px; }
+
+  .btn-primary{
+    background:var(--accent); color:#0d1117; font-weight:700;
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.03em;
+    padding:11px 18px; border:none; border-radius:4px; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+    transition:filter .15s;
+  }
+  .btn-primary:hover{ filter:brightness(1.1); }
+  .btn-primary.lg{ padding:14px 24px; font-size:13.5px; width:100%; }
+  .btn-ghost{
+    background:transparent; border:1px solid var(--border-bright); color:var(--text);
+    font-family:var(--mono); font-size:13px; padding:13px 20px; border-radius:4px;
+    cursor:pointer; display:inline-flex; align-items:center; justify-content:center;
+    transition:border-color .15s, color .15s;
+  }
+  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
+
+  .shell-label{
+    display:flex; align-items:center; gap:10px;
+    color:var(--dim); font-size:12px; margin-bottom:14px;
+  }
+  .shell-label .p1{ color:var(--ok); }
+  .shell-label .p2{ color:var(--accent); }
+  .shell-label::after{ content:''; flex:1; height:1px; background:var(--border); }
+
+  section{ padding:48px 0 72px; border-bottom:1px solid var(--border); }
+  h1{ font-size:30px; line-height:1.15; font-weight:700; letter-spacing:-.02em; margin-bottom:14px; }
+  p.lead{ color:var(--muted); font-size:14.5px; max-width:640px; margin-bottom:26px; }
+
+  .how{ display:flex; flex-direction:column; gap:10px; margin-bottom:32px; }
+  .how-step{
+    display:flex; gap:14px; background:var(--card); border:1px solid var(--border);
+    border-radius:8px; padding:14px 16px;
+  }
+  .how-step .n{
+    flex-shrink:0; width:26px; height:26px; border-radius:50%;
+    border:1px solid var(--border-bright); color:var(--accent); font-size:11px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .how-step h3{ font-size:13px; font-weight:700; margin-bottom:2px; }
+  .how-step p{ font-size:12px; color:var(--muted); }
+
+  .form-panel{
+    background:var(--card); border:1px solid var(--border); border-radius:10px;
+    overflow:hidden;
+  }
+  .form-head{
+    padding:14px 18px; border-bottom:1px solid var(--border); background:var(--bg-raised);
+    font-size:12px; color:var(--dim); display:flex; justify-content:space-between; gap:10px;
+  }
+  .form-head b{ color:var(--text); font-size:12.5px; }
+  .form-body{ padding:18px; }
+  .field{ display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+  .field label{ font-size:11px; color:var(--dim); letter-spacing:.03em; }
+  .field label b{ color:var(--muted); }
+  .field input, .field textarea, .field select{
+    background:var(--bg); border:1px solid var(--border); border-radius:4px; color:var(--text);
+    font-family:var(--mono); font-size:13px; padding:11px 12px; outline:none; resize:vertical;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus{ border-color:var(--accent); }
+  .field select{ appearance:none; -webkit-appearance:none; }
+  .field .ferr{ font-size:10.5px; color:var(--err); display:none; }
+  .field.has-err input, .field.has-err textarea{ border-color:var(--err); }
+  .field.has-err .ferr{ display:block; }
+  .hint{ font-size:10.5px; color:var(--dim); }
+
+  .form-note{ font-size:11.5px; color:var(--dim); margin-top:14px; line-height:1.7; }
+
+  .faq details{
+    background:var(--card); border:1px solid var(--border); border-radius:8px;
+    padding:14px 16px; margin-bottom:10px;
+  }
+  .faq summary{ cursor:pointer; font-size:13px; font-weight:700; color:var(--text); }
+  .faq details p{ font-size:12.5px; color:var(--muted); margin-top:8px; }
+
+  footer{ padding:36px 0 24px; border-top:1px solid var(--border); }
+  .footer-bottom{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:12px; color:var(--dim);
+  }
+  .footer-bottom a{ color:var(--dim); }
+  .footer-bottom a:hover{ color:var(--accent); }
+
+  .toast{
+    position:fixed; left:50%; bottom:28px; transform:translate(-50%, 12px);
+    background:var(--card); border:1px solid var(--ok); color:var(--text);
+    font-family:var(--mono); font-size:13px;
+    padding:10px 18px; border-radius:6px; z-index:99;
+    opacity:0; pointer-events:none; transition:opacity .2s, transform .2s;
+    box-shadow:0 6px 18px rgba(0,0,0,.4); max-width:calc(100vw - 40px);
+  }
+  .toast.show{ opacity:1; transform:translate(-50%, 0); }
+  .toast.err{ border-color:var(--err); }
+  .toast b{ color:var(--ok); }
+  .toast.err b{ color:var(--err); }
+
+  @media (min-width:561px){
+    .wrap{ padding:0 24px; }
+    .statusbar .sys{ display:inline; }
+    section{ padding:64px 0 88px; }
+    h1{ font-size:40px; }
+    p.lead{ font-size:15.5px; }
+    .btn-primary.lg{ width:auto; }
+    .field-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0 16px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="statusbar">
+    <div class="wrap">
+      <span>CKTHUB · TELL US THE JOB, WE'LL BUILD THE BOX <span class="blink">●</span> PUNE, IN</span>
+      <span class="sys">ckthub@store:~$ ./replace-my-subscription --start</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap nav">
+      <div class="brand"><span class="prompt">$</span> ckthub<small>hardware you own</small></div>
+      <div class="navright">
+        <div class="site-tabs" role="tablist" aria-label="Switch between store and fab">
+          <a href="index.html" class="site-tab">Store</a>
+          <a href="ckthub-fab.html" class="site-tab">Fab</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<main id="main">
+
+  <section aria-labelledby="page-title">
+    <div class="wrap">
+      <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~</span>$ cat own-it.md</div>
+      <h1 id="page-title">Have a software subscription you'd rather own?</h1>
+      <p class="lead">Tell us the job. We'll explore whether it can become a box. Share what you're paying for, what it does for you, and what you want the hardware to do — we'll come back with an honest answer, not a sales pitch.</p>
+
+      <div class="how" aria-label="How it works">
+        <div class="how-step">
+          <div class="n">1</div>
+          <div><h3>Tell us the job</h3><p>Software name, what you use it for, what it costs you, how many people or devices use it.</p></div>
+        </div>
+        <div class="how-step">
+          <div class="n">2</div>
+          <div><h3>We assess it honestly</h3><p>We look at whether the job can run locally on dedicated hardware. If it can't, we'll say so — no wasted time.</p></div>
+        </div>
+        <div class="how-step">
+          <div class="n">3</div>
+          <div><h3>We propose the box</h3><p>If it can, you get a concept, a spec and a fixed price. You own the device; the monthly bill stops.</p></div>
+        </div>
+      </div>
+
+      <div class="form-panel">
+        <div class="form-head"><b>replace-my-subscription.form</b><span>sent to us on WhatsApp</span></div>
+        <form class="form-body" id="replaceForm" onsubmit="return submitIdea(event)">
+          <div class="field-grid">
+            <div class="field">
+              <label>Software / product name <b>*</b></label>
+              <input id="swName" type="text" placeholder="e.g. Cloud attendance tool" autocomplete="off">
+              <span class="ferr">Please enter the software name.</span>
+            </div>
+            <div class="field">
+              <label>What you use it for <b>*</b></label>
+              <input id="swUse" type="text" placeholder="e.g. Log staff check-in / out" autocomplete="off">
+              <span class="ferr">Tell us what the tool does for you.</span>
+            </div>
+            <div class="field">
+              <label>Current monthly / yearly cost</label>
+              <input id="swCost" type="text" placeholder="e.g. ₹1,200 / month" autocomplete="off">
+            </div>
+            <div class="field">
+              <label>Number of users / devices</label>
+              <input id="swUsers" type="text" placeholder="e.g. 40 staff, 1 location" autocomplete="off">
+            </div>
+            <div class="field">
+              <label>What should the hardware do? <b>*</b></label>
+              <textarea id="swFunction" rows="3" placeholder="e.g. A wall kiosk that logs check-in locally, stores the data on the device, and exports a daily report"></textarea>
+              <span class="ferr">Describe the job you want the box to do.</span>
+            </div>
+            <div class="field">
+              <label>Desired form / placement</label>
+              <input id="swForm" type="text" placeholder="e.g. wall-mount kiosk with display" autocomplete="off">
+              <span class="hint">Optional — display size, mounting, battery, etc.</span>
+            </div>
+            <div class="field">
+              <label>Your name <b>*</b></label>
+              <input id="cName" type="text" placeholder="Full name" autocomplete="name">
+              <span class="ferr">Please enter your name.</span>
+            </div>
+            <div class="field">
+              <label>WhatsApp number <b>*</b></label>
+              <input id="cMobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile" autocomplete="tel">
+              <span class="ferr">Enter a valid 10-digit mobile number.</span>
+            </div>
+            <div class="field">
+              <label>Email (optional)</label>
+              <input id="cEmail" type="email" placeholder="you@example.com" autocomplete="email">
+            </div>
+          </div>
+
+          <button class="btn-primary lg" type="submit">Send it to CktHub →</button>
+          <p class="form-note">Submitting opens WhatsApp with your details pre-filled — nothing is stored on this website, no account needed. We reply within one working day with an honest feasibility assessment.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <div class="shell-label"><span class="p1">ckthub@store</span>:<span class="p2">~</span>$ man common-questions</div>
+      <h2 style="font-size:24px; font-weight:700; margin-bottom:18px;" id="faq-title">Common questions</h2>
+      <details>
+        <summary>What kinds of software can become hardware?</summary>
+        <p>Tools that perform one simple, repetitive job locally — monitoring, dashboards, alerts, counters, attendance, inventory, logging, automation and small business tools. We assess each submission honestly; not every SaaS can or should become a box.</p>
+      </details>
+      <details>
+        <summary>What does it cost to explore an idea?</summary>
+        <p>Nothing. Tell us the job and we'll give you an honest feasibility assessment. Only if we build the hardware is there a cost, quoted upfront before anything starts.</p>
+      </details>
+      <details>
+        <summary>How long does a custom build take?</summary>
+        <p>Depends on the job. Simple devices can go from concept to prototype in a few weeks. Firmware-heavy products take longer. We'll give you a timeline with the quote.</p>
+      </details>
+      <details>
+        <summary>Do the devices need the internet?</summary>
+        <p>No. CktHub devices are designed for local operation — data stays on the device or your network. Internet is optional, and only where a specific feature genuinely needs it.</p>
+      </details>
+      <details>
+        <summary>What if hardware doesn't make sense for my case?</summary>
+        <p>We'll tell you. Sometimes software genuinely is the right answer — we'd rather lose a project than sell you something that doesn't fit. That honesty is why the business works.</p>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+  <footer>
+    <div class="wrap footer-bottom">
+      <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
+      <span><a href="index.html">ckthub store</a> · <a href="ckthub-fab.html">ckthub fab</a> · <a href="contact.html">contact</a> · <a href="privacy.html">privacy</a> · <a href="terms.html">terms</a></span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+  var WHATSAPP_NUMBER = '919960160016';
+
+  function setErr(id, on){
+    var el = document.getElementById(id);
+    if(!el) return;
+    var field = el.closest('.field');
+    if(field) field.classList.toggle('has-err', on);
+  }
+
+  function clearErr(id){
+    document.getElementById(id).addEventListener('input', function(){
+      var field = this.closest('.field');
+      if(field) field.classList.remove('has-err');
+    });
+  }
+
+  function submitIdea(ev){
+    ev.preventDefault();
+    var swName = document.getElementById('swName').value.trim();
+    var swUse = document.getElementById('swUse').value.trim();
+    var swCost = document.getElementById('swCost').value.trim();
+    var swUsers = document.getElementById('swUsers').value.trim();
+    var swFunction = document.getElementById('swFunction').value.trim();
+    var swForm = document.getElementById('swForm').value.trim();
+    var cName = document.getElementById('cName').value.trim();
+    var cMobile = document.getElementById('cMobile').value.trim();
+    var cEmail = document.getElementById('cEmail').value.trim();
+
+    var ok = true;
+    setErr('swName', !swName); if(!swName) ok = false;
+    setErr('swUse', !swUse); if(!swUse) ok = false;
+    setErr('swFunction', !swFunction); if(!swFunction) ok = false;
+    setErr('cName', !cName); if(!cName) ok = false;
+    var mobileOk = /^\d{10}$/.test(cMobile);
+    setErr('cMobile', !mobileOk); if(!mobileOk) ok = false;
+    var emailOk = cEmail === '' || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(cEmail);
+    setErr('cEmail', !emailOk); if(!emailOk) ok = false;
+
+    if(!ok){
+      var toast = document.getElementById('toast');
+      toast.className = 'toast err';
+      toast.innerHTML = '<b>✕</b> Please fix the highlighted fields';
+      toast.classList.add('show');
+      setTimeout(function(){ toast.classList.remove('show'); }, 2400);
+      return false;
+    }
+
+    var msg = 'Hi Ckthub! I want to replace a subscription with hardware.\n\n' +
+      'SOFTWARE\nName: ' + swName + '\nUsed for: ' + swUse +
+      (swCost ? '\nCost: ' + swCost : '') +
+      (swUsers ? '\nUsers/devices: ' + swUsers : '') +
+      '\n\nDESIRED HARDWARE\nFunction: ' + swFunction +
+      (swForm ? '\nForm: ' + swForm : '') +
+      '\n\nCONTACT\nName: ' + cName + '\nMobile: ' + cMobile +
+      (cEmail ? '\nEmail: ' + cEmail : '') +
+      '\n\nPlease assess whether this can become a box.';
+
+    window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+    return false;
+  }
+
+  ['swName','swUse','swFunction','cName','cMobile','cEmail'].forEach(clearErr);
+</script>
+
+</body>
+</html>

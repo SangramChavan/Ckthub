@@ -3,7 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ckthub Fab — PCB, 3D Print, Laser & CNC Manufacturing, Pune</title>
+<title>Build Your Own — PCB, 3D Print, Laser & CNC — CktHub Fab, Pune</title>
+<meta name="description" content="CktHub Fab makes hardware. PCB fabrication, 3D printing, laser marking & cutting, and CNC/VMC machining — in Pune, quoted instantly, confirmed on WhatsApp. Every CktHub box starts here; so can yours.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ckthub.com/ckthub-fab.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Build Your Own — CktHub Fab, Pune">
+<meta property="og:description" content="PCB, 3D print, laser & CNC in Pune. Every CktHub box starts here; so can yours.">
+<meta property="og:url" content="https://ckthub.com/ckthub-fab.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "CktHub Fab",
+  "description": "Hardware manufacturing in Pune, India: PCB fabrication, PCB assembly, 3D printing, laser marking & cutting, and CNC/VMC machining.",
+  "url": "https://ckthub.com/ckthub-fab.html",
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Ambivert Technologies Private Limited",
+    "url": "https://ckthub.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Excellaa Plazzo, A107, near Bharat Petrol Pump, Ambegaon Budruk",
+      "addressLocality": "Pune",
+      "addressRegion": "Maharashtra",
+      "postalCode": "411046",
+      "addressCountry": "IN"
+    }
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Excellaa Plazzo, A107, near Bharat Petrol Pump, Ambegaon Budruk",
+    "addressLocality": "Pune",
+    "addressRegion": "Maharashtra",
+    "postalCode": "411046",
+    "addressCountry": "IN"
+  },
+  "telephone": "+91-99601-60016"
+}
+</script>
 <style>
   @import url('https://cdnjs.cloudflare.com/ajax/libs/JetBrains-Mono/2.304/css/jetbrains-mono.min.css');
 
@@ -32,7 +70,10 @@
   body.page-exit{ opacity:0; }
   a{ color:inherit; text-decoration:none; }
   ::selection{ background:var(--accent); color:#0a1628; }
-  .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 16px; }
+
+  .skip-link{ position:absolute; left:-999px; top:0; z-index:200; background:var(--accent); color:#0d1117; font-size:13px; font-weight:700; padding:10px 16px; }
+  .skip-link:focus{ left:0; }
 
   /* ---------- store/fab tab switcher ---------- */
   .site-tabs{
@@ -59,53 +100,56 @@
     font-size:10px; border-radius:9px; min-width:16px; height:16px;
     display:flex; align-items:center; justify-content:center; padding:0 4px;
   }
-  .navright{ display:flex; align-items:center; gap:18px; }
-  .menu-toggle{ display:none; background:none; border:1px solid var(--border); color:var(--text); padding:8px 10px; border-radius:4px; font-family:var(--mono); }
+  .navright{ display:flex; align-items:center; gap:12px; }
 
   .statusbar{ background:#060f1c; border-bottom:1px solid var(--border); font-size:11px; letter-spacing:.04em; color:var(--dim); padding:6px 0; overflow:hidden; white-space:nowrap; }
   .statusbar .wrap{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  .statusbar .sys{ display:none; }
   .statusbar .blink{ color:var(--ok); animation:blink 1.4s steps(1) infinite; }
   @keyframes blink{ 50%{ opacity:.25; } }
 
   header{ position:sticky; top:0; z-index:50; background:rgba(10,22,40,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
-  .nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:24px; }
-  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; gap:12px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; white-space:nowrap; }
   .brand .prompt{ color:var(--accent); }
   .brand small{ display:block; font-weight:400; color:var(--dim); font-size:10px; letter-spacing:.06em; }
-  .navlinks{ display:flex; gap:26px; font-size:13px; }
-  .navlinks a{ color:var(--muted); }
+  .navlinks{ display:none; gap:26px; font-size:13px; }
+  .navlinks a{ color:var(--muted); white-space:nowrap; }
   .navlinks a::before{ content:'/'; color:var(--dim); margin-right:6px; }
   .navlinks a:hover{ color:var(--accent); }
-  .btn-primary{ background:var(--accent); color:#0a1628; font-weight:700; font-family:var(--mono); font-size:12px; letter-spacing:.03em; padding:10px 18px; border:none; border-radius:4px; cursor:pointer; }
+
+  .btn-primary{ background:var(--accent); color:#0a1628; font-weight:700; font-family:var(--mono); font-size:12px; letter-spacing:.03em; padding:11px 18px; border:none; border-radius:4px; cursor:pointer; transition:filter .15s; }
   .btn-primary:hover{ filter:brightness(1.1); }
-  .btn-ghost{ background:transparent; border:1px solid var(--border-bright); color:var(--text); font-family:var(--mono); font-size:13px; padding:11px 18px; border-radius:4px; cursor:pointer; }
+  .btn-primary.lg{ width:100%; font-size:13px; padding:14px 22px; }
+  .btn-ghost{ background:transparent; border:1px solid var(--border-bright); color:var(--text); font-family:var(--mono); font-size:13px; padding:13px 18px; border-radius:4px; cursor:pointer; transition:border-color .15s, color .15s; display:inline-flex; align-items:center; justify-content:center; }
   .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
   .btn-wa{
     background:#1fae5e; color:#fff; font-weight:700; font-family:var(--mono); font-size:13px;
     padding:13px 22px; border:none; border-radius:4px; cursor:pointer; display:inline-flex; align-items:center; gap:9px;
   }
   .btn-wa:hover{ filter:brightness(1.08); }
-  .btn-wa:disabled{ opacity:.4; cursor:not-allowed; }
 
   .shell-label{ display:flex; align-items:center; gap:10px; color:var(--dim); font-size:12px; margin-bottom:14px; }
   .shell-label .p1{ color:var(--ok); } .shell-label .p2{ color:var(--accent); }
   .shell-label::after{ content:''; flex:1; height:1px; background:var(--border); }
 
-  section{ padding:80px 0; border-bottom:1px solid var(--border); }
-  h2.section-title{ font-size:28px; font-weight:700; letter-spacing:-.01em; margin-bottom:12px; }
-  p.section-sub{ color:var(--muted); max-width:600px; margin-bottom:40px; font-size:14px; }
+  section{ padding:48px 0 72px; border-bottom:1px solid var(--border); }
+  h2.section-title{ font-size:24px; font-weight:700; letter-spacing:-.01em; margin-bottom:12px; line-height:1.2; }
+  p.section-sub{ color:var(--muted); max-width:600px; margin-bottom:32px; font-size:13.5px; }
 
   /* hero */
-  .hero{ padding:64px 0 84px; }
-  .hero-log{ font-size:11px; color:var(--dim); margin-bottom:26px; }
-  .hero-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center; }
-  .hero h1{ font-size:40px; line-height:1.16; font-weight:700; letter-spacing:-.02em; margin-bottom:18px; }
+  .hero{ padding:56px 0 72px; }
+  .hero-log{ font-size:11px; color:var(--dim); margin-bottom:24px; }
+  .hero-grid{ display:grid; grid-template-columns:1fr; gap:32px; align-items:center; }
+  .hero h1{ font-size:30px; line-height:1.16; font-weight:700; letter-spacing:-.02em; margin-bottom:16px; }
   .hero h1 .hl{ color:var(--accent); }
-  .hero p.lead{ color:var(--muted); font-size:15px; max-width:480px; margin-bottom:26px; }
-  .hero-badges{ display:flex; flex-wrap:wrap; gap:10px 22px; margin-bottom:30px; }
+  .hero p.lead{ color:var(--muted); font-size:14px; max-width:480px; margin-bottom:24px; }
+  .hero-badges{ display:flex; flex-wrap:wrap; gap:10px 22px; margin-bottom:28px; }
   .hero-badges span{ font-size:12px; color:var(--muted); display:flex; align-items:center; gap:7px; }
   .hero-badges span::before{ content:'✓'; color:var(--ok); font-weight:700; }
   .hero-ctas{ display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-ctas .btn-primary, .hero-ctas .btn-ghost{ flex:1; min-width:200px; }
+
   .readout{ background:var(--card); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
   .readout-head{ display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--border); background:var(--bg-raised); }
   .readout-head .dot{ width:9px; height:9px; border-radius:50%; background:var(--border-bright); }
@@ -119,9 +163,22 @@
   .readout-row .v.accent{ color:var(--accent); }
   .readout-row .v.ok{ color:var(--ok); }
 
+  /* three paths */
+  .paths-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+  .path-card{
+    background:var(--card); border:1px solid var(--border); border-radius:10px; padding:22px 20px;
+    display:flex; flex-direction:column; gap:10px; transition:border-color .15s, transform .15s;
+  }
+  .path-card:hover{ border-color:var(--accent-dim); transform:translateY(-2px); }
+  .path-card .tag{ font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+  .path-card h3{ font-size:16px; font-weight:700; }
+  .path-card p{ font-size:12.5px; color:var(--muted); line-height:1.6; flex:1; }
+  .path-card .meta{ display:flex; justify-content:space-between; align-items:center; padding-top:12px; border-top:1px solid var(--border); font-size:11.5px; color:var(--dim); }
+  .path-card .meta b{ color:var(--accent); font-size:12.5px; }
+
   /* services grid */
-  .svc-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-  .svc-card{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:24px 20px; display:flex; flex-direction:column; gap:10px; transition:border-color .15s, transform .15s; }
+  .svc-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+  .svc-card{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:22px 20px; display:flex; flex-direction:column; gap:10px; transition:border-color .15s, transform .15s; }
   .svc-card:hover{ border-color:var(--accent-dim); transform:translateY(-2px); }
   .svc-card .tag{ font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
   .svc-card h3{ font-size:15.5px; font-weight:700; }
@@ -145,12 +202,12 @@
 
   /* quote tool */
   .quote-panel{ background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-  .quote-grid{ display:grid; grid-template-columns:1fr 1fr; }
-  .quote-left{ padding:32px; border-right:1px solid var(--border); }
-  .quote-right{ padding:32px; background:var(--bg-raised); }
+  .quote-grid{ display:grid; grid-template-columns:1fr; }
+  .quote-left{ padding:20px; }
+  .quote-right{ padding:20px; background:var(--bg-raised); border-top:1px solid var(--border); }
   .drop-zone{
-    border:1.5px dashed var(--border-bright); border-radius:8px; padding:32px 20px; text-align:center;
-    cursor:pointer; transition:border-color .15s, background .15s; margin-bottom:24px;
+    border:1.5px dashed var(--border-bright); border-radius:8px; padding:28px 16px; text-align:center;
+    cursor:pointer; transition:border-color .15s, background .15s; margin-bottom:22px;
   }
   .drop-zone:hover{ border-color:var(--accent); background:rgba(255,122,61,.04); }
   .drop-zone .ic{ font-size:22px; color:var(--dim); margin-bottom:8px; }
@@ -158,80 +215,97 @@
   .drop-zone span{ font-size:11.5px; color:var(--dim); }
   .drop-zone.filled{ border-color:var(--ok); border-style:solid; }
   .drop-zone.filled b{ color:var(--ok); }
-  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .field-row{ display:grid; grid-template-columns:1fr; gap:14px; margin-bottom:14px; }
   .field{ display:flex; flex-direction:column; gap:6px; }
   .field label{ font-size:11px; color:var(--dim); letter-spacing:.03em; }
   .field input, .field select{
     background:var(--bg); border:1px solid var(--border); border-radius:4px; color:var(--text);
-    font-family:var(--mono); font-size:13px; padding:10px 12px; outline:none;
+    font-family:var(--mono); font-size:13px; padding:11px 12px; outline:none;
   }
   .field input:focus, .field select:focus{ border-color:var(--accent); }
   .quote-btn{ width:100%; margin-top:8px; }
 
   .quote-result{ }
-  .qr-line{ display:flex; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); font-size:13px; }
+  .qr-line{ display:flex; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); font-size:13px; gap:12px; }
   .qr-line:last-of-type{ border-bottom:none; }
   .qr-line .k{ color:var(--muted); }
-  .qr-line .v{ color:var(--text); font-weight:600; }
+  .qr-line .v{ color:var(--text); font-weight:600; text-align:right; }
   .qr-line .v.strike{ color:var(--dim); text-decoration:line-through; font-weight:400; }
-  .qr-total{ display:flex; justify-content:space-between; align-items:baseline; padding-top:18px; margin-top:6px; border-top:1px solid var(--border-bright); }
+  .qr-total{ display:flex; justify-content:space-between; align-items:baseline; padding-top:18px; margin-top:6px; border-top:1px solid var(--border-bright); gap:12px; }
   .qr-total .k{ font-size:13px; color:var(--text); }
   .qr-total .v{ font-size:26px; font-weight:700; color:var(--accent); }
   .qr-note{ font-size:11px; color:var(--dim); margin:14px 0 22px; line-height:1.6; }
   .qr-empty{ color:var(--dim); font-size:13px; text-align:center; padding:40px 10px; }
 
   /* process */
-  .process-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-  .proc-card{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:24px; }
+  .process-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+  .proc-card{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:22px 20px; }
   .proc-card .n{ font-size:12px; color:var(--accent); margin-bottom:10px; }
   .proc-card h3{ font-size:15px; margin-bottom:8px; }
   .proc-card p{ font-size:12.5px; color:var(--muted); line-height:1.6; }
 
   /* trust bar */
   .trust-bar{ background:var(--bg-raised); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-  .trust-grid{ display:grid; grid-template-columns:repeat(4,1fr); }
-  .trust-item{ padding:22px 24px; border-right:1px solid var(--border); font-size:12.5px; display:flex; align-items:center; gap:10px; }
-  .trust-item:last-child{ border-right:none; }
+  .trust-grid{ display:grid; grid-template-columns:1fr; }
+  .trust-item{ padding:16px 20px; border-bottom:1px solid var(--border); font-size:12.5px; display:flex; align-items:center; gap:10px; }
+  .trust-item:last-child{ border-bottom:none; }
   .trust-item .ok{ color:var(--ok); font-weight:700; }
   .trust-item span.label{ color:var(--muted); }
 
-  footer{ padding:48px 0 28px; }
+  footer{ padding:36px 0 24px; }
   .footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px; color:var(--dim); }
   .footer-bottom a{ color:var(--dim); }
   .footer-bottom a:hover{ color:var(--accent); }
 
-  @media (max-width:900px){
-    .navlinks{ display:none; }
-    .menu-toggle{ display:block; }
-    .hero-grid{ grid-template-columns:1fr; }
-    .svc-grid{ grid-template-columns:1fr 1fr; }
-    .quote-grid{ grid-template-columns:1fr; }
-    .quote-left{ border-right:none; border-bottom:1px solid var(--border); }
-    .process-grid{ grid-template-columns:1fr; }
+  /* ---- mobile-first: widen up ---- */
+  @media (min-width:561px){
+    .wrap{ padding:0 24px; }
+    .statusbar .sys{ display:inline; }
+    section{ padding:64px 0 88px; }
+    h2.section-title{ font-size:28px; }
+    p.section-sub{ font-size:14px; }
+    .field-row{ grid-template-columns:1fr 1fr; }
+    .quote-left{ padding:32px; }
+    .quote-right{ padding:32px; }
     .trust-grid{ grid-template-columns:1fr 1fr; }
+    .trust-item{ border-bottom:none; }
+    .trust-item:nth-child(-n+2){ border-bottom:1px solid var(--border); }
   }
-  @media (max-width:560px){
-    .svc-grid{ grid-template-columns:1fr; }
-    .field-row{ grid-template-columns:1fr; }
-    .trust-grid{ grid-template-columns:1fr; }
-    .hero h1{ font-size:30px; }
+  @media (min-width:901px){
+    .navlinks{ display:flex; }
+    .hero{ padding:64px 0 84px; }
+    .hero-grid{ grid-template-columns:1.1fr .9fr; gap:56px; }
+    .hero h1{ font-size:40px; }
+    .hero p.lead{ font-size:15px; }
+    .hero-ctas .btn-primary, .hero-ctas .btn-ghost{ flex:0 1 auto; min-width:0; }
+    .paths-grid{ grid-template-columns:repeat(3,1fr); gap:18px; }
+    .svc-grid{ grid-template-columns:repeat(3,1fr); gap:18px; }
+    .quote-grid{ grid-template-columns:1fr 1fr; }
+    .quote-right{ border-top:none; border-left:1px solid var(--border); }
+    .process-grid{ grid-template-columns:repeat(3,1fr); gap:20px; }
+    .trust-grid{ grid-template-columns:repeat(4,1fr); }
+    .trust-item{ border-bottom:none; border-right:1px solid var(--border); }
+    .trust-item:nth-child(-n+2){ border-bottom:none; }
+    .trust-item:last-child{ border-right:none; }
   }
 </style>
 <noscript><style>html.pretransition body{ opacity:1 !important; }</style></noscript>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
   <div class="statusbar">
     <div class="wrap">
-      <span>CKTHUB FAB · GERBER-IN, PARTS-OUT <span class="blink">●</span> PUNE, IN</span>
-      <span>fab@ckthub:~$ queue --status <span style="color:var(--ok)">accepting jobs</span></span>
+      <span>CKTHUB FAB · BUILD YOUR OWN · GERBER-IN, PARTS-OUT <span class="blink">●</span> PUNE, IN</span>
+      <span class="sys">fab@ckthub:~$ ./queue --status <span style="color:var(--ok)">accepting jobs</span></span>
     </div>
   </div>
 
   <header>
     <div class="wrap nav">
-      <div class="brand"><span class="prompt">$</span> ckthub/fab<small>PCB · 3D print · laser · CNC — Pune</small></div>
-      <nav class="navlinks">
+      <div class="brand"><span class="prompt">$</span> ckthub/fab<small>build your own — PCB · print · laser · CNC</small></div>
+      <nav class="navlinks" aria-label="Page sections">
+        <a href="#paths">Paths</a>
         <a href="#quote">Instant Quote</a>
         <a href="#services">Services</a>
         <a href="#process">Process</a>
@@ -242,20 +316,20 @@
           <a href="ckthub-fab.html" class="site-tab active">Fab</a>
         </div>
         <a href="ckthub-cart.html" class="icon-btn" id="cartBtn">cart <span class="cart-count" id="cartCount">0</span></a>
-        <button class="btn-primary" onclick="document.getElementById('quote').scrollIntoView()">Get a quote</button>
-        <button class="menu-toggle">≡</button>
       </div>
     </div>
   </header>
 
+<main id="main">
+
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" aria-labelledby="hero-title">
     <div class="wrap">
       <div class="hero-log">fab-manifest.json</div>
       <div class="hero-grid">
         <div>
-          <h1>Upload Gerbers.<br>Get it <span class="hl">made in Pune.</span></h1>
-          <p class="lead">PCB fabrication, 3D printing, laser marking &amp; cutting, and CNC/VMC machining — ordered the same way you'd order from an overseas fab, produced down the road instead.</p>
+          <h1 id="hero-title">Build your own <span class="hl">box.</span></h1>
+          <p class="lead">Every product on ckthub.com is made here, in Pune. If you're designing your own hardware, the same machines can make yours — PCB, 3D print, laser and CNC, quoted instantly and confirmed on WhatsApp.</p>
           <div class="hero-badges">
             <span>Gerber / STEP / DXF uploads</span>
             <span>In-house PCB, print, laser &amp; CNC</span>
@@ -280,11 +354,40 @@
     </div>
   </section>
 
+  <!-- THREE PATHS -->
+  <section id="paths" aria-labelledby="paths-title">
+    <div class="wrap">
+      <div class="shell-label"><span class="p1">fab@ckthub</span>:<span class="p2">~</span>$ cat build-your-own.md</div>
+      <h2 class="section-title" id="paths-title">Three ways to own hardware.</h2>
+      <p class="section-sub">Pick the path that matches where you are — grab a finished board, fabricate your own design, or let us build the product end to end.</p>
+      <div class="paths-grid">
+        <a href="index.html#shop" class="path-card">
+          <div class="tag">Path 01 · Ready-made</div>
+          <h3>Start with a board</h3>
+          <p>The dev boards in the store are the same hardware our boxes are built on. Get one, wire it up, and make your idea work today — no fab required.</p>
+          <div class="meta"><span>What you get</span><b>wrover · s3 · d1</b></div>
+        </a>
+        <a href="#quote" class="path-card">
+          <div class="tag">Path 02 · Design &amp; fab</div>
+          <h3>Design it, we make it</h3>
+          <p>Upload your Gerbers, STL, DXF or STEP and get an instant price. We fabricate in-house in Pune, review your file with you, and ship the parts.</p>
+          <div class="meta"><span>What you get</span><b>instant quote ↓</b></div>
+        </a>
+        <a href="own-it.html" class="path-card">
+          <div class="tag">Path 03 · Made for you</div>
+          <h3>Have us build the product</h3>
+          <p>Got a job you want as a finished device? Tell us what you're replacing and we'll explore whether it can become a box — concept, spec, fixed price.</p>
+          <div class="meta"><span>What you get</span><b>own-it →</b></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- SERVICES -->
-  <section id="services">
+  <section id="services" aria-labelledby="services-title">
     <div class="wrap">
       <div class="shell-label"><span class="p1">fab@ckthub</span>:<span class="p2">~/services</span>$ ls -la</div>
-      <h2 class="section-title">Four processes, one order flow.</h2>
+      <h2 class="section-title" id="services-title">Four processes, one order flow.</h2>
       <p class="section-sub">Upload a design file for any of these and get a price back — the same workflow you already use, just fabricated locally.</p>
       <div class="svc-grid">
         <div class="svc-card">
@@ -323,10 +426,10 @@
   </section>
 
   <!-- INSTANT QUOTE -->
-  <section id="quote">
+  <section id="quote" aria-labelledby="quote-title">
     <div class="wrap">
       <div class="shell-label"><span class="p1">fab@ckthub</span>:<span class="p2">~</span>$ ./quote --all</div>
-      <h2 class="section-title">Instant quote, any process.</h2>
+      <h2 class="section-title" id="quote-title">Instant quote, any process.</h2>
       <p class="section-sub">Pick a process, upload your file, enter the specs — get a price back immediately, then confirm the job on WhatsApp.</p>
 
       <div class="qtabs" role="tablist">
@@ -454,10 +557,10 @@
   </section>
 
   <!-- PROCESS -->
-  <section id="process">
+  <section id="process" aria-labelledby="process-title">
     <div class="wrap">
       <div class="shell-label"><span class="p1">fab@ckthub</span>:<span class="p2">~</span>$ cat order-flow.log</div>
-      <h2 class="section-title">Three steps, no account needed.</h2>
+      <h2 class="section-title" id="process-title">Three steps, no account needed.</h2>
       <div class="process-grid">
         <div class="proc-card">
           <div class="n">01</div>
@@ -478,6 +581,8 @@
     </div>
   </section>
 
+</main>
+
   <div class="trust-bar">
     <div class="wrap trust-grid">
       <div class="trust-item"><span class="ok">[OK]</span><span class="label">All processes in-house, Pune</span></div>
@@ -490,7 +595,7 @@
   <footer>
     <div class="wrap footer-bottom">
       <span>© 2026 Ambivert Technologies Private Limited, Pune, India</span>
-      <span><a href="index.html" data-transition>ckthub store</a> · fab@ckthub:~$ <span style="color:var(--ok)">exit 0</span></span>
+      <span><a href="index.html">ckthub store</a> · <a href="own-it.html">own-it</a> · <a href="contact.html">contact</a> · <a href="privacy.html">privacy</a> · <a href="terms.html">terms</a></span>
     </div>
   </footer>
 
