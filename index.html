@@ -1340,9 +1340,9 @@
     <div class="cart-subtotal"><span>Subtotal</span><b id="cartSubtotal">₹0</b></div>
     <button class="cart-checkout-btn" onclick="checkoutOnWhatsApp()">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.36 2 11.74c0 2.04.62 3.93 1.68 5.5L2.5 21.5l4.42-1.13c1.5.86 3.24 1.36 5.08 1.36 5.52 0 10-4.36 10-9.74S17.52 2 12 2z"/></svg>
-      Checkout on WhatsApp
+      Quick checkout on WhatsApp
     </button>
-    <button class="cart-continue-btn" onclick="closeCart()">Continue shopping</button>
+    <button class="cart-continue-btn" onclick="goToCart()">Checkout →</button>
     <div class="cart-ref">Ref: <span id="cartRefCode"></span> · quoted to support on WhatsApp</div>
   </div>
 </aside>
@@ -1419,7 +1419,21 @@
 
   // ---------- cart ----------
   var WHATSAPP_NUMBER = '919960160016';
-  var cart = []; // { name, price, qty }
+  var CART_KEY = 'ckthub_cart';
+
+  function loadCart(){
+    try{
+      var raw = localStorage.getItem(CART_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }catch(e){ return []; }
+  }
+
+  var cart = loadCart(); // { name, price, qty }
+
+  function saveCart(){
+    try{ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }catch(e){}
+  }
+
   var refCode = 'CKT-' + Date.now().toString(36).toUpperCase().slice(-6);
 
   document.addEventListener('DOMContentLoaded', function(){
@@ -1434,6 +1448,9 @@
         addToCart(btn);
       });
     });
+
+    // reflect any cart persisted from a previous visit
+    updateCartUI();
   });
 
   function parseRupees(text){
@@ -1518,6 +1535,8 @@
     }
 
     document.getElementById('cartSubtotal').textContent = '₹' + totals.subtotal.toLocaleString('en-IN');
+
+    saveCart();
   }
 
   function openCart(){
@@ -1530,6 +1549,11 @@
     document.getElementById('cartDrawer').classList.remove('open');
     document.getElementById('cartOverlay').classList.remove('open');
     document.body.style.overflow = '';
+  }
+
+  function goToCart(){
+    closeCart();
+    window.location.href = 'ckthub-cart.html';
   }
 
   var toastTimer;
