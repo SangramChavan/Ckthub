@@ -609,12 +609,19 @@
     display:flex; align-items:center; gap:8px; margin-top:8px;
   }
   .qty-btn{
-    width:22px; height:22px; border-radius:4px; border:1px solid var(--border);
-    background:none; color:var(--muted); cursor:pointer; font-size:13px;
-    display:flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:4px; border:1px solid var(--border);
+    background:none; color:var(--muted); cursor:pointer; font-size:14px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
   }
   .qty-btn:hover{ border-color:var(--accent-dim); color:var(--accent); }
-  .cart-item-qty{ font-size:12px; color:var(--text); min-width:16px; text-align:center; }
+  .qty-input{
+    width:64px; font-family:var(--mono); font-size:13px; text-align:center;
+    color:var(--text); background:var(--bg); border:1px solid var(--border);
+    border-radius:4px; padding:3px 2px; outline:none;
+  }
+  .qty-input:focus{ border-color:var(--accent); }
+  .qty-input::-webkit-inner-spin-button, .qty-input::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
+  .qty-input[type=number]{ -moz-appearance:textfield; appearance:textfield; }
   .cart-item-remove{
     background:none; border:none; color:var(--dim); cursor:pointer;
     font-size:11px; margin-left:auto; text-decoration:underline;
@@ -1489,6 +1496,17 @@
     updateCartUI();
   }
 
+  function setQty(name, val){
+    var item = cart.find(function(i){ return i.name === name; });
+    if(!item) return;
+    var n = parseInt(val, 10);
+    if(isNaN(n)){ updateCartUI(); return; }
+    if(n < 1) n = 1;
+    if(n > 9999) n = 9999;
+    item.qty = n;
+    updateCartUI();
+  }
+
   function removeItem(name){
     cart = cart.filter(function(i){ return i.name !== name; });
     updateCartUI();
@@ -1523,9 +1541,9 @@
               '<div class="cart-item-name">' + i.name + '</div>' +
               '<div class="cart-item-price">₹' + i.price.toLocaleString('en-IN') + ' each</div>' +
               '<div class="cart-item-controls">' +
-                '<button class="qty-btn" onclick="changeQty(\'' + safeName + '\',-1)">−</button>' +
-                '<span class="cart-item-qty">' + i.qty + '</span>' +
-                '<button class="qty-btn" onclick="changeQty(\'' + safeName + '\',1)">+</button>' +
+                '<button class="qty-btn" onclick="changeQty(\'' + safeName + '\',-1)" aria-label="Decrease quantity">−</button>' +
+                '<input class="qty-input" type="number" min="1" max="9999" inputmode="numeric" value="' + i.qty + '" onchange="setQty(\'' + safeName + '\', this.value)" aria-label="Quantity">' +
+                '<button class="qty-btn" onclick="changeQty(\'' + safeName + '\',1)" aria-label="Increase quantity">+</button>' +
                 '<button class="cart-item-remove" onclick="removeItem(\'' + safeName + '\')">remove</button>' +
               '</div>' +
             '</div>' +

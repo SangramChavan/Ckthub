@@ -35,7 +35,7 @@
   a{ color:inherit; text-decoration:none; }
   ::selection{ background:var(--accent); color:#0d1117; }
 
-  .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 16px; }
 
   /* ---------- store/fab tab switcher ---------- */
   .site-tabs{
@@ -57,6 +57,7 @@
     padding:6px 0; overflow:hidden; white-space:nowrap;
   }
   .statusbar .wrap{ display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  .statusbar .sys{ display:none; }
   .statusbar .blink{ color:var(--ok); animation:blink 1.4s steps(1) infinite; }
   @keyframes blink{ 50%{ opacity:.25; } }
 
@@ -74,12 +75,12 @@
   .brand .prompt{ color:var(--accent); }
   .brand small{ display:block; font-weight:400; color:var(--dim); font-size:10px; letter-spacing:.08em; }
 
-  .navlinks{ display:flex; gap:28px; font-size:13px; }
+  .navlinks{ display:none; gap:28px; font-size:13px; }
   .navlinks a{ color:var(--muted); padding:4px 0; transition:color .15s; }
   .navlinks a::before{ content:'/'; color:var(--dim); margin-right:6px; }
   .navlinks a:hover{ color:var(--accent); }
 
-  .navright{ display:flex; align-items:center; gap:18px; }
+  .navright{ display:flex; align-items:center; gap:10px; }
   .icon-btn{
     display:flex; align-items:center; gap:6px;
     background:transparent; border:1px solid var(--border);
@@ -125,12 +126,12 @@
   .shell-label .p2{ color:var(--accent); }
   .shell-label::after{ content:''; flex:1; height:1px; background:var(--border); }
 
-  section{ padding:56px 0 88px; }
-  h2.section-title{ font-size:28px; font-weight:700; letter-spacing:-.01em; margin-bottom:12px; }
-  p.section-sub{ color:var(--muted); max-width:620px; margin-bottom:36px; font-size:14px; }
+  section{ padding:36px 0 64px; }
+  h2.section-title{ font-size:24px; font-weight:700; letter-spacing:-.01em; margin-bottom:12px; }
+  p.section-sub{ color:var(--muted); max-width:620px; margin-bottom:28px; font-size:14px; }
 
-  /* ---------- cart layout ---------- */
-  .cart-grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:22px; align-items:start; }
+  /* ---------- cart layout (mobile first: single column) ---------- */
+  .cart-grid{ display:grid; grid-template-columns:1fr; gap:22px; align-items:start; }
 
   .panel{ background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:22px; }
   .panel-head{
@@ -144,8 +145,8 @@
 
   /* cart item rows */
   .cart-item{
-    display:flex; align-items:center; gap:16px;
-    padding:18px 20px; border-bottom:1px solid var(--border);
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 16px;
+    padding:18px 16px; border-bottom:1px solid var(--border);
   }
   .cart-item:last-child{ border-bottom:none; }
   .cart-item-info{ flex:1; min-width:0; }
@@ -153,13 +154,20 @@
   .cart-item-spec{ font-size:11px; color:var(--dim); margin-top:3px; }
   .cart-item-controls{ display:flex; align-items:center; gap:8px; }
   .qty-btn{
-    width:24px; height:24px; border-radius:4px; border:1px solid var(--border);
+    width:26px; height:26px; border-radius:4px; border:1px solid var(--border);
     background:none; color:var(--muted); cursor:pointer; font-size:14px;
-    display:flex; align-items:center; justify-content:center;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
   }
   .qty-btn:hover{ border-color:var(--accent-dim); color:var(--accent); }
-  .cart-item-qty{ font-size:13px; min-width:22px; text-align:center; color:var(--text); }
-  .cart-item-price{ text-align:right; min-width:86px; }
+  .qty-input{
+    width:64px; font-family:var(--mono); font-size:13px; text-align:center;
+    color:var(--text); background:var(--bg); border:1px solid var(--border);
+    border-radius:4px; padding:3px 2px; outline:none;
+  }
+  .qty-input:focus{ border-color:var(--accent); }
+  .qty-input::-webkit-inner-spin-button, .qty-input::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
+  .qty-input[type=number]{ -moz-appearance:textfield; appearance:textfield; }
+  .cart-item-price{ text-align:right; min-width:auto; margin-left:auto; }
   .cart-item-price .line{ font-size:14px; font-weight:700; color:var(--accent); }
   .cart-item-price .each{ font-size:10.5px; color:var(--dim); }
   .cart-item-remove{
@@ -188,10 +196,10 @@
   .panel-actions .clear:hover{ color:var(--err); }
   .panel-actions .note{ font-size:11px; color:var(--dim); }
 
-  /* ---------- shipping form ---------- */
-  .ship-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:20px; }
+  /* ---------- shipping form (mobile first: single column) ---------- */
+  .ship-grid{ display:grid; grid-template-columns:1fr; gap:14px; padding:20px 16px; }
   .field{ display:flex; flex-direction:column; gap:6px; }
-  .field.span2{ grid-column:1 / -1; }
+  .field.span2{ grid-column:1; }
   .field label{ font-size:11px; color:var(--dim); letter-spacing:.03em; }
   .field input, .field textarea{
     background:var(--bg); border:1px solid var(--border); border-radius:4px; color:var(--text);
@@ -203,7 +211,7 @@
   .field.has-err .ferr{ display:block; }
 
   /* ---------- summary readout ---------- */
-  .readout{ background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; position:sticky; top:84px; }
+  .readout{ background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
   .readout-head{
     display:flex; align-items:center; gap:8px; padding:13px 18px;
     border-bottom:1px solid var(--border); background:var(--bg-raised);
@@ -306,19 +314,23 @@
   .footer-bottom a{ color:var(--dim); }
   .footer-bottom a:hover{ color:var(--accent); }
 
-  @media (max-width:900px){
-    .navlinks{ display:none; }
-    .cart-grid{ grid-template-columns:1fr; }
-    .readout{ position:static; }
+  /* ---------- desktop enhancements (mobile first) ---------- */
+  @media (min-width:561px){
+    .wrap{ padding:0 24px; }
+    .statusbar .sys{ display:inline; }
+    section{ padding:56px 0 88px; }
+    h2.section-title{ font-size:28px; }
+    p.section-sub{ margin-bottom:36px; }
+    .navright{ gap:18px; }
+    .cart-item{ flex-wrap:nowrap; padding:18px 20px; }
+    .cart-item-price{ min-width:86px; }
+    .ship-grid{ grid-template-columns:1fr 1fr; padding:20px; }
+    .field.span2{ grid-column:1 / -1; }
   }
-  @media (max-width:560px){
-    .ship-grid{ grid-template-columns:1fr; }
-    .field.span2{ grid-column:1; }
-    .cart-item{ flex-wrap:wrap; }
-    .cart-item-price{ min-width:auto; }
-    .fab{ width:48px; height:48px; }
-    .fab svg{ width:21px; height:21px; }
-    .fab-stack{ right:14px; bottom:14px; gap:10px; }
+  @media (min-width:901px){
+    .navlinks{ display:flex; }
+    .cart-grid{ grid-template-columns:1.15fr .85fr; }
+    .readout{ position:sticky; top:84px; }
   }
 </style>
 </head>
@@ -327,7 +339,7 @@
   <div class="statusbar">
     <div class="wrap">
       <span>CKTHUB STORE · CART · PIN→SHIPPING ROUTER ONLINE <span class="blink">●</span> PUNE, IN</span>
-      <span>ckthub@store:~$ cart --status <span style="color:var(--ok)">ready</span></span>
+      <span class="sys">ckthub@store:~$ cart --status <span style="color:var(--ok)">ready</span></span>
     </div>
   </div>
 
@@ -346,7 +358,6 @@
           <a href="index.html" class="site-tab active">Store</a>
           <a href="ckthub-fab.html" class="site-tab">Fab</a>
         </div>
-        <a class="btn-primary" href="index.html#products">Buy now</a>
       </div>
     </div>
   </header>
@@ -581,7 +592,7 @@
             '</div>' +
             '<div class="cart-item-controls">' +
               '<button class="qty-btn" onclick="changeQty(\'' + safeName + '\',-1)" aria-label="Decrease quantity">−</button>' +
-              '<span class="cart-item-qty">' + i.qty + '</span>' +
+              '<input class="qty-input" type="number" min="1" max="9999" inputmode="numeric" value="' + i.qty + '" onchange="setQty(\'' + safeName + '\', this.value)" aria-label="Quantity for ' + i.name + '">' +
               '<button class="qty-btn" onclick="changeQty(\'' + safeName + '\',1)" aria-label="Increase quantity">+</button>' +
             '</div>' +
             '<div class="cart-item-price">' +
@@ -691,6 +702,19 @@
     if(!item) return;
     item.qty += delta;
     if(item.qty <= 0){ cart = cart.filter(function(i){ return i.name !== name; }); }
+    saveCart();
+    render();
+  }
+
+  function setQty(name, val){
+    var item = cart.find(function(i){ return i.name === name; });
+    if(!item) return;
+    var n = parseInt(val, 10);
+    if(isNaN(n)){ render(); return; }
+    if(n < 1) n = 1;
+    if(n > 9999) n = 9999;
+    if(n === item.qty){ render(); return; }
+    item.qty = n;
     saveCart();
     render();
   }
