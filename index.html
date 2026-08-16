@@ -176,10 +176,13 @@ p.sub{color:var(--text-2);max-width:62ch;font-size:1.06rem;margin-top:14px}
 .bill-card .rk{font-family:var(--fm);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
 .bill-card .amt{font-family:var(--fm);font-weight:600;font-size:clamp(2.4rem,6vw,4.2rem);letter-spacing:-.02em;margin-top:10px;line-height:1}
 .bill-card .amt small{font-size:.4em;color:var(--text-3);letter-spacing:0}
-.bill-card ul{list-style:none;margin:26px 0 0;padding:0;border-top:1px dashed var(--line-2)}
-.bill-card li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px dashed var(--line);font-size:.95rem}
-.bill-card li span:first-child{color:var(--text-2)}
-.bill-card li b{font-family:var(--fm);font-weight:600}
+.bill-what{margin-top:12px;font-size:.86rem;color:var(--text-2)}
+.bill-tape{margin-top:22px;border-top:1px dashed var(--line-2);padding-top:4px;display:flex;flex-direction:column}
+.tape-row{display:flex;justify-content:space-between;gap:20px;font-family:var(--fm);font-size:.92rem;padding:7px 0;border-bottom:1px dashed var(--line)}
+.tape-row span{color:var(--text-3);letter-spacing:.08em}
+.tape-row b{font-weight:600}
+.tape-row.dim{opacity:.45}
+.tape-row.dim b{font-weight:400}
 .bill-card .foot{margin-top:20px;font-size:.85rem;color:var(--text-3)}
 .bill-card .stamp{position:absolute;top:22px;right:22px;transform:rotate(9deg);border:3px solid var(--bad);color:var(--bad);font-family:var(--fm);font-weight:600;font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;border-radius:8px;opacity:.9}
 .bill-card .stamp.ok{border-color:var(--ok);color:var(--ok);transform:rotate(-7deg)}
@@ -570,13 +573,17 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
           <div class="bill-card">
             <span class="rk">Monthly bill, every month</span>
             <div class="amt"><span class="mono amt-num" id="billAmt">₹1,200 <small>/ month</small></span></div>
-            <ul>
-              <li><span>Attendance software</span><b>₹1,200</b></li>
-              <li><span>40 staff seats</span><b>included</b></li>
-              <li><span>Cloud access fee</span><b>₹0</b></li>
-              <li><span>Auto renewal</span><b>forever</b></li>
-            </ul>
-            <div class="foot">Total after 5 years: ₹72,000. After 10: ₹1,44,000. The bill never stops.</div>
+            <p class="bill-what">Attendance software · 40 staff seats · cloud access ₹0</p>
+            <div class="bill-tape" role="img" aria-label="The same ₹1,200 billed every month: year 1 ₹14,400, year 5 ₹72,000, year 10 ₹1,44,000, forever">
+              <div class="tape-row"><span>YR 1</span><b>₹14,400</b></div>
+              <div class="tape-row"><span>YR 2</span><b>₹28,800</b></div>
+              <div class="tape-row"><span>YR 3</span><b>₹43,200</b></div>
+              <div class="tape-row"><span>YR 4</span><b>₹57,600</b></div>
+              <div class="tape-row"><span>YR 5</span><b>₹72,000</b></div>
+              <div class="tape-row dim"><span>⋯</span><b>⋯</b></div>
+              <div class="tape-row dim"><span>YR 10</span><b>₹1,44,000</b></div>
+            </div>
+            <div class="foot">The bill never stops.</div>
             <span class="stamp">BILLED</span>
           </div>
         </div>
