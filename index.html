@@ -307,7 +307,7 @@ p.sub{color:var(--text-2);max-width:62ch;font-size:1.06rem;margin-top:14px}
 .vol{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;flex:1;min-width:0}
 .vol label{font-family:var(--fm);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
 .vol input[type=range]{width:100%;accent-color:var(--accent)}
-.vol-total{font-family:var(--fm);font-weight:700;color:var(--accent);min-width:56px;text-align:right;font-size:1rem}
+.vol-total{font-family:var(--fm);font-weight:700;color:var(--accent);min-width:72px;text-align:right;font-size:.95rem}
 .s-card .btn.add{margin:0;flex-shrink:0}
 
 /* ============ build band ============ */
@@ -850,8 +850,8 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
           <div class="s-actions">
             <div class="vol">
               <label for="vol-wrover">Qty</label>
-              <input type="range" id="vol-wrover" min="1" max="10" value="1" step="1">
-              <span class="vol-total" id="vol-total-wrover">₹799</span>
+              <input type="range" id="vol-wrover" min="1" max="10000" value="1" step="1">
+              <span class="vol-total" id="vol-total-wrover">× 1</span>
             </div>
             <button class="btn add" onclick="addToCart('wrover')">Add to cart</button>
           </div>
@@ -870,8 +870,8 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
           <div class="s-actions">
             <div class="vol">
               <label for="vol-s3">Qty</label>
-              <input type="range" id="vol-s3" min="1" max="10" value="1" step="1">
-              <span class="vol-total" id="vol-total-s3">₹499</span>
+              <input type="range" id="vol-s3" min="1" max="10000" value="1" step="1">
+              <span class="vol-total" id="vol-total-s3">× 1</span>
             </div>
             <button class="btn add" onclick="addToCart('s3')">Add to cart</button>
           </div>
@@ -1121,7 +1121,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
     r.addEventListener('input', function () {
       var id = r.id.replace('vol-', '');
       var q = parseInt(r.value, 10);
-      document.getElementById('vol-total-' + id).textContent = '₹' + VPRICE[id] * q;
+      document.getElementById('vol-total-' + id).textContent = '× ' + q;
     });
   });
 

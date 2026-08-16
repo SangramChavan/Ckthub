@@ -840,7 +840,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
             '</div>' +
             '<div class="cart-item-controls">' +
               '<button class="qty-btn" onclick="changeQty(\'' + safeName + '\',-1)" aria-label="Decrease quantity">−</button>' +
-              '<input class="qty-input" type="number" min="1" max="9999" inputmode="numeric" value="' + i.qty + '" onchange="setQty(\'' + safeName + '\', this.value)" aria-label="Quantity for ' + i.name + '">' +
+              '<input class="qty-input" type="number" min="1" max="10000" inputmode="numeric" value="' + i.qty + '" onchange="setQty(\'' + safeName + '\', this.value)" aria-label="Quantity for ' + i.name + '">' +
               '<button class="qty-btn" onclick="changeQty(\'' + safeName + '\',1)" aria-label="Increase quantity">+</button>' +
             '</div>' +
             '<div class="cart-item-price">' +
@@ -958,7 +958,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
     var n = parseInt(val, 10);
     if (isNaN(n)) { render(); return; }
     if (n < 1) n = 1;
-    if (n > 9999) n = 9999;
+    if (n > 10000) n = 10000;
     if (n === item.qty) { render(); return; }
     item.qty = n;
     saveCart();
