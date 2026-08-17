@@ -194,34 +194,6 @@ p.sub{color:var(--text-2);max-width:62ch;font-size:1.06rem;margin-top:14px}
 .cmp-row .b b{color:var(--accent)}
 .cmp-note{margin-top:16px;font-size:.88rem;color:var(--text-3);max-width:72ch}
 
-/* ============ calculator ============ */
-.calc-sec{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
-.calc-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:64px;align-items:start}
-.calc-copy h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
-.calc-copy p{margin-top:14px;color:var(--text-2);max-width:48ch}
-.calc-copy .honest{margin-top:20px;font-size:.86rem;color:var(--text-3);max-width:44ch;border-left:2px solid var(--line-2);padding-left:14px}
-.calc{background:var(--bg-2);border:1px solid var(--line-2);border-radius:18px;padding:clamp(22px,3.4vw,36px);box-shadow:var(--shadow)}
-.calc label.k{display:block;font-family:var(--fm);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px}
-.job-pills{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:28px}
-.job-pills button{text-align:left;background:var(--bg-3);border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--text-2);font-size:.88rem;line-height:1.35;transition:border-color .2s,color .2s,background .2s}
-.job-pills button small{display:block;font-family:var(--fm);font-size:.7rem;color:var(--text-3);margin-top:2px}
-.job-pills button:hover{border-color:var(--line-2)}
-.job-pills button.on{background:var(--accent-soft);border-color:var(--accent);color:var(--text)}
-.job-pills button.on small{color:var(--accent)}
-.save{display:flex;flex-direction:column;gap:16px}
-.save-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.88rem;color:var(--text-2)}
-.save-row b{font-family:var(--fm);font-weight:600;color:var(--text)}
-.save-row .sep{color:var(--text-3)}
-.save-row b.zero{color:var(--accent)}
-.save-hero{border:1px solid var(--accent);background:var(--accent-soft);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:5px}
-.save-hero .sv-k{font-size:.74rem;color:var(--text-2);text-transform:uppercase;letter-spacing:.08em}
-.save-hero .sv-num{font-family:var(--fm);font-weight:700;font-size:clamp(1.9rem,4vw,2.6rem);color:var(--accent);line-height:1.12}
-.save-hero .sv-sub{font-size:.82rem;color:var(--text-2)}
-.save-hero .sv-sub s{color:var(--text-3)}
-.save-hero .sv-sub b{font-family:var(--fm);color:var(--text);font-weight:600}
-.calc .act{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.calc .act .note{font-size:.72rem;color:var(--text-3);font-family:var(--fm)}
-
 /* ============ roadmap ============ */
 .road{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 30px}
@@ -353,7 +325,6 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   .road-grid{grid-template-columns:1fr 1fr}
   .steps{grid-template-columns:1fr;gap:34px}
   .steps .side{position:static}
-  .calc-grid{grid-template-columns:1fr;gap:44px}
   .shop-grid{grid-template-columns:1fr}
   .s-card{grid-template-columns:minmax(80px,100px) 1fr}
   .why-grid{grid-template-columns:1fr 1fr}
@@ -368,7 +339,6 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   .brand .tag{display:none}
   .section-pad{padding:70px 0}
   .road-grid{grid-template-columns:1fr}
-  .job-pills{grid-template-columns:1fr}
   .cmp-head>div{padding:14px 16px;font-size:.92rem}
   .cmp-row>div{padding:13px 16px;font-size:.88rem}
   .trace{display:none}
@@ -549,45 +519,6 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
     </div>
     <p class="cmp-note">We are not against software, we build with it every day. This table just shows where a monthly bill stops making sense for a job a device can do.</p>
   </div>
-
-  <!-- the calculator: the math for one shop -->
-  <div class="calc-sec">
-    <div class="calc-grid">
-      <div class="calc-copy">
-        <div class="side-note rv">Do the math yourself</div>
-        <h2 class="rv">What one device saves you.</h2>
-        <p class="rv">Pick the job you pay for today. One device replaces that monthly line, and the device is yours to keep. The number below is what stays in your pocket over 5 years.</p>
-        <div class="honest rv">Device price below is an estimate. The exact quote comes on WhatsApp, and it is one-time. No renewal, no per-seat fee, no cloud tier.</div>
-      </div>
-      <div class="calc rv">
-        <label class="k" for="jobPills">The job you pay a subscription for</label>
-        <div class="job-pills" id="jobPills" role="group" aria-label="Choose a subscription job">
-          <button type="button" data-job="attendance"><span>Attendance kiosk</span><small>40 staff, wall check-in</small></button>
-          <button type="button" data-job="pos"><span>Restaurant POS + kitchen display</span><small>countertop order-taking</small></button>
-          <button type="button" data-job="temp"><span>Cold-room temperature logger</span><small>local alerts, no cloud</small></button>
-          <button type="button" data-job="access"><span>Door / gate access panel</span><small>NFC + QR on a wall panel</small></button>
-          <button type="button" data-job="review"><span>Review collection kiosk</span><small>countertop, syncs on your schedule</small></button>
-          <button type="button" data-job="custom"><span>Your own job</span><small>tell us what you pay today</small></button>
-        </div>
-        <div class="save">
-          <div class="save-row">
-            <span>Today</span><b id="calcToday">₹1,200 /mo</b>
-            <span class="sep">→</span>
-            <span>After the device</span><b id="calcAfter" class="zero">₹0 /mo</b>
-          </div>
-          <div class="save-hero">
-            <span class="sv-k">Kept in your pocket, 5 years</span>
-            <span class="sv-num" id="calcSaved">₹63,001</span>
-            <span class="sv-sub">vs <s id="calcLose">₹72,000</s> in subscriptions, after <b id="calcCost">₹8,999</b> one-time</span>
-          </div>
-        </div>
-        <div class="act">
-          <a class="btn" id="calcCta" href="https://wa.me/919960160016" target="_blank" rel="noopener">I want this device</a>
-          <span class="note" id="calcNote">₹1,200 × 12 × 5 years, minus one-time device cost</span>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- ACT 2 : THE PRODUCTS (roadmap) -->
@@ -740,7 +671,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
 <!-- ACT 3 : THE SHOP -->
 <section id="shop" aria-labelledby="shop-title">
   <div class="shop-sec">
-    <h2 class="title rv" id="shop-title">In stock now.</h2>
+    <h2 class="title rv" id="shop-title">Bulk order</h2>
     <p class="sub rv">Finished boards, ready to ship from Pune. One-time price. Same boards we use in our own products.</p>
     <div class="shop-grid">
 
@@ -748,10 +679,10 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
         <div class="media"><img src="img/wrover-board.webp" alt="ESP32-WROVER-DevKit-Lipo board" width="394" height="800" loading="lazy"></div>
         <div class="body">
           <div class="s-head">
-            <h3>ESP32-WROVER-DevKit-Lipo</h3>
+            <h3>ESP32-WROOM-DevKit-Lipo</h3>
             <div class="price">₹799 <small>incl. taxes</small></div>
           </div>
-          <p class="desc">Dev kit with ESP32-WROVER module, 1.8&Prime; TFT display and integrated battery charger.</p>
+          <p class="desc">Dev kit with ESP32-WROOM module, integrated battery charger.</p>
           <div class="specs"><span>4 MB flash</span><span>8 MB PSRAM</span><span>LiPo charger</span></div>
           <div class="s-actions">
             <div class="vol">
@@ -771,7 +702,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
             <h3>ESP32-S3-DevKitC-1</h3>
             <div class="price">₹499 <small>incl. taxes</small></div>
           </div>
-          <p class="desc">S3 module dev kit, Wi-Fi + BLE and a 1.8&Prime; TFT display. Built for on-device AI and voice.</p>
+          <p class="desc">S3 module dev kit, Wi-Fi + BLE and built liipo.</p>
           <div class="specs"><span>8 MB flash</span><span>8 MB PSRAM</span><span>Native USB</span></div>
           <div class="s-actions">
             <div class="vol">
@@ -1030,42 +961,6 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
       document.getElementById('vol-total-' + id).textContent = '× ' + q;
     });
   });
-
-  /* ---------- calculator ---------- */
-  var JOBS = {
-    attendance: { label: 'Attendance kiosk', today: 1200 },
-    pos: { label: 'Restaurant POS + kitchen display', today: 2200 },
-    temp: { label: 'Cold-room temperature logger', today: 800 },
-    access: { label: 'Door / gate access panel', today: 1500 },
-    review: { label: 'Review collection kiosk', today: 600 },
-    custom: { label: 'Your own job', today: 1000 }
-  };
-  var base = 8999;
-  var job = 'attendance';
-  var pills = document.getElementById('jobPills');
-  var inr = function (n) { return '₹' + n.toLocaleString('en-IN'); };
-  function calc() {
-    var j = JOBS[job] || JOBS.attendance;
-    var monthly = j.today;
-    var five = monthly * 12 * 5;
-    var boxCost = base;
-    var kept = five - boxCost;
-    document.getElementById('calcToday').textContent = inr(monthly) + ' /mo';
-    document.getElementById('calcSaved').textContent = inr(kept);
-    document.getElementById('calcLose').textContent = inr(five);
-    document.getElementById('calcCost').textContent = inr(boxCost);
-    document.getElementById('calcNote').textContent = '₹' + monthly.toLocaleString('en-IN') + ' × 12 × 5 years, minus the one-time device cost';
-    document.getElementById('calcCta').href = 'https://wa.me/919960160016?text=' + encodeURIComponent('Hi CktHub! I want the ' + j.label + ' device. Please share a quote.');
-  }
-  pills.addEventListener('click', function (e) {
-    var b = e.target.closest('button[data-job]');
-    if (!b) return;
-    job = b.getAttribute('data-job');
-    pills.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); });
-    b.classList.add('on');
-    calc();
-  });
-  calc();
 
   /* ---------- tabs ---------- */
   var tabs = document.querySelectorAll('.tabs button');
