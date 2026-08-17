@@ -376,7 +376,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   "@graph":[
     {"@type":"Organization","@id":"https://ckthub.com/#org","name":"Ambivert Technologies Private Limited","brand":{"@type":"Brand","name":"CktHub"},"url":"https://ckthub.com/","email":"hello@ambiverttech.com","telephone":"+91-99601-60016","address":{"@type":"PostalAddress","streetAddress":"Excellaa Plazzo, A107, near Bharat Petrol Pump, Ambegaon Budruk","addressLocality":"Pune","addressRegion":"Maharashtra","postalCode":"411046","addressCountry":"IN"},"description":"CktHub builds standalone ESP32 and ESP32-S3 hardware that replaces recurring software subscriptions. Designed and assembled in-house in Pune, India."},
     {"@type":"WebSite","@id":"https://ckthub.com/#website","url":"https://ckthub.com/","name":"CktHub","publisher":{"@id":"https://ckthub.com/#org"}},
-    {"@type":"Product","@id":"https://ckthub.com/#product-wrover","name":"ESP32-WROVER-DevKit-Lipo","image":"https://ckthub.com/wrover-devkit.png","description":"ESP32 development board with built-in LiPo charger and battery sensing. 4MB flash, up to 8MB PSRAM. Designed for standalone, local-first devices that replace subscription software.","brand":{"@type":"Brand","name":"CktHub"},"offers":{"@type":"Offer","price":"799","priceCurrency":"INR","availability":"https://schema.org/InStock"}},
+    {"@type":"Product","@id":"https://ckthub.com/#product-wrover","name":"ESP32-WROVER-DevKit-Lipo","image":"https://ckthub.com/wrover-devkit.png","description":"ESP32 development board with built-in LiPo charger and battery sensing. 4MB flash, up to 8MB PSRAM. Designed for standalone, local-first devices that replace subscription software.","brand":{"@type":"Brand","name":"CktHub"},"offers":{"@type":"Offer","price":"399","priceCurrency":"INR","availability":"https://schema.org/InStock"}},
     {"@type":"Product","@id":"https://ckthub.com/#product-s3","name":"ESP32-S3-DevKitC-1","image":"https://ckthub.com/s3-devkit.png","description":"ESP32-S3 development board with 8MB flash, 8MB PSRAM and native USB OTG/JTAG. Built for on-device AI, voice and local dashboard products.","brand":{"@type":"Brand","name":"CktHub"},"offers":{"@type":"Offer","price":"499","priceCurrency":"INR","availability":"https://schema.org/InStock"}}
   ]
 }
@@ -680,7 +680,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
         <div class="body">
           <div class="s-head">
             <h3>ESP32-WROOM-DevKit-Lipo</h3>
-            <div class="price">₹799 <small>incl. taxes</small></div>
+            <div class="price">₹399 <small>incl. taxes</small></div>
           </div>
           <p class="desc">Dev kit with ESP32-WROOM module, integrated battery charger.</p>
           <div class="specs"><span>4 MB flash</span><span>8 MB PSRAM</span><span>LiPo charger</span></div>
@@ -873,7 +873,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
 
   /* ---------- cart ---------- */
   var PRODS = {
-    wrover: { name: 'ESP32-WROVER-DevKit-Lipo', price: 799 },
+    wrover: { name: 'ESP32-WROVER-DevKit-Lipo', price: 399 },
     s3: { name: 'ESP32-S3-DevKitC-1', price: 499 }
   };
   var cart = {};
@@ -953,7 +953,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   paint();
 
   /* ---------- volume sliders ---------- */
-  var VPRICE = { wrover: 799, s3: 499 };
+  var VPRICE = { wrover: 399, s3: 499 };
   document.querySelectorAll('.vol input').forEach(function (r) {
     r.addEventListener('input', function () {
       var id = r.id.replace('vol-', '');
