@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CktHub - Stop Renting Software. Own the Device.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23E3A83C'/%3E%3Ctext x='16' y='22' font-family='Helvetica,Arial,sans-serif' font-size='17' font-weight='700' fill='%23191204' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<meta name="description" content="CktHub builds standalone ESP32 and ESP32-S3 hardware that does the work of subscription-based software tools locally. Pay once, own the device, no monthly bill, no cloud dependency. Buy a board or tell us what you want to replace.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ckthub.com/prototype.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CktHub - Stop Renting Software. Own the Device.">
+<meta property="og:description" content="Standalone hardware that replaces recurring software subscriptions. Local operation, no monthly fee, your data stays on the device. Built in-house in Pune, India.">
+<meta property="og:url" content="https://ckthub.com/prototype.html">
+ <meta property="og:image" content="https://ckthub.com/wrover-devkit.png">
+ <meta property="og:image:alt" content="CktHub ESP32 dev board on a lab bench">
+ <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0A0D0B">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/space-grotesk-latin.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/space-grotesk-latin.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/jetbrains-mono-latin.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/jetbrains-mono-latin.woff2) format('woff2')}
+
+/* ============ tokens ============ */
+:root{
+  --bg:#0A0D0B; --bg-2:#10140F; --bg-3:#161B14;
+  --line:rgba(233,237,220,.10); --line-2:rgba(233,237,220,.18);
+  --text:#EAEDE2; --text-2:#A7AE9F; --text-3:#8A9280;
+  --accent:#E3A83C; --accent-ink:#191204; --accent-soft:rgba(227,168,60,.13);
+  --ok:#63C48F; --bad:#E06C4F;
+  --r:14px;
+  --fd:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --fm:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --shadow:0 24px 70px rgba(0,0,0,.5);
+  --maxw:1180px;
+  --nav-h:64px;
+}
+[data-theme="light"]{
+  --bg:#F4F4EE; --bg-2:#ECEDE4; --bg-3:#E2E4D8;
+  --line:rgba(29,33,26,.14); --line-2:rgba(29,33,26,.26);
+  --text:#1D211A; --text-2:#555D4C; --text-3:#6B7360;
+  --accent:#A86F10; --accent-ink:#FFFDF4; --accent-soft:rgba(168,111,16,.12);
+  --ok:#2E7D4F; --bad:#B23A1E;
+  --shadow:0 24px 60px rgba(40,50,30,.16);
+}
+
+/* ============ base ============ */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--fd);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+::selection{background:var(--accent);color:var(--accent-ink)}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;line-height:1.14;letter-spacing:-.01em;font-weight:700}
+p{margin:0}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.skip-link{position:absolute;left:-999px;top:8px;z-index:200;background:var(--accent);color:var(--accent-ink);padding:8px 14px;border-radius:8px;font-weight:700;text-decoration:none}
+.skip-link:focus{left:8px}
+
+/* section rhythm */
+.section-pad{padding:96px 0}
+h2.title{font-size:clamp(1.85rem,3.6vw,2.9rem);max-width:22ch}
+p.sub{color:var(--text-2);max-width:62ch;font-size:1.06rem;margin-top:14px}
+.side-note{font-family:var(--fm);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px}
+
+/* reveal on scroll (gated by .js) */
+.js .rv{opacity:0;transform:translateY(20px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)}
+.js .rv.in{opacity:1;transform:none}
+
+/* ============ buttons ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:var(--accent-ink);border:1px solid var(--accent);border-radius:10px;padding:12px 22px;font-weight:700;font-size:1rem;text-decoration:none;transition:transform .18s cubic-bezier(.16,1,.3,1),box-shadow .18s,filter .18s;white-space:nowrap}
+.btn:hover{filter:brightness(1.07);box-shadow:0 8px 28px var(--accent-soft)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--text);border-color:var(--line-2)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.tlink{display:inline-flex;align-items:center;gap:6px;color:var(--text);font-weight:700;text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px;transition:color .2s,border-color .2s}
+.tlink:hover{color:var(--accent);border-color:var(--accent)}
+.tlink .arr{transition:transform .2s}
+.tlink:hover .arr{transform:translateX(3px)}
+
+/* ============ nav ============ */
+.nav{position:fixed;inset:0 0 auto 0;z-index:90;height:var(--nav-h);background:color-mix(in srgb,var(--bg) 84%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+@media (prefers-reduced-transparency:reduce){.nav{background:var(--bg)}}
+.nav-in{max-width:var(--maxw);margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;gap:28px}
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none;font-weight:700;font-size:1.3rem;letter-spacing:-.02em}
+.brand .tag{font-family:var(--fm);font-size:.7rem;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase}
+.navlinks{display:flex;gap:22px;list-style:none;margin:0;padding:0;margin-left:8px}
+.navlinks a{color:var(--text-2);text-decoration:none;font-size:.95rem;font-weight:500;transition:color .2s}
+.navlinks a:hover{color:var(--accent)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.seg{display:flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden}
+.seg a{font-family:var(--fm);font-size:.72rem;text-decoration:none;padding:6px 14px;color:var(--text-2);letter-spacing:.04em;text-transform:uppercase}
+.seg a.active{background:var(--accent);color:var(--accent-ink)}
+.seg a:not(.active):hover{color:var(--text)}
+.icon-btn{background:transparent;border:1px solid var(--line-2);border-radius:999px;width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;color:var(--text);font-size:1rem;transition:border-color .2s,color .2s}
+.icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+.cart-chip{display:inline-flex;align-items:center;gap:8px;background:var(--bg-2);border:1px solid var(--line-2);color:var(--text);border-radius:999px;padding:7px 14px;font-size:.85rem;font-weight:600;transition:border-color .2s}
+.cart-chip:hover{border-color:var(--accent)}
+.cart-chip .cnt{background:var(--accent);color:var(--accent-ink);border-radius:999px;font-family:var(--fm);font-size:.7rem;min-width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px}
+.burger{display:none;background:none;border:none;color:var(--text);font-size:1.3rem;width:38px;height:38px}
+.mobile-menu{position:fixed;top:var(--nav-h);left:0;right:0;z-index:89;background:var(--bg);border-bottom:1px solid var(--line);display:none;flex-direction:column;padding:12px 24px 18px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{padding:10px 0;color:var(--text);text-decoration:none;font-weight:600;border-bottom:1px solid var(--line)}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu .seg{width:fit-content;margin-top:12px}
+
+/* ============ hero ============ */
+.hero{padding:calc(var(--nav-h) + 44px) 0 76px;overflow:hidden}
+.hero-grid{max-width:var(--maxw);margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(2.55rem,6.2vw,4.7rem);line-height:1.02;letter-spacing:-.025em}
+.hero h1 .l1,.hero h1 .l2{display:block;overflow:hidden;padding-bottom:.08em}
+.hero h1 .l2{color:var(--accent)}
+.js .hero h1 .l1>span,.js .hero h1 .l2>span{display:inline-block;transform:translateY(115%);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.js .hero.in h1 .l1>span{transition-delay:.08s}
+.js .hero.in h1 .l2>span{transition-delay:.24s}
+.js .hero.in h1 .l1>span,.js .hero.in h1 .l2>span{transform:none}
+.lead{color:var(--text-2);font-size:1.1rem;max-width:46ch;margin-top:22px}
+.hero-ctas{display:flex;align-items:center;gap:22px;margin-top:30px;flex-wrap:wrap}
+.hero-stat{display:flex;gap:30px;margin-top:46px;flex-wrap:wrap}
+.hero-stat .cell{display:flex;flex-direction:column;gap:2px}
+.hero-stat .v{font-family:var(--fm);font-weight:600;font-size:1.2rem;color:var(--text)}
+.hero-stat .k{font-size:.72rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.1em}
+
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center}
+.halo{position:absolute;width:min(560px,80vw);height:min(560px,80vw);border-radius:50%;background:radial-gradient(circle,var(--accent-soft) 0%,transparent 62%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:0}
+.pedestal{position:relative;z-index:1;width:min(300px,64vw);transform-style:preserve-3d;transition:transform .12s ease-out}
+.pedestal img{width:100%;height:auto;filter:drop-shadow(0 30px 50px rgba(0,0,0,.55));animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.trace{position:absolute;left:-72px;top:50%;transform:translateY(-50%);width:150px;height:220px;pointer-events:none;z-index:0;opacity:.8}
+.trace .path{stroke:var(--accent);stroke-width:1.4;fill:none;stroke-dasharray:600;stroke-dashoffset:600;animation:draw 5s ease-in-out infinite alternate;opacity:.55}
+.trace .dot{fill:var(--accent);opacity:0}
+.trace .dot.a{animation:dotA 5s ease-in-out infinite}
+.trace .dot.b{animation:dotB 5s ease-in-out infinite}
+@keyframes draw{to{stroke-dashoffset:0}}
+.trace .dot.a,.trace .dot.b{offset-path:path('M6 6 C 120 40, 10 120, 130 150')}
+@keyframes dotA{0%,16%{opacity:0;offset-distance:0%}55%,80%{opacity:.95}100%{opacity:0;offset-distance:100%}}
+@keyframes dotB{0%,16%{opacity:0;offset-distance:0%}72%,90%{opacity:.9}100%{opacity:0;offset-distance:100%}}
+.badge-live{position:absolute;top:4%;right:-12%;z-index:2;display:flex;align-items:center;gap:7px;background:var(--bg-3);border:1px solid var(--line-2);border-radius:999px;padding:7px 13px;font-family:var(--fm);font-size:.68rem;color:var(--text-2);letter-spacing:.08em;box-shadow:var(--shadow)}
+.badge-live .led{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(99,196,143,.5)}50%{opacity:.55;box-shadow:0 0 0 5px rgba(99,196,143,0)}}
+
+/* ============ trust strip ============ */
+.trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2)}
+.trust-in{max-width:var(--maxw);margin:0 auto;padding:18px 24px;display:flex;flex-wrap:wrap;gap:10px 34px;justify-content:center}
+.trust-in span{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;color:var(--text-2)}
+.trust-in .tick{color:var(--accent);font-weight:700}
+
+/* ============ jobs marquee (the one marquee on the page) ============ */
+.jobs{overflow:hidden;border-bottom:1px solid var(--line);padding:20px 0;position:relative}
+.jobs-track{display:flex;gap:14px;width:max-content;animation:jobsX 38s linear infinite}
+.jobs:hover .jobs-track{animation-play-state:paused}
+@keyframes jobsX{to{transform:translateX(-50%)}}
+.jobs .chip{font-family:var(--fm);font-size:.78rem;color:var(--text-2);border:1px solid var(--line-2);border-radius:999px;padding:7px 16px;white-space:nowrap;letter-spacing:.04em}
+.jobs .chip b{color:var(--accent);font-weight:600}
+
+/* ============ thesis ============ */
+.thesis{max-width:var(--maxw);margin:0 auto;padding:110px 24px 30px}
+.thesis h2{font-size:clamp(2.1rem,4.6vw,3.6rem);line-height:1.05;letter-spacing:-.02em;max-width:20ch}
+.thesis h2 .dim{color:var(--text-3)}
+.thesis h2 .up{color:var(--accent)}
+.thesis p{margin-top:20px;color:var(--text-2);max-width:56ch;font-size:1.08rem}
+.stance{margin-top:34px;border:1px solid var(--line-2);border-left:3px solid var(--accent);background:var(--bg-2);border-radius:var(--r);padding:22px 26px;max-width:640px;font-size:1.05rem}
+.stance b{color:var(--accent)}
+
+/* ============ steps ============ */
+.steps{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px}
+.steps .side{position:sticky;top:calc(var(--nav-h) + 40px);align-self:start}
+.steps .side h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
+.steps .side p{margin-top:14px;color:var(--text-2);max-width:42ch}
+.steps-list{display:flex;flex-direction:column}
+.step-row{display:grid;grid-template-columns:56px 1fr;gap:20px;padding:26px 0;border-top:1px solid var(--line)}
+.step-row:last-child{border-bottom:1px solid var(--line)}
+.step-row .no{font-family:var(--fm);font-size:.85rem;color:var(--accent);padding-top:6px}
+.step-row h3{font-size:1.3rem}
+.step-row p{margin-top:8px;color:var(--text-2);max-width:52ch}
+
+/* ============ comparison ============ */
+.cmp-sec{max-width:var(--maxw);margin:0 auto;padding:120px 24px 0}
+.cmp{overflow:hidden;border:1px solid var(--line-2);border-radius:18px;background:var(--bg-2);margin-top:28px}
+.cmp-head{display:grid;grid-template-columns:1.1fr .95fr .95fr;border-bottom:1px solid var(--line-2)}
+.cmp-head>div{padding:20px 24px;font-weight:700;font-size:1.05rem}
+.cmp-head .side-a{color:var(--text-3)}
+.cmp-head .side-b{background:var(--accent-soft);color:var(--accent)}
+.cmp-row{display:grid;grid-template-columns:1.1fr .95fr .95fr;border-bottom:1px solid var(--line)}
+.cmp-row:last-child{border-bottom:none}
+.cmp-row>div{padding:18px 24px;font-size:.96rem;display:flex;align-items:center;gap:10px}
+.cmp-row .k{color:var(--text-2);font-weight:600}
+.cmp-row .a{color:var(--text-3)}
+.cmp-row .b{background:var(--accent-soft);color:var(--text)}
+.cmp-row .b b{color:var(--accent)}
+.cmp-note{margin-top:16px;font-size:.88rem;color:var(--text-3);max-width:72ch}
+
+/* ============ calculator ============ */
+.calc-sec{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
+.calc-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:64px;align-items:start}
+.calc-copy h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
+.calc-copy p{margin-top:14px;color:var(--text-2);max-width:48ch}
+.calc-copy .honest{margin-top:20px;font-size:.86rem;color:var(--text-3);max-width:44ch;border-left:2px solid var(--line-2);padding-left:14px}
+.calc{background:var(--bg-2);border:1px solid var(--line-2);border-radius:18px;padding:clamp(22px,3.4vw,36px);box-shadow:var(--shadow)}
+.calc label.k{display:block;font-family:var(--fm);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px}
+.job-pills{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:28px}
+.job-pills button{text-align:left;background:var(--bg-3);border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--text-2);font-size:.88rem;line-height:1.35;transition:border-color .2s,color .2s,background .2s}
+.job-pills button small{display:block;font-family:var(--fm);font-size:.7rem;color:var(--text-3);margin-top:2px}
+.job-pills button:hover{border-color:var(--line-2)}
+.job-pills button.on{background:var(--accent-soft);border-color:var(--accent);color:var(--text)}
+.job-pills button.on small{color:var(--accent)}
+.save{display:flex;flex-direction:column;gap:16px}
+.save-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.88rem;color:var(--text-2)}
+.save-row b{font-family:var(--fm);font-weight:600;color:var(--text)}
+.save-row .sep{color:var(--text-3)}
+.save-row b.zero{color:var(--accent)}
+.save-hero{border:1px solid var(--accent);background:var(--accent-soft);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:5px}
+.save-hero .sv-k{font-size:.74rem;color:var(--text-2);text-transform:uppercase;letter-spacing:.08em}
+.save-hero .sv-num{font-family:var(--fm);font-weight:700;font-size:clamp(1.9rem,4vw,2.6rem);color:var(--accent);line-height:1.12}
+.save-hero .sv-sub{font-size:.82rem;color:var(--text-2)}
+.save-hero .sv-sub s{color:var(--text-3)}
+.save-hero .sv-sub b{font-family:var(--fm);color:var(--text);font-weight:600}
+.calc .act{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.calc .act .note{font-size:.72rem;color:var(--text-3);font-family:var(--fm)}
+
+/* ============ roadmap ============ */
+.road{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 30px}
+.tabs button{background:transparent;border:1px solid var(--line-2);border-radius:999px;padding:8px 16px;font-size:.86rem;color:var(--text-2);transition:all .2s;font-weight:500}
+.tabs button:hover{color:var(--text);border-color:var(--accent)}
+.tabs button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+.road-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.r-card{display:flex;flex-direction:column;gap:10px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:22px;transition:transform .22s cubic-bezier(.16,1,.3,1),border-color .22s,box-shadow .22s}
+.r-card:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:0 14px 40px rgba(0,0,0,.25)}
+.r-card .cat{font-family:var(--fm);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
+.r-card h3{font-size:1.08rem;line-height:1.3}
+.r-card p{font-size:.9rem;color:var(--text-2);flex:1}
+.r-card .rep{font-size:.78rem;color:var(--text-3);font-family:var(--fm)}
+.r-card .rep b{color:var(--text-2);font-weight:400}
+.r-card .want{display:inline-flex;align-items:center;gap:6px;background:none;border:none;padding:0;color:var(--accent);font-weight:700;font-size:.92rem;margin-top:6px;min-height:38px;transition:gap .2s}
+.r-card .want:hover{gap:10px}
+.road .band{margin-top:48px;border:1px solid var(--line-2);border-radius:18px;padding:30px 34px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:var(--bg-2)}
+.road .band p{color:var(--text-2)}
+
+/* ============ shop ============ */
+.shop-sec{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
+.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.s-card{display:grid;grid-template-columns:minmax(88px,116px) 1fr;gap:20px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:22px;transition:border-color .22s,transform .22s}
+.s-card:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.s-card .media{position:relative;background:radial-gradient(120% 90% at 50% 0%,var(--accent-soft) 0%,transparent 60%),var(--bg-3);border-radius:calc(var(--r) - 6px);display:flex;align-items:center;justify-content:center;overflow:hidden;aspect-ratio:3/4}
+.s-card .media img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 16px rgba(0,0,0,.35))}
+.s-card .body{display:flex;flex-direction:column;gap:10px;justify-content:center;min-width:0}
+.s-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.s-card .body h3{font-size:1.02rem;line-height:1.25}
+.s-card .desc{color:var(--text-2);font-size:.9rem;line-height:1.55}
+.specs{display:flex;flex-wrap:wrap;gap:6px}
+.specs span{font-family:var(--fm);font-size:.68rem;letter-spacing:.04em;color:var(--text-2);border:1px solid var(--line);border-radius:999px;padding:3px 9px;background:var(--bg-3)}
+.price{font-family:var(--fm);font-size:1.35rem;font-weight:700;color:var(--accent);letter-spacing:-.01em;white-space:nowrap;text-align:right}
+.price small{display:block;font-family:var(--fd);font-size:.72rem;font-weight:500;color:var(--text-3)}
+.s-actions{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:2px}
+.vol{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;flex:1;min-width:0}
+.vol label{font-family:var(--fm);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.vol input[type=range]{width:100%;accent-color:var(--accent)}
+.vol-total{font-family:var(--fm);font-weight:700;color:var(--accent);min-width:72px;text-align:right;font-size:.95rem}
+.s-card .btn.add{margin:0;flex-shrink:0}
+
+/* ============ build band ============ */
+.build-band{max-width:var(--maxw);margin:60px auto 0;padding:clamp(34px,5vw,56px);display:flex;align-items:center;justify-content:space-between;gap:34px;flex-wrap:wrap;border:1px solid var(--line-2);border-radius:22px;background:linear-gradient(150deg,var(--bg-3),var(--bg-2) 60%);position:relative;overflow:hidden}
+.build-band::before{content:"";position:absolute;right:-110px;top:-110px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,var(--accent-soft),transparent 65%);pointer-events:none}
+.build-band .rk{font-family:var(--fm);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+.build-band h3{font-size:clamp(1.35rem,2.4vw,1.9rem);max-width:24ch;margin-top:10px}
+.build-band p{color:var(--text-2);max-width:58ch;margin-top:10px}
+.build-band .btn{position:relative;z-index:1}
+
+/* ============ ownit band ============ */
+.ownit{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px;text-align:center}
+.scream{font-size:clamp(2rem,5.4vw,4.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;max-width:20ch;margin:0 auto}
+.scream .dim{color:var(--text-3)}
+.scream .up{color:var(--accent)}
+.ownit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:56px;text-align:left}
+.ownit-grid .cell{border:1px solid var(--line);border-radius:var(--r);background:var(--bg-2);padding:22px}
+.ownit-grid .v{display:block;font-family:var(--fm);font-size:1.7rem;font-weight:700;color:var(--accent)}
+.ownit-grid .k{display:block;margin-top:6px;font-size:.9rem;color:var(--text-2)}
+
+/* ============ why grid ============ */
+#why-us{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.w-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:26px;transition:border-color .2s,transform .2s}
+.w-card:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.w-card h3{font-size:1.05rem}
+.w-card p{margin-top:10px;color:var(--text-2);font-size:.93rem;line-height:1.6}
+
+/* ============ contact ============ */
+.contact-sec{max-width:var(--maxw);margin:0 auto;padding:120px 24px 30px}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.c-card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.c-card h3{font-size:1.05rem}
+.c-icon{font-size:1.4rem;line-height:1}
+.c-card a{color:var(--accent);text-decoration:none;font-weight:600;word-break:break-word}
+.c-card a:hover{text-decoration:underline}
+
+/* ============ footer ============ */
+footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
+.foot-in{max-width:var(--maxw);margin:0 auto;padding:64px 24px 30px;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px}
+.f-brand p{margin-top:14px;color:var(--text-3);font-size:.9rem;max-width:36ch}
+.f-col h4{font-size:.78rem;font-family:var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px}
+.f-col a{display:block;color:var(--text-2);text-decoration:none;font-size:.92rem;padding:5px 0;transition:color .2s}
+.f-col a:hover{color:var(--accent)}
+.f-base{max-width:var(--maxw);margin:0 auto;padding:22px 24px 34px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:1px solid var(--line);color:var(--text-3);font-size:.82rem}
+
+/* ============ FABs / cart / toast ============ */
+.fab{position:fixed;right:20px;bottom:20px;z-index:80;width:54px;height:54px;border-radius:50%;border:1px solid var(--line-2);background:var(--bg-3);box-shadow:var(--shadow);display:inline-flex;align-items:center;justify-content:center;font-size:1.3rem;transition:transform .18s,filter .2s}
+.fab:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.fab.wa{right:20px;bottom:86px;border-color:rgba(37,211,102,.35);background:#25D366;color:#04210F}
+.fab.wa:hover{filter:saturate(1.15) brightness(1.04)}
+.fab .cnt{position:absolute;top:-4px;right:-4px;background:var(--accent);color:var(--accent-ink);font-family:var(--fm);font-size:.66rem;font-weight:700;min-width:18px;height:18px;border-radius:999px;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid var(--bg)}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:95}
+.drawer-overlay[hidden]{display:none}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--bg-2);border-left:1px solid var(--line-2);z-index:96;transform:translateX(105%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;box-shadow:-18px 0 40px rgba(0,0,0,.25)}
+.drawer.open{transform:none}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--line)}
+.drawer-head h3{font-size:1.15rem}
+.drawer .x{background:none;border:none;color:var(--text-2);font-size:1.3rem;width:34px;height:34px;border-radius:8px}
+.drawer .x:hover{color:var(--text)}
+.drawer-body{flex:1;overflow-y:auto;padding:10px 24px}
+.empty{padding:46px 10px;text-align:center;color:var(--text-3);font-size:.95rem}
+.empty a{color:var(--accent)}
+.items{display:flex;flex-direction:column}
+.i{display:grid;grid-template-columns:1fr auto auto auto;align-items:center;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+.i-n{display:flex;flex-direction:column;gap:3px}
+.i-n b{font-size:.95rem;line-height:1.25}
+.i-u{font-family:var(--fm);font-size:.72rem;color:var(--text-3)}
+.i-q{display:flex;align-items:center;gap:8px}
+.i-q .q{width:26px;height:26px;border-radius:7px;border:1px solid var(--line-2);background:var(--bg-3);color:var(--text);font-size:.95rem;line-height:1}
+.i-q .q:hover{border-color:var(--accent)}
+.i-q span{font-family:var(--fm);font-size:.9rem;min-width:20px;text-align:center}
+.i-t{font-family:var(--fm);font-weight:700;color:var(--text);min-width:64px;text-align:right}
+.i-x{background:none;border:none;color:var(--text-3);font-size:1rem;padding:4px}
+.i-x:hover{color:var(--bad)}
+.drawer-foot{border-top:1px solid var(--line);padding:18px 24px 24px;display:flex;flex-direction:column;gap:10px}
+.drawer-total{display:flex;justify-content:space-between;align-items:baseline;font-size:1.05rem}
+.drawer-total b{font-family:var(--fm);font-size:1.3rem}
+.drawer-note{font-size:.78rem;color:var(--text-3)}
+.drawer-full{font-size:.8rem;color:var(--text-2);text-align:center;text-decoration:underline;padding:2px 0;transition:color .2s}
+.drawer-full:hover{color:var(--accent)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,80px);background:var(--bg-3);border:1px solid var(--line-2);color:var(--text);padding:13px 22px;border-radius:12px;font-size:.92rem;z-index:99;opacity:0;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:var(--shadow);pointer-events:none;text-align:center;max-width:calc(100vw - 40px)}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.no-scroll{overflow:hidden}
+/* ============ responsive ============ */
+@media (max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .hero-visual{order:-1}
+  .pedestal{width:min(240px,56vw)}
+  .road-grid{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr;gap:34px}
+  .steps .side{position:static}
+  .calc-grid{grid-template-columns:1fr;gap:44px}
+  .shop-grid{grid-template-columns:1fr}
+  .s-card{grid-template-columns:minmax(80px,100px) 1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr 1fr}
+  .ownit-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:760px){
+  .navlinks{display:none}
+  .burger{display:inline-flex}
+  .nav-right .seg{display:none}
+  .nav-in{gap:12px}
+  .brand .tag{display:none}
+  .section-pad{padding:70px 0}
+  .road-grid{grid-template-columns:1fr}
+  .job-pills{grid-template-columns:1fr}
+  .cmp-head>div{padding:14px 16px;font-size:.92rem}
+  .cmp-row>div{padding:13px 16px;font-size:.88rem}
+  .trace{display:none}
+  .badge-live{right:0}
+  .foot-in{grid-template-columns:1fr;gap:30px}
+  .thesis{padding-top:84px}
+  .why-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .scream{font-size:clamp(1.9rem,8vw,2.6rem)}
+  .fab{width:48px;height:48px;font-size:1.15rem;right:14px;bottom:14px}
+  .fab.wa{right:14px;bottom:74px}
+}
+@media (max-width:460px){
+  .vol{grid-template-columns:1fr auto;gap:8px 12px}
+  .vol label{grid-column:1/-1}
+  .s-actions{flex-direction:column;align-items:stretch}
+  .s-card .btn.add{width:100%}
+  .hero-stat{gap:18px}
+}
+
+/* ============ reduced motion ============ */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  .js .rv{opacity:1;transform:none}
+  .js .hero h1 .l1>span,.js .hero h1 .l2>span{transform:none}
+  .jobs-track{animation:none;width:100%;flex-wrap:wrap}
+  .pedestal img{animation:none}
+  .trace{display:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://ckthub.com/#org","name":"Ambivert Technologies Private Limited","brand":{"@type":"Brand","name":"CktHub"},"url":"https://ckthub.com/","email":"hello@ambiverttech.com","telephone":"+91-99601-60016","address":{"@type":"PostalAddress","streetAddress":"Excellaa Plazzo, A107, near Bharat Petrol Pump, Ambegaon Budruk","addressLocality":"Pune","addressRegion":"Maharashtra","postalCode":"411046","addressCountry":"IN"},"description":"CktHub builds standalone ESP32 and ESP32-S3 hardware that replaces recurring software subscriptions. Designed and assembled in-house in Pune, India."},
+    {"@type":"WebSite","@id":"https://ckthub.com/#website","url":"https://ckthub.com/","name":"CktHub","publisher":{"@id":"https://ckthub.com/#org"}},
+    {"@type":"Product","@id":"https://ckthub.com/#product-wrover","name":"ESP32-WROVER-DevKit-Lipo","image":"https://ckthub.com/wrover-devkit.png","description":"ESP32 development board with built-in LiPo charger and battery sensing. 4MB flash, up to 8MB PSRAM. Designed for standalone, local-first devices that replace subscription software.","brand":{"@type":"Brand","name":"CktHub"},"offers":{"@type":"Offer","price":"799","priceCurrency":"INR","availability":"https://schema.org/InStock"}},
+    {"@type":"Product","@id":"https://ckthub.com/#product-s3","name":"ESP32-S3-DevKitC-1","image":"https://ckthub.com/s3-devkit.png","description":"ESP32-S3 development board with 8MB flash, 8MB PSRAM and native USB OTG/JTAG. Built for on-device AI, voice and local dashboard products.","brand":{"@type":"Brand","name":"CktHub"},"offers":{"@type":"Offer","price":"499","priceCurrency":"INR","availability":"https://schema.org/InStock"}}
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html">CktHub<span class="tag">hardware you own</span></a>
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="#idea">The idea</a>
+      <a href="#products">Products</a>
+      <a href="#why">Why it matters</a>
+      <a href="index.html">Shop</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <div class="seg" role="tablist" aria-label="Switch between store and fab">
+        <a href="index.html">Store</a>
+        <a href="fab.html">Fab</a>
+      </div>
+      <button class="icon-btn" id="themeBtn" aria-label="Switch between dark and light theme" title="Switch theme">☾</button>
+      <button class="cart-chip" onclick="openCart()" aria-label="Open cart">Cart <span class="cnt" id="navCartCount">0</span></button>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#idea">The idea</a>
+  <a href="#products">Products</a>
+  <a href="#why">Why it matters</a>
+  <a href="index.html">Shop</a>
+  <a href="#contact">Contact</a>
+  <div class="seg">
+    <a href="index.html">Store</a>
+    <a href="fab.html">Fab</a>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ACT 0 : HERO -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <h1 id="hero-title"><span class="l1"><span>Stop renting software.</span></span><span class="l2"><span>Own the device.</span></span></h1>
+      <p class="lead">Standalone devices that do the job of subscription tools locally. Pay once, no monthly bill, no cloud dependency.</p>
+      <div class="hero-ctas">
+        <button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">See the products</button>
+        <a class="tlink" href="fab.html">Build your own device <span class="arr">→</span></a>
+      </div>
+      <div class="hero-stat">
+        <div class="cell"><span class="v">₹0 <span style="color:var(--accent)">/mo</span></span><span class="k">after you own it</span></div>
+        <div class="cell"><span class="v">48 × 28 <span style="color:var(--text-3)">mm</span></span><span class="k">board with charger built in</span></div>
+        <div class="cell"><span class="v">1×</span><span class="k">payment, forever</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="halo"></div>
+      <div class="pedestal" id="pedestal">
+        <span class="badge-live"><span class="led"></span>DATA STAYS LOCAL</span>
+        <img src="img/wrover-board.webp" alt="CktHub ESP32-WROVER-DevKit-Lipo board with built-in battery charger" width="394" height="800">
+      </div>
+      <svg class="trace" viewBox="0 0 150 220" aria-hidden="true">
+        <path class="path" d="M6 6 C 120 40, 10 120, 130 150"></path>
+        <circle class="dot a" r="4"></circle>
+        <circle class="dot b" r="3"></circle>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="trust" aria-label="What every CktHub device does">
+  <div class="trust-in">
+    <span><span class="tick">✓</span> Pay once, use for years</span>
+    <span><span class="tick">✓</span> Works offline</span>
+    <span><span class="tick">✓</span> No cloud subscription</span>
+    <span><span class="tick">✓</span> Your data stays on the device</span>
+    <span><span class="tick">✓</span> Built in-house: PCB → SMT → firmware</span>
+  </div>
+</section>
+
+<!-- THE ONE MARQUEE -->
+<section class="jobs" aria-label="Jobs a CktHub device can do">
+  <div class="jobs-track" id="jobsTrack">
+    <span class="chip"><b>monitoring</b></span><span class="chip">dashboards</span><span class="chip">alerts</span><span class="chip">counters</span><span class="chip">attendance</span><span class="chip">inventory</span><span class="chip">logging</span><span class="chip">automation</span><span class="chip">local data collection</span><span class="chip">control systems</span><span class="chip">small business tools</span>
+    <span class="chip"><b>monitoring</b></span><span class="chip">dashboards</span><span class="chip">alerts</span><span class="chip">counters</span><span class="chip">attendance</span><span class="chip">inventory</span><span class="chip">logging</span><span class="chip">automation</span><span class="chip">local data collection</span><span class="chip">control systems</span><span class="chip">small business tools</span>
+  </div>
+</section>
+
+<!-- ACT 1 : THE IDEA -->
+<section id="idea" aria-labelledby="idea-title">
+
+  <!-- thesis, the philosophy -->
+  <div class="thesis" id="philosophy">
+    <h2 class="rv">Software you rent. <span class="dim">Hardware</span> you <span class="up">own.</span></h2>
+    <p class="rv">Lots of tools do simple, repetitive jobs: watch a sensor, count something, show a number, log an event. Those jobs can run on a device sitting next to you instead of a server billing you monthly.</p>
+    <div class="stance rv">Use software when software makes sense. <b>Own hardware when the job does not need a subscription.</b> That is the whole idea, nothing ideological about it.</div>
+  </div>
+
+  <!-- the transformation -->
+  <div class="steps">
+    <div class="side">
+      <div class="side-note rv">How every CktHub product is made</div>
+      <h2 class="rv">From a monthly SaaS to a device you own.</h2>
+      <p class="rv">We strip the tool down to the one job you actually rely on, then move that job onto hardware in your building. No cloud round-trip needed for it to work.</p>
+    </div>
+    <div class="steps-list">
+      <div class="step-row rv"><div class="no">01</div><div><h3>Monthly SaaS</h3><p>You pay every month for a tool that does one job: monitoring, attendance, inventory, a dashboard, an alert.</p></div></div>
+      <div class="step-row rv"><div class="no">02</div><div><h3>Find the useful function</h3><p>Strip the tool down to the actual job you rely on. Ignore the platform features you never open.</p></div></div>
+      <div class="step-row rv"><div class="no">03</div><div><h3>Run it locally</h3><p>Move that job onto hardware in your building, with no cloud round-trip for it to work.</p></div></div>
+      <div class="step-row rv"><div class="no">04</div><div><h3>One device, one job</h3><p>An ESP32 or ESP32-S3 core with the exact sensors, display and I/O the job needs.</p></div></div>
+      <div class="step-row rv"><div class="no">05</div><div><h3>Pay once</h3><p>One payment. The firmware is flashed in, nothing to license, nothing to renew.</p></div></div>
+      <div class="step-row rv"><div class="no">06</div><div><h3>Own it</h3><p>It keeps working offline, your data stays local, and the monthly invoice stops.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT 1.5 : WHY IT MATTERS, THE MATH -->
+<section id="why" aria-labelledby="why-title">
+
+  <div class="cmp-sec">
+    <h2 class="title rv" id="why-title">Rent software or own the hardware?</h2>
+    <p class="sub rv">For certain jobs, hardware ownership makes more economic and practical sense than a subscription. Here is the honest comparison.</p>
+    <div class="cmp rv">
+      <div class="cmp-head">
+        <div>Factor</div>
+        <div class="side-a">Subscription software</div>
+        <div class="side-b">CktHub hardware</div>
+      </div>
+      <div class="cmp-row"><div class="k">Initial cost</div><div class="a">Low entry</div><div class="b"><b>One-time purchase</b></div></div>
+      <div class="cmp-row"><div class="k">Monthly fee</div><div class="a">Yes</div><div class="b"><b>No</b></div></div>
+      <div class="cmp-row"><div class="k">Internet dependency</div><div class="a">Often</div><div class="b"><b>Designed for local operation</b></div></div>
+      <div class="cmp-row"><div class="k">Data</div><div class="a">Cloud dependent</div><div class="b"><b>Device / local</b></div></div>
+      <div class="cmp-row"><div class="k">Ownership</div><div class="a">Software access</div><div class="b"><b>Physical device</b></div></div>
+      <div class="cmp-row"><div class="k">Long-term cost</div><div class="a">Recurring</div><div class="b"><b>One-time hardware purchase</b></div></div>
+    </div>
+    <p class="cmp-note">We are not against software, we build with it every day. This table just shows where a monthly bill stops making sense for a job a device can do.</p>
+  </div>
+
+  <!-- the calculator: the math for one shop -->
+  <div class="calc-sec">
+    <div class="calc-grid">
+      <div class="calc-copy">
+        <div class="side-note rv">Do the math yourself</div>
+        <h2 class="rv">What one device saves you.</h2>
+        <p class="rv">Pick the job you pay for today. One device replaces that monthly line, and the device is yours to keep. The number below is what stays in your pocket over 5 years.</p>
+        <div class="honest rv">Device price below is an estimate. The exact quote comes on WhatsApp, and it is one-time. No renewal, no per-seat fee, no cloud tier.</div>
+      </div>
+      <div class="calc rv">
+        <label class="k" for="jobPills">The job you pay a subscription for</label>
+        <div class="job-pills" id="jobPills" role="group" aria-label="Choose a subscription job">
+          <button type="button" data-job="attendance"><span>Attendance kiosk</span><small>40 staff, wall check-in</small></button>
+          <button type="button" data-job="pos"><span>Restaurant POS + kitchen display</span><small>countertop order-taking</small></button>
+          <button type="button" data-job="temp"><span>Cold-room temperature logger</span><small>local alerts, no cloud</small></button>
+          <button type="button" data-job="access"><span>Door / gate access panel</span><small>NFC + QR on a wall panel</small></button>
+          <button type="button" data-job="review"><span>Review collection kiosk</span><small>countertop, syncs on your schedule</small></button>
+          <button type="button" data-job="custom"><span>Your own job</span><small>tell us what you pay today</small></button>
+        </div>
+        <div class="save">
+          <div class="save-row">
+            <span>Today</span><b id="calcToday">₹1,200 /mo</b>
+            <span class="sep">→</span>
+            <span>After the device</span><b id="calcAfter" class="zero">₹0 /mo</b>
+          </div>
+          <div class="save-hero">
+            <span class="sv-k">Kept in your pocket, 5 years</span>
+            <span class="sv-num" id="calcSaved">₹63,001</span>
+            <span class="sv-sub">vs <s id="calcLose">₹72,000</s> in subscriptions, after <b id="calcCost">₹8,999</b> one-time</span>
+          </div>
+        </div>
+        <div class="act">
+          <a class="btn" id="calcCta" href="https://wa.me/919960160016" target="_blank" rel="noopener">I want this device</a>
+          <span class="note" id="calcNote">₹1,200 × 12 × 5 years, minus one-time device cost</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT 2 : THE PRODUCTS (roadmap) -->
+<section id="products" aria-labelledby="products-title">
+  <div class="road">
+    <h2 class="title rv" id="products-title">Hardware that does the job.</h2>
+    <p class="sub rv">Standalone devices that take over the work of familiar subscription tools. Local data, no monthly fee. Working on one? Tell us, it moves up the build queue.</p>
+    <div class="tabs rv" role="tablist" aria-label="Filter product concepts by category">
+      <button type="button" class="on" data-cat="all" role="tab" aria-selected="true">All</button>
+      <button type="button" data-cat="retail" role="tab" aria-selected="false">Retail &amp; Hospitality</button>
+      <button type="button" data-cat="facilities" role="tab" aria-selected="false">Facilities &amp; Access</button>
+      <button type="button" data-cat="industrial" role="tab" aria-selected="false">Industrial / IoT</button>
+      <button type="button" data-cat="smarthome" role="tab" aria-selected="false">Smart Home</button>
+      <button type="button" data-cat="productivity" role="tab" aria-selected="false">Productivity</button>
+    </div>
+
+    <div class="road-grid" id="roadGrid">
+      <article class="r-card rv" data-cat="retail">
+        <div class="cat">Retail &amp; Hospitality</div>
+        <h3>Local restaurant POS + kitchen display</h3>
+        <p>Order-taking and kitchen display running on-site. No internet needed to take an order, no per-terminal fee.</p>
+        <div class="rep"><b>Replaces:</b> Toast / Petpooja</div>
+        <button class="want" onclick="wantThis('Local restaurant POS + kitchen display')">I want this <span class="arr">→</span></button>
+      </article>
+      <article class="r-card rv" data-cat="retail">
+        <div class="cat">Retail &amp; Hospitality</div>
+        <h3>Review collection kiosk</h3>
+        <p>Countertop kiosk that captures reviews locally and syncs on your schedule, not theirs.</p>
+        <div class="rep"><b>Replaces:</b> Google Review SaaS widgets</div>
+        <button class="want" onclick="wantThis('Review collection kiosk')">I want this <span class="arr">→</span></button>
+      </article>
+      <article class="r-card rv" data-cat="retail">
+        <div class="cat">Retail &amp; Hospitality</div>
+        <h3>Offline-first booking kiosk</h3>
+        <p>Appointment scheduling that keeps taking bookings even when your connection drops.</p>
+        <div class="rep"><b>Replaces:</b> Calendly / Square Appointments</div>
+        <button class="want" onclick="wantThis('Offline-first booking kiosk')">I want this <span class="arr">→</span></button>
+      </article>
+      <article class="r-card rv" data-cat="retail">
+        <div class="cat">Retail &amp; Hospitality</div>
+        <h3>Digital signage / price display</h3>
+        <p>Menu boards and price displays driven from a local controller, not a cloud CMS with a monthly seat price.</p>
+        <div class="rep"><b>Replaces:</b> Yodeck / ScreenCloud</div>
+        <button class="want" onclick="wantThis('Digital signage / price display')">I want this <span class="arr">→</span></button>
+      </article>
+
+      <article class="r-card rv" data-cat="facilities">
+        <div class="cat">Facilities &amp; Access</div>
+        <h3>Attendance check-in kiosk</h3>
+        <p>Badge in or clock in on a wall unit, logged on-site, no per-seat licensing.</p>
+        <div class="rep"><b>Replaces:</b> Zenefits / Deputy</div>
+        <button class="want" onclick="wantThis('Attendance check-in kiosk')">I want this <span class="arr">→</span></button>
+      </article>
+      <article class="r-card rv" data-cat="facilities">
+        <div class="cat">Facilities &amp; Access</div>
+        <h3>NFC / QR access control panel</h3>
+        <p>Door and gate access on a standalone panel, no monthly per-door platform fee.</p>
+        <div class="rep"><b>Replaces:</b> Kisi / Brivo</div>
+        <button class="want" onclick="wantThis('NFC / QR access control panel')">I want this <span class="arr">→</span></button>
+      </article>
+      <article class="r-card rv" data-cat="facilities">
+        <div class="cat">Facilities &amp; Access</div>
+        <h3>Visitor management + badge unit</h3>
+        <p>Front-desk check-in and badge printing that runs whether or not the cloud is up.</p>
+        <div class="rep"><b>Replaces:</b> Envoy / iLobby</div>
+        <button class="want" onclick="wantThis('Visitor management + badge unit')">I want this <span class="arr">→</span></button>
+      </article>
+
+      <article class="r-card rv" data-cat="industrial">
+        <div class="cat">Industrial / IoT</div>
+        <h3>Inventory / asset tracker</h3>
+        <p>Scan-and-log tracking for tools and stock, stored locally, exported when you want.</p>
+        <div class="rep"><b>Replaces:</b> Sortly</div>
+        <button class="want" onclick="wantThis('Inventory / asset tracker')">I want this <span class="arr">→</span></button>
+      </article>
+      <article class="r-card rv" data-cat="industrial">
+        <div class="cat">Industrial / IoT</div>
+        <h3>Local data logger</h3>
+        <p>Plant-floor logging and display on hardware you own, not a per-tag cloud subscription.</p>
+        <div class="rep"><b>Replaces:</b> Cloud SCADA / monitoring subscriptions</div>
+        <button class="want" onclick="wantThis('Local data logger')">I want this <span class="arr">→</span></button>
+      </article>
+      <article class="r-card rv" data-cat="industrial">
+        <div class="cat">Industrial / IoT</div>
+        <h3>Predictive maintenance logger</h3>
+        <p>Vibration and temperature logging on-machine, alerting locally before failure.</p>
+        <div class="rep"><b>Replaces:</b> Augury / Fluke Connect</div>
+        <button class="want" onclick="wantThis('Predictive maintenance logger')">I want this <span class="arr">→</span></button>
+      </article>
+      <article class="r-card rv" data-cat="industrial">
+        <div class="cat">Industrial / IoT</div>
+        <h3>Modbus / MQTT gateway</h3>
+        <p>Protocol bridging on-premise, so machine data never has to leave the building.</p>
+        <div class="rep"><b>Replaces:</b> Cloud IIoT platforms</div>
+        <button class="want" onclick="wantThis('Modbus / MQTT gateway')">I want this <span class="arr">→</span></button>
+      </article>
+
+      <article class="r-card rv" data-cat="smarthome">
+        <div class="cat">Smart Home</div>
+        <h3>Local DNS ad-blocker device</h3>
+        <p>Network-wide ad blocking that runs on your LAN, with nothing phoning home.</p>
+        <div class="rep"><b>Replaces:</b> Cloud DNS / ad-block services</div>
+        <button class="want" onclick="wantThis('Local DNS ad-blocker device')">I want this <span class="arr">→</span></button>
+      </article>
+      <article class="r-card rv" data-cat="smarthome">
+        <div class="cat">Smart Home</div>
+        <h3>Local-only switch hub</h3>
+        <p>Smart switching that keeps working with no app account and no premium tier.</p>
+        <div class="rep"><b>Replaces:</b> Subscription smart-home apps</div>
+        <button class="want" onclick="wantThis('Local-only switch hub')">I want this <span class="arr">→</span></button>
+      </article>
+      <article class="r-card rv" data-cat="smarthome">
+        <div class="cat">Smart Home</div>
+        <h3>Local automation hub</h3>
+        <p>A local hub for the automations you already run, with no cloud hub subscription.</p>
+        <div class="rep"><b>Replaces:</b> SmartThings / cloud hub subscriptions</div>
+        <button class="want" onclick="wantThis('Local automation hub')">I want this <span class="arr">→</span></button>
+      </article>
+      <article class="r-card rv" data-cat="smarthome">
+        <div class="cat">Smart Home</div>
+        <h3>Doorbell / camera, on-device storage</h3>
+        <p>Video stored on the device itself, no cloud storage plan required to review footage.</p>
+        <div class="rep"><b>Replaces:</b> Ring / Nest cloud video</div>
+        <button class="want" onclick="wantThis('Doorbell / camera, on-device storage')">I want this <span class="arr">→</span></button>
+      </article>
+
+      <article class="r-card rv" data-cat="productivity">
+        <div class="cat">Productivity</div>
+        <h3>Desk task / habit tracker</h3>
+        <p>A dedicated desk device for tracking tasks and habits, off your phone, off the cloud.</p>
+        <div class="rep"><b>Replaces:</b> Notion / Todoist subscriptions</div>
+        <button class="want" onclick="wantThis('Desk task / habit tracker')">I want this <span class="arr">→</span></button>
+      </article>
+      <article class="r-card rv" data-cat="productivity">
+        <div class="cat">Productivity</div>
+        <h3>Standalone alert / watchdog unit</h3>
+        <p>Watches one thing, temperature, power, a machine, and alerts you locally when it changes.</p>
+        <div class="rep"><b>Replaces:</b> Uptime / alerting SaaS</div>
+        <button class="want" onclick="wantThis('Standalone alert / watchdog unit')">I want this <span class="arr">→</span></button>
+      </article>
+    </div>
+
+    <div class="band rv">
+      <p><b>Want to buy something today?</b> Boards, adapters and accessories are in stock now.</p>
+      <a class="btn" href="index.html">Go to the shop</a>
+    </div>
+  </div>
+</section>
+
+<!-- ACT 3 : THE SHOP -->
+<section id="shop" aria-labelledby="shop-title">
+  <div class="shop-sec">
+    <h2 class="title rv" id="shop-title">In stock now.</h2>
+    <p class="sub rv">Finished boards, ready to ship from Pune. One-time price. Same boards we use in our own products.</p>
+    <div class="shop-grid">
+
+      <article class="s-card rv" data-pid="wrover">
+        <div class="media"><img src="img/wrover-board.webp" alt="ESP32-WROVER-DevKit-Lipo board" width="394" height="800" loading="lazy"></div>
+        <div class="body">
+          <div class="s-head">
+            <h3>ESP32-WROVER-DevKit-Lipo</h3>
+            <div class="price">₹799 <small>incl. taxes</small></div>
+          </div>
+          <p class="desc">Dev kit with ESP32-WROVER module, 1.8&Prime; TFT display and integrated battery charger.</p>
+          <div class="specs"><span>4 MB flash</span><span>8 MB PSRAM</span><span>LiPo charger</span></div>
+          <div class="s-actions">
+            <div class="vol">
+              <label for="vol-wrover">Qty</label>
+              <input type="range" id="vol-wrover" min="1" max="10000" value="1" step="1">
+              <span class="vol-total" id="vol-total-wrover">× 1</span>
+            </div>
+            <button class="btn add" onclick="addToCart('wrover')">Add to cart</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="s-card rv" data-pid="s3">
+        <div class="media"><img src="img/s3-devkit.webp" alt="ESP32-S3-DevKitC-1 board" width="394" height="800" loading="lazy"></div>
+        <div class="body">
+          <div class="s-head">
+            <h3>ESP32-S3-DevKitC-1</h3>
+            <div class="price">₹499 <small>incl. taxes</small></div>
+          </div>
+          <p class="desc">S3 module dev kit, Wi-Fi + BLE and a 1.8&Prime; TFT display. Built for on-device AI and voice.</p>
+          <div class="specs"><span>8 MB flash</span><span>8 MB PSRAM</span><span>Native USB</span></div>
+          <div class="s-actions">
+            <div class="vol">
+              <label for="vol-s3">Qty</label>
+              <input type="range" id="vol-s3" min="1" max="10000" value="1" step="1">
+              <span class="vol-total" id="vol-total-s3">× 1</span>
+            </div>
+            <button class="btn add" onclick="addToCart('s3')">Add to cart</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+
+  <div class="build-band">
+    <div>
+      <span class="rk">Product doesn&rsquo;t exist yet? Perfect.</span>
+      <h3>We build it: PCB design, SMT assembly, firmware, enclosure.</h3>
+      <p>Tell us the job you pay a subscription for and we will quote a device that replaces it. One-time cost, you own the design and the device.</p>
+    </div>
+    <a class="btn" href="#contact">Start your build</a>
+  </div>
+</section>
+
+<!-- OWN IT BAND -->
+<section class="ownit" aria-label="The bottom line">
+  <p class="scream rv"><span class="dim">You paid for software all these years.</span> <span class="up">Now own the device.</span></p>
+  <div class="ownit-grid rv">
+    <div class="cell"><span class="v">0</span><span class="k">monthly bills</span></div>
+    <div class="cell"><span class="v">1×</span><span class="k">payment, forever</span></div>
+    <div class="cell"><span class="v">100%</span><span class="k">data on your premises</span></div>
+    <div class="cell"><span class="v">∞</span><span class="k">years of use</span></div>
+  </div>
+</section>
+
+<!-- ACT 4 : WHY US -->
+<section id="why-us" aria-labelledby="whyus-title">
+  <h2 class="title rv" id="whyus-title">Why CktHub</h2>
+  <p class="sub rv">Real questions, answered plainly.</p>
+  <div class="why-grid">
+    <article class="w-card rv"><h3>Why are you doing this?</h3><p>Because most simple tools are already subscription software. We build the hardware that does the same job without the recurring bill.</p></article>
+    <article class="w-card rv"><h3>Do you make devices that replace SaaS?</h3><p>Yes. We design purpose-built devices that take over the work of subscription tools, and the firmware runs on the device itself, no cloud required.</p></article>
+    <article class="w-card rv"><h3>How can I buy a device?</h3><p>Store orders for the boards on this page. For a custom device, tell us the job, we will quote you a one-time price.</p></article>
+    <article class="w-card rv"><h3>Who makes the products?</h3><p>We do. PCB design, SMT assembly and firmware are done in-house by Ambivert Technologies Pvt Ltd.</p></article>
+    <article class="w-card rv"><h3>Who is this for?</h3><p>People who run a business and people who build things. Shopkeepers, makers, engineers, tinkerers, facility managers.</p></article>
+    <article class="w-card rv"><h3>Do you offer support?</h3><p>Yes, on WhatsApp. We help you wire it, flash it, and get the job running.</p></article>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" aria-labelledby="contact-title">
+  <div class="contact-sec">
+    <h2 class="title rv" id="contact-title">Let&rsquo;s talk.</h2>
+    <p class="sub rv">Tell us the job you pay a subscription for, or the product you want built. We reply on WhatsApp.</p>
+    <div class="contact-grid rv">
+      <div class="c-card">
+        <span class="c-icon">✆</span>
+        <h3>Call us</h3>
+        <a href="tel:+919960160016">+91 99601 60016</a>
+      </div>
+      <div class="c-card">
+        <span class="c-icon">✉</span>
+        <h3>Email us</h3>
+        <a href="mailto:hello@ambiverttech.com">hello@ambiverttech.com</a>
+      </div>
+      <div class="c-card">
+        <span class="c-icon">💬</span>
+        <h3>WhatsApp us</h3>
+        <a href="https://wa.me/919960160016" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-in">
+    <div class="f-brand">
+      <a class="brand" href="index.html">CktHub<span class="tag">hardware you own</span></a>
+      <p>Standalone hardware that replaces subscription tools. Built in Pune by Ambivert Technologies Pvt Ltd.</p>
+    </div>
+    <div class="f-col">
+      <h4>Site</h4>
+      <a href="#idea">The idea</a>
+      <a href="#products">Products</a>
+      <a href="#why">Why it matters</a>
+      <a href="index.html">Shop</a>
+      <a href="cart.html">Your cart</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="f-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@ambiverttech.com">hello@ambiverttech.com</a>
+      <a href="tel:+919960160016">+91 99601 60016</a>
+      <a href="https://wa.me/919960160016" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+  <div class="f-base">
+    <span>© <span id="year">2026</span> Ambivert Technologies Pvt Ltd. All rights reserved.</span>
+    <span>CktHub is a brand of Ambivert Technologies Pvt Ltd</span>
+  </div>
+</footer>
+
+<!-- FABs -->
+<button class="fab wa" onclick="window.open('https://wa.me/919960160016','_blank','noopener')" aria-label="Chat on WhatsApp" title="WhatsApp us">💬</button>
+<button class="fab cart" onclick="openCart()" aria-label="Open cart" title="Cart">🛒<span class="cnt" id="fabCartCount">0</span></button>
+
+<!-- Cart drawer -->
+<div class="drawer-overlay" id="cartOverlay" onclick="closeCart()" hidden></div>
+<aside class="drawer" id="cartDrawer" aria-hidden="true" aria-label="Shopping cart">
+  <div class="drawer-head">
+    <h3>Your cart</h3>
+    <button class="x" onclick="closeCart()" aria-label="Close cart">✕</button>
+  </div>
+  <div class="drawer-body">
+    <div class="empty" id="cartEmpty">Your cart is empty. <a href="index.html">Shop the boards</a>.</div>
+    <div class="items" id="cartItems"></div>
+  </div>
+  <div class="drawer-foot">
+    <div class="drawer-total"><span>Total</span><b id="cartTotal">₹0</b></div>
+    <p class="drawer-note">You will finish the order on WhatsApp. No payment collected here.</p>
+    <button class="btn" id="checkoutBtn" onclick="checkout()">Checkout on WhatsApp</button>
+    <a class="drawer-full" href="cart.html">Full checkout page: delivery + UPI QR</a>
+  </div>
+</aside>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* gates reveal animations; adds hero headline reveal too */
+  document.documentElement.classList.add('js');
+
+  /* ---------- theme ---------- */
+  var themeBtn = document.getElementById('themeBtn');
+  var themeKey = 'ckthub-theme';
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    themeBtn.textContent = t === 'dark' ? '☾' : '☀';
+  }
+  var saved = null;
+  try { saved = localStorage.getItem(themeKey); } catch (e) {}
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  applyTheme(saved || (mq.matches ? 'dark' : 'light'));
+  themeBtn.addEventListener('click', function () {
+    var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem(themeKey, next); } catch (e) {}
+  });
+
+  /* ---------- mobile menu ---------- */
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function () {
+    var open = mobileMenu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    burger.textContent = open ? '✕' : '☰';
+  });
+  mobileMenu.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { mobileMenu.classList.remove('open'); burger.textContent = '☰'; burger.setAttribute('aria-expanded', 'false'); });
+  });
+
+  /* ---------- cart ---------- */
+  var PRODS = {
+    wrover: { name: 'ESP32-WROVER-DevKit-Lipo', price: 799 },
+    s3: { name: 'ESP32-S3-DevKitC-1', price: 499 }
+  };
+  var cart = {};
+  try { cart = JSON.parse(localStorage.getItem('ckthub-cart')) || {}; } catch (e) { cart = {}; }
+  function saveCart() { try { localStorage.setItem('ckthub-cart', JSON.stringify(cart)); } catch (e) {} }
+  function count() { return Object.keys(cart).reduce(function (n, k) { return n + cart[k]; }, 0); }
+  function paint() {
+    var n = count();
+    ['navCartCount', 'fabCartCount'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = n;
+    });
+  }
+  function openCart() {
+    var d = document.getElementById('cartDrawer');
+    var o = document.getElementById('cartOverlay');
+    render();
+    o.hidden = false;
+    d.setAttribute('aria-hidden', 'false');
+    d.classList.add('open');
+    document.body.classList.add('no-scroll');
+  }
+  function closeCart() {
+    var d = document.getElementById('cartDrawer');
+    var o = document.getElementById('cartOverlay');
+    d.classList.remove('open');
+    d.setAttribute('aria-hidden', 'true');
+    o.hidden = true;
+    document.body.classList.remove('no-scroll');
+  }
+  function render() {
+    var box = document.getElementById('cartItems');
+    var empty = document.getElementById('cartEmpty');
+    var total = 0;
+    box.innerHTML = '';
+    Object.keys(cart).forEach(function (k) {
+      if (!PRODS[k] || cart[k] < 1) return;
+      var p = PRODS[k];
+      var line = document.createElement('div');
+      line.className = 'i';
+      line.innerHTML = '<div class="i-n"><b>' + p.name + '</b><span class="i-u">₹' + p.price + ' × ' + cart[k] + '</span></div><div class="i-q"><button class="q" onclick="decQty(\'' + k + '\')" aria-label="Decrease quantity">−</button><span>' + cart[k] + '</span><button class="q" onclick="incQty(\'' + k + '\')" aria-label="Increase quantity">+</button></div><div class="i-t">₹' + (p.price * cart[k]) + '</div><button class="i-x" onclick="remCart(\'' + k + '\')" aria-label="Remove ' + p.name + '">✕</button>';
+      box.appendChild(line);
+      total += p.price * cart[k];
+    });
+    empty.style.display = Object.keys(cart).length ? 'none' : 'block';
+    document.getElementById('cartTotal').textContent = '₹' + total;
+  }
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { t.classList.remove('show'); }, 2400);
+  }
+  window.openCart = openCart;
+  window.closeCart = closeCart;
+  window.addToCart = function (id) {
+    var vol = document.getElementById('vol-' + id);
+    var q = vol ? parseInt(vol.value, 10) : 1;
+    cart[id] = (cart[id] || 0) + q;
+    saveCart(); paint(); toast('Added ' + PRODS[id].name + ' ×' + q + ' to cart');
+  };
+  window.incQty = function (id) { cart[id] = (cart[id] || 0) + 1; saveCart(); paint(); render(); };
+  window.decQty = function (id) {
+    cart[id] = (cart[id] || 0) - 1;
+    if (cart[id] < 1) delete cart[id];
+    saveCart(); paint(); render();
+  };
+  window.remCart = function (id) { delete cart[id]; saveCart(); paint(); render(); };
+  window.checkout = function () {
+    var lines = Object.keys(cart).filter(function (k) { return PRODS[k] && cart[k] > 0; });
+    if (!lines.length) { toast('Cart is empty'); return; }
+    var total = lines.reduce(function (s, k) { return s + PRODS[k].price * cart[k]; }, 0);
+    var msg = 'Hi CktHub! I want to order:%0A' + lines.map(function (k) { return '- ' + PRODS[k].name + ' x' + cart[k] + ' (₹' + (PRODS[k].price * cart[k]) + ')'; }).join('%0A') + '%0ATotal: ₹' + total;
+    window.open('https://wa.me/919960160016?text=' + msg, '_blank', 'noopener');
+  };
+  paint();
+
+  /* ---------- volume sliders ---------- */
+  var VPRICE = { wrover: 799, s3: 499 };
+  document.querySelectorAll('.vol input').forEach(function (r) {
+    r.addEventListener('input', function () {
+      var id = r.id.replace('vol-', '');
+      var q = parseInt(r.value, 10);
+      document.getElementById('vol-total-' + id).textContent = '× ' + q;
+    });
+  });
+
+  /* ---------- calculator ---------- */
+  var JOBS = {
+    attendance: { label: 'Attendance kiosk', today: 1200 },
+    pos: { label: 'Restaurant POS + kitchen display', today: 2200 },
+    temp: { label: 'Cold-room temperature logger', today: 800 },
+    access: { label: 'Door / gate access panel', today: 1500 },
+    review: { label: 'Review collection kiosk', today: 600 },
+    custom: { label: 'Your own job', today: 1000 }
+  };
+  var base = 8999;
+  var job = 'attendance';
+  var pills = document.getElementById('jobPills');
+  var inr = function (n) { return '₹' + n.toLocaleString('en-IN'); };
+  function calc() {
+    var j = JOBS[job] || JOBS.attendance;
+    var monthly = j.today;
+    var five = monthly * 12 * 5;
+    var boxCost = base;
+    var kept = five - boxCost;
+    document.getElementById('calcToday').textContent = inr(monthly) + ' /mo';
+    document.getElementById('calcSaved').textContent = inr(kept);
+    document.getElementById('calcLose').textContent = inr(five);
+    document.getElementById('calcCost').textContent = inr(boxCost);
+    document.getElementById('calcNote').textContent = '₹' + monthly.toLocaleString('en-IN') + ' × 12 × 5 years, minus the one-time device cost';
+    document.getElementById('calcCta').href = 'https://wa.me/919960160016?text=' + encodeURIComponent('Hi CktHub! I want the ' + j.label + ' device. Please share a quote.');
+  }
+  pills.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-job]');
+    if (!b) return;
+    job = b.getAttribute('data-job');
+    pills.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); });
+    b.classList.add('on');
+    calc();
+  });
+  calc();
+
+  /* ---------- tabs ---------- */
+  var tabs = document.querySelectorAll('.tabs button');
+  var cards = document.querySelectorAll('.r-card');
+  function setTab(cat, btn) {
+    tabs.forEach(function (t) {
+      var on = t === btn;
+      t.classList.toggle('on', on);
+      t.setAttribute('aria-selected', String(on));
+    });
+    cards.forEach(function (c) {
+      c.style.display = (cat === 'all' || c.getAttribute('data-cat') === cat) ? '' : 'none';
+    });
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () { setTab(t.getAttribute('data-cat'), t); });
+  });
+
+  /* ---------- roadmap "I want this" ---------- */
+  window.wantThis = function (name) {
+    window.open('https://wa.me/919960160016?text=' + encodeURIComponent('Hi CktHub! I want this: ' + name), '_blank', 'noopener');
+  };
+
+  /* ---------- reveal on scroll ---------- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+  var hero = document.querySelector('.hero');
+  if (hero) io.observe(hero);
+
+  /* ---------- year ---------- */
+  var y = document.getElementById('year');
+  if (y) y.textContent = String(new Date().getFullYear());
+})();
+</script>
+
+</body>
+</html>
