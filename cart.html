@@ -534,11 +534,11 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   <div class="nav-in">
     <a class="brand" href="index.html">CktHub<span class="tag">hardware you own</span></a>
     <nav class="navlinks" aria-label="Main navigation">
-      <a href="index.html#idea">The idea</a>
-      <a href="index.html#products">Products</a>
-      <a href="index.html#why">Why it matters</a>
-      <a href="index.html#shop">Shop</a>
-      <a href="index.html#contact">Contact</a>
+      <a href="prototype.html#idea">The idea</a>
+      <a href="prototype.html#products">Products</a>
+      <a href="prototype.html#why">Why it matters</a>
+      <a href="index.html">Shop</a>
+      <a href="prototype.html#contact">Contact</a>
     </nav>
     <div class="nav-right">
       <div class="seg" role="tablist" aria-label="Switch between store and fab">
@@ -552,11 +552,11 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="index.html#idea">The idea</a>
-  <a href="index.html#products">Products</a>
-  <a href="index.html#why">Why it matters</a>
-  <a href="index.html#shop">Shop</a>
-  <a href="index.html#contact">Contact</a>
+  <a href="prototype.html#idea">The idea</a>
+  <a href="prototype.html#products">Products</a>
+  <a href="prototype.html#why">Why it matters</a>
+  <a href="index.html">Shop</a>
+  <a href="prototype.html#contact">Contact</a>
   <div class="seg">
     <a href="index.html">Store</a>
     <a href="fab.html">Fab</a>
@@ -580,7 +580,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
             <div class="ic">∅</div>
             <b>Your cart is empty.</b>
             <span>Add a board from the store first.</span>
-            <a class="btn" href="index.html#shop">Back to the store</a>
+            <a class="btn" href="index.html">Back to the store</a>
           </div>
           <div class="panel-actions" id="panelActions">
             <span class="note">Estimated weight shown as approx 10 g per unit, billed per kg.</span>
@@ -668,7 +668,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;fill:currentColor;"><path d="M12 2C6.48 2 2 6.36 2 11.74c0 2.04.62 3.93 1.68 5.5L2.5 21.5l4.42-1.13c1.5.86 3.24 1.36 5.08 1.36 5.52 0 10-4.36 10-9.74S17.52 2 12 2z"/></svg>
             Confirm order on WhatsApp
           </button>
-          <a class="btn-text" href="index.html#shop">← Back to store</a>
+          <a class="btn-text" href="index.html">← Back to store</a>
         </div>
       </div>
     </div>
@@ -683,12 +683,12 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
     </div>
     <div class="f-col">
       <h4>Site</h4>
-      <a href="index.html#idea">The idea</a>
-      <a href="index.html#products">Products</a>
-      <a href="index.html#why">Why it matters</a>
-      <a href="index.html#shop">Shop</a>
+      <a href="prototype.html#idea">The idea</a>
+      <a href="prototype.html#products">Products</a>
+      <a href="prototype.html#why">Why it matters</a>
+      <a href="index.html">Shop</a>
       <a href="cart.html">Your cart</a>
-      <a href="index.html#contact">Contact</a>
+      <a href="prototype.html#contact">Contact</a>
     </div>
     <div class="f-col">
       <h4>Contact</h4>
@@ -714,7 +714,18 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);margin-top:120px}
   var CART_KEY = 'ckthub-cart';
   var PRODS = {
     wrover: { name: 'ESP32-WROVER-DevKit-Lipo', price: 799 },
-    s3: { name: 'ESP32-S3-DevKitC-1', price: 499 }
+    s3: { name: 'ESP32-S3-DevKitC-1', price: 499 },
+    c3: { name: 'ESP32-C3 Mini DevKit', price: 349 },
+    cell18650: { name: '18650 LiPo Cell 2000mAh', price: 249 },
+    tp4056: { name: 'USB-C LiPo Charger Module', price: 99 },
+    solar: { name: 'Solar Charging Add-on Panel', price: 399 },
+    wallcase: { name: 'Snap-Fit Wall Enclosure', price: 349 },
+    dinrail: { name: 'DIN-Rail Industrial Enclosure', price: 599 },
+    usbc: { name: 'USB-C to USB-A Cable (1m)', price: 99 },
+    jst: { name: 'JST-PH 2-Pin Connector Pack (×10)', price: 149 },
+    screwterm: { name: 'Screw Terminal Breakout', price: 129 },
+    pir: { name: 'PIR Motion Sensor Module', price: 149 },
+    pn532: { name: 'NFC/RFID Reader Module', price: 599 }
   };
   var GST_RATE = 0.18;                    /* GST applied on the subtotal */
   var SHIPPING = {
