@@ -1,13 +1,14 @@
-# CktHub (https://ckthub.com/) - robots.txt
-# CktHub builds standalone ESP32 / ESP32-S3 hardware that replaces
-# recurring software subscriptions. Content is fully crawlable and
-# indexable. All well-behaved bots, including AI crawlers, are welcome.
-
 User-agent: *
 Allow: /
 
-# AI crawlers - explicitly welcomed
+# AI answer-engine and LLM crawlers — explicitly welcomed
 User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
 Allow: /
 
 User-agent: ClaudeBot
@@ -19,18 +20,7 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-User-agent: Google-Extended
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
 User-agent: CCBot
 Allow: /
-
-# Content signals (EU AI Act / Cloudflare AI Audit style):
-# search:   yes
-# ai-input: yes
-# ai-train: yes
 
 Sitemap: https://ckthub.com/sitemap.xml
